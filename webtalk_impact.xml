@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+<!--The data in this file is primarily intended for consumption by Xilinx tools.
+The structure and the elements are likely to change over the next few releases.
+This means code written to parse this file will need to be revisited each subsequent release.-->
+<application name="impact" timeStamp="Sun Jun  2 17:46:44 2019">
+<section name="Project Information" visible="false">
+<property name="ProjectID" value="04a41e501b3f42f39eda27f769b4f4f5"/>
+<property name="ProjectIteration" value="1"/>
+</section>
+<section name="iMPACT Project Info" visible="true">
+<property name="Use Project File" value="No"/>
+<property name="Project Entry" value="ise"/>
+<property name="OS Name" value="LinuxMint"/>
+<property name="OS Release" value="Linux Mint 19.1 Tessa"/>
+<property name="User Lic. Info" value="211648684_0_0_931"/>
+</section>
+<section name="iMPACT Boundary Scan Mode" visible="true">
+<item name="Chain Summary">
+<property name="Number of device" value="0"/>
+<property name="Number of Xilinx device" value="0"/>
+<property name="Number of Non-Xilinx device" value="0"/>
+</item>
+<item name="Chain Description">
+</item>
+<item name="Boundary Scan Operations Statistics">
+</item>
+<item name="Cable Summary">
+<property name="Cable Type" value=""/>
+<property name="Cable Speed" value="0"/>
+<property name="Port" value="NULL"/>
+<property name="Local_Server_Mode" value="Local"/>
+</item>
+</section>
+</application>
+</document>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<Synthesis_deps>
+
+  <Version XPSPNVER="1.0" EDKVER="14.7" />
+  <FPGA family="spartan3a" device="xc3s50a" package="tq144" speedgrade="-5" />
+  <File Type="MHS" URL="../../pBlaze.mhs" />
+  <File Type="UCF" URL="../../data/pBlaze.ucf" />
+  <File Type="PlatgenOpt" URL="../platgen.opt" />
+
+
+</Synthesis_deps>

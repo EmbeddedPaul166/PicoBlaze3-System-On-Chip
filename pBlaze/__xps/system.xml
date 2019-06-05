@@ -1,0 +1,10 @@
+
+<EDKSYSTEM EDKVERSION="14.7" EDWVERSION="1.2" TIMESTAMP="Wed May 15 15:01:22 2019">
+
+  <SYSTEMINFO ARCH="spartan3a" DEVICE="xc3s50a" PACKAGE="tq144" PART="xc3s50atq144-5" SOURCE="/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/pBlaze/pBlaze.xmp" SPEEDGRADE="-5"/>
+
+  <EXTERNALPORTS/>
+
+  <MODULES/>
+
+</EDKSYSTEM>

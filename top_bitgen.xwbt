@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.ncd
+OUTFILE=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.bit
+FAMILY=Spartan3A and Spartan3AN
+PART=xc3s50a-5tq144
+WORKINGDIR=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project
+LICENSE=WebPack
+USER_INFO=211648684_0_0_931
