@@ -1,5 +1,0 @@
-set -tmpdir "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/xst/projnav.tmp"
-set -xsthdpdir "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/xst"
-elaborate
--ifn led8a_driver.prj
--ifmt mixed
