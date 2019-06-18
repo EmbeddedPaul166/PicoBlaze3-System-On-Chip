@@ -79,374 +79,392 @@ derived from  NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG" PERIOD = 83.3333333 ns HIGH
 nS  
 For more information, see Period Analysis in the Timing Closure User Guide (UG612).
 
- 6570 paths analyzed, 1135 endpoints analyzed, 0 failing endpoints
+ 11782 paths analyzed, 1687 endpoints analyzed, 0 failing endpoints
  0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
- Minimum period is   8.704ns.
+ Minimum period is   9.735ns.
 --------------------------------------------------------------------------------
 
-Paths for end point UART/transmit/buf/count_width_loop[3].register_bit (SLICE_X11Y21.CIN), 43 paths
+Paths for end point LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit (SLICE_X21Y14.CIN), 343 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     157.962ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[3].register_bit (FF)
+Slack (setup path):     156.931ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.679ns (Levels of Logic = 6)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.690ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.045ns (0.228 - 0.273)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[3].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F3       net (fanout=10)       1.133   UART/instruction<6>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.COUT    Tbxcy                 0.762   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.704   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[3].upper_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[3].register_bit
+    SLICE_X18Y14.X       Treg                  3.082   LED_DRIVER_UART/rx_data<7>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl
+    SLICE_X18Y10.BX      net (fanout=6)        1.440   LED_DRIVER_UART/rx_data<7>
+    SLICE_X18Y10.X       Tbxx                  0.705   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.704   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].upper_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.679ns (5.952ns logic, 2.727ns route)
-                                                       (68.6% logic, 31.4% route)
+    Total                                      9.690ns (7.071ns logic, 2.619ns route)
+                                                       (73.0% logic, 27.0% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.211ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[3].register_bit (FF)
+Slack (setup path):     157.449ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.430ns (Levels of Logic = 5)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.171ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.046ns (0.228 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[3].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F3       net (fanout=10)       1.133   UART/instruction<6>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X11Y20.G3      net (fanout=6)        0.493   UART/write_to_uart
-    SLICE_X11Y20.COUT    Topcyg                1.009   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[1].count_lut
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.704   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[3].upper_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[3].register_bit
+    SLICE_X20Y17.X       Treg                  3.082   LED_DRIVER_UART/rx_data<4>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl
+    SLICE_X18Y10.G3      net (fanout=6)        0.773   LED_DRIVER_UART/rx_data<4>
+    SLICE_X18Y10.X       Tif5x                 0.853   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3_F
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.704   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].upper_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.430ns (5.598ns logic, 2.832ns route)
-                                                       (66.4% logic, 33.6% route)
+    Total                                      9.171ns (7.219ns logic, 1.952ns route)
+                                                       (78.7% logic, 21.3% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.212ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[3].register_bit (FF)
+Slack (setup path):     157.543ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.429ns (Levels of Logic = 6)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.077ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.046ns (0.228 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[3].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA5     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F2       net (fanout=10)       0.883   UART/instruction<5>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.COUT    Tbxcy                 0.762   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.704   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[3].upper_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[3].register_bit
+    SLICE_X20Y16.Y       Treg                  3.097   LED_DRIVER_UART/rx_data<6>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[6].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl
+    SLICE_X18Y11.F4      net (fanout=9)        1.010   LED_DRIVER_UART/rx_data<1>
+    SLICE_X18Y11.X       Tilo                  0.601   N54
+                                                       LED_DRIVER_UART/current_state_cmp_eq00011_SW0
+    SLICE_X18Y12.F3      net (fanout=1)        0.265   N54
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.704   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].upper_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.429ns (5.952ns logic, 2.477ns route)
-                                                       (70.6% logic, 29.4% route)
+    Total                                      9.077ns (6.982ns logic, 2.095ns route)
+                                                       (76.9% logic, 23.1% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point UART/transmit/buf/count_width_loop[1].register_bit (SLICE_X11Y20.BX), 13 paths
+Paths for end point LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit (SLICE_X21Y13.BX), 113 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     158.003ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[1].register_bit (FF)
+Slack (setup path):     156.974ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.638ns (Levels of Logic = 5)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.649ns (Levels of Logic = 5)
+  Clock Path Skew:      -0.043ns (0.230 - 0.273)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[1].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F3       net (fanout=10)       1.133   UART/instruction<6>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.CLK     Tdick                 1.425   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[1].register_bit
+    SLICE_X18Y14.X       Treg                  3.082   LED_DRIVER_UART/rx_data<7>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl
+    SLICE_X18Y10.BX      net (fanout=6)        1.440   LED_DRIVER_UART/rx_data<7>
+    SLICE_X18Y10.X       Tbxx                  0.705   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.CLK     Tdick                 1.425   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.638ns (5.911ns logic, 2.727ns route)
-                                                       (68.4% logic, 31.6% route)
+    Total                                      9.649ns (7.030ns logic, 2.619ns route)
+                                                       (72.9% logic, 27.1% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.253ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[1].register_bit (FF)
+Slack (setup path):     157.492ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.388ns (Levels of Logic = 5)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.130ns (Levels of Logic = 5)
+  Clock Path Skew:      -0.044ns (0.230 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[1].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA5     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F2       net (fanout=10)       0.883   UART/instruction<5>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.CLK     Tdick                 1.425   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[1].register_bit
+    SLICE_X20Y17.X       Treg                  3.082   LED_DRIVER_UART/rx_data<4>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl
+    SLICE_X18Y10.G3      net (fanout=6)        0.773   LED_DRIVER_UART/rx_data<4>
+    SLICE_X18Y10.X       Tif5x                 0.853   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3_F
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.CLK     Tdick                 1.425   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.388ns (5.911ns logic, 2.477ns route)
-                                                       (70.5% logic, 29.5% route)
+    Total                                      9.130ns (7.178ns logic, 1.952ns route)
+                                                       (78.6% logic, 21.4% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.371ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[1].register_bit (FF)
+Slack (setup path):     157.586ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.270ns (Levels of Logic = 5)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.036ns (Levels of Logic = 5)
+  Clock Path Skew:      -0.044ns (0.230 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[1].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA7     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F4       net (fanout=10)       0.765   UART/instruction<7>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.CLK     Tdick                 1.425   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[1].register_bit
+    SLICE_X20Y16.Y       Treg                  3.097   LED_DRIVER_UART/rx_data<6>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[6].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl
+    SLICE_X18Y11.F4      net (fanout=9)        1.010   LED_DRIVER_UART/rx_data<1>
+    SLICE_X18Y11.X       Tilo                  0.601   N54
+                                                       LED_DRIVER_UART/current_state_cmp_eq00011_SW0
+    SLICE_X18Y12.F3      net (fanout=1)        0.265   N54
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.CLK     Tdick                 1.425   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.270ns (5.911ns logic, 2.359ns route)
-                                                       (71.5% logic, 28.5% route)
+    Total                                      9.036ns (6.941ns logic, 2.095ns route)
+                                                       (76.8% logic, 23.2% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point UART/transmit/buf/count_width_loop[2].register_bit (SLICE_X11Y21.CIN), 43 paths
+Paths for end point LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit (SLICE_X21Y14.CIN), 343 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     158.137ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[2].register_bit (FF)
+Slack (setup path):     157.106ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.504ns (Levels of Logic = 6)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      9.515ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.045ns (0.228 - 0.273)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[2].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F3       net (fanout=10)       1.133   UART/instruction<6>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.COUT    Tbxcy                 0.762   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.529   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[2].register_bit
+    SLICE_X18Y14.X       Treg                  3.082   LED_DRIVER_UART/rx_data<7>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[7].data_srl
+    SLICE_X18Y10.BX      net (fanout=6)        1.440   LED_DRIVER_UART/rx_data<7>
+    SLICE_X18Y10.X       Tbxx                  0.705   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.529   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.504ns (5.777ns logic, 2.727ns route)
-                                                       (67.9% logic, 32.1% route)
+    Total                                      9.515ns (6.896ns logic, 2.619ns route)
+                                                       (72.5% logic, 27.5% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.386ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[2].register_bit (FF)
+Slack (setup path):     157.624ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.255ns (Levels of Logic = 5)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      8.996ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.046ns (0.228 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[2].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F3       net (fanout=10)       1.133   UART/instruction<6>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X11Y20.G3      net (fanout=6)        0.493   UART/write_to_uart
-    SLICE_X11Y20.COUT    Topcyg                1.009   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[1].count_lut
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.529   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[2].register_bit
+    SLICE_X20Y17.X       Treg                  3.082   LED_DRIVER_UART/rx_data<4>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl
+    SLICE_X18Y10.G3      net (fanout=6)        0.773   LED_DRIVER_UART/rx_data<4>
+    SLICE_X18Y10.X       Tif5x                 0.853   N59
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3_F
+                                                       LED_DRIVER_UART/current_state_cmp_eq00001_SW3
+    SLICE_X18Y12.F1      net (fanout=1)        0.359   N59
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.529   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.255ns (5.423ns logic, 2.832ns route)
-                                                       (65.7% logic, 34.3% route)
+    Total                                      8.996ns (7.044ns logic, 1.952ns route)
+                                                       (78.3% logic, 21.7% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     158.387ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:          UART/transmit/buf/count_width_loop[2].register_bit (FF)
+Slack (setup path):     157.718ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl (FF)
+  Destination:          LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit (FF)
   Requirement:          166.666ns
-  Data Path Delay:      8.254ns (Levels of Logic = 6)
-  Clock Path Skew:      -0.025ns (0.431 - 0.456)
+  Data Path Delay:      8.902ns (Levels of Logic = 6)
+  Clock Path Skew:      -0.046ns (0.228 - 0.274)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 166.666ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[2].register_bit
+  Maximum Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB16_X0Y1.DOA5     Trcko_DOWA            2.107   UART/program_rom/ram_1024_x_18
-                                                       UART/program_rom/ram_1024_x_18
-    SLICE_X10Y6.F2       net (fanout=10)       0.883   UART/instruction<5>
-    SLICE_X10Y6.X        Tilo                  0.601   UART/alarm
-                                                       UART/processor/reg_loop[0].register_bit.SLICEM_F
-    SLICE_X11Y9.G4       net (fanout=1)        0.268   UART/processor/sy<0>
-    SLICE_X11Y9.Y        Tilo                  0.561   UART/read_from_uart
-                                                       UART/processor/reg_loop[0].operand_select_mux
-    SLICE_X10Y19.G3      net (fanout=44)       0.938   UART/port_id<0>
-    SLICE_X10Y19.Y       Tilo                  0.616   UART/transmit/buf/valid_write
-                                                       UART/write_to_uart1
-    SLICE_X10Y19.F3      net (fanout=6)        0.041   UART/write_to_uart
-    SLICE_X10Y19.X       Tilo                  0.601   UART/transmit/buf/valid_write
-                                                       UART/transmit/buf/valid_lut
-    SLICE_X11Y20.BX      net (fanout=5)        0.347   UART/transmit/buf/valid_write
-    SLICE_X11Y20.COUT    Tbxcy                 0.762   UART/transmit/buf/pointer<0>
-                                                       UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy
-                                                       UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy
-    SLICE_X11Y21.CIN     net (fanout=1)        0.000   UART/transmit/buf/count_carry<1>
-    SLICE_X11Y21.CLK     Tcinck                0.529   UART/transmit/buf/pointer<2>
-                                                       UART/transmit/buf/count_width_loop[2].mid_count.count_xor
-                                                       UART/transmit/buf/count_width_loop[2].register_bit
+    SLICE_X20Y16.Y       Treg                  3.097   LED_DRIVER_UART/rx_data<6>
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[6].data_srl.CE
+                                                       LED_DRIVER_UART/receive/buf/data_width_loop[1].data_srl
+    SLICE_X18Y11.F4      net (fanout=9)        1.010   LED_DRIVER_UART/rx_data<1>
+    SLICE_X18Y11.X       Tilo                  0.601   N54
+                                                       LED_DRIVER_UART/current_state_cmp_eq00011_SW0
+    SLICE_X18Y12.F3      net (fanout=1)        0.265   N54
+    SLICE_X18Y12.X       Tilo                  0.601   LED_DRIVER_UART/read_from_uart13
+                                                       LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.G2      net (fanout=1)        0.351   LED_DRIVER_UART/read_from_uart13
+    SLICE_X20Y12.Y       Tilo                  0.616   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/read_from_uart35
+    SLICE_X20Y12.F4      net (fanout=6)        0.098   LED_DRIVER_UART/read_from_uart
+    SLICE_X20Y12.X       Tilo                  0.601   LED_DRIVER_UART/receive/buf/valid_write
+                                                       LED_DRIVER_UART/receive/buf/valid_lut
+    SLICE_X21Y13.BX      net (fanout=5)        0.371   LED_DRIVER_UART/receive/buf/valid_write
+    SLICE_X21Y13.COUT    Tbxcy                 0.762   LED_DRIVER_UART/receive/buf/pointer<0>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X21Y14.CIN     net (fanout=1)        0.000   LED_DRIVER_UART/receive/buf/count_carry<1>
+    SLICE_X21Y14.CLK     Tcinck                0.529   LED_DRIVER_UART/receive/buf/pointer<2>
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_xor
+                                                       LED_DRIVER_UART/receive/buf/count_width_loop[2].register_bit
     -------------------------------------------------  ---------------------------
-    Total                                      8.254ns (5.777ns logic, 2.477ns route)
-                                                       (70.0% logic, 30.0% route)
+    Total                                      8.902ns (6.807ns logic, 2.095ns route)
+                                                       (76.5% logic, 23.5% route)
 
 --------------------------------------------------------------------------------
 
@@ -456,84 +474,84 @@ Hold Paths: PERIOD analysis for net "CLOCK_DIVIDE_BY_TWO/CLKDV_BUF" derived from
 
 --------------------------------------------------------------------------------
 
-Paths for end point UART/receive/kcuart/valid_loop[8].msbs.delay16_srl (SLICE_X2Y30.BY), 1 path
+Paths for end point UART/rx_counter_led_uart/kcuart/valid_loop[8].msbs.delay16_srl (SLICE_X0Y27.BY), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.548ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               UART/receive/kcuart/valid_loop[7].data_reg (FF)
-  Destination:          UART/receive/kcuart/valid_loop[8].msbs.delay16_srl (FF)
+Slack (hold path):      0.559ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               UART/rx_counter_led_uart/kcuart/valid_loop[7].data_reg (FF)
+  Destination:          UART/rx_counter_led_uart/kcuart/valid_loop[8].msbs.delay16_srl (FF)
   Requirement:          0.000ns
-  Data Path Delay:      0.585ns (Levels of Logic = 1)
-  Clock Path Skew:      0.037ns (0.326 - 0.289)
+  Data Path Delay:      0.569ns (Levels of Logic = 1)
+  Clock Path Skew:      0.010ns (0.085 - 0.075)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 0.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: UART/receive/kcuart/valid_loop[7].data_reg to UART/receive/kcuart/valid_loop[8].msbs.delay16_srl
+  Minimum Data Path: UART/rx_counter_led_uart/kcuart/valid_loop[7].data_reg to UART/rx_counter_led_uart/kcuart/valid_loop[8].msbs.delay16_srl
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X0Y31.XQ       Tcko                  0.417   UART/receive/kcuart/valid_reg_delay<7>
-                                                       UART/receive/kcuart/valid_loop[7].data_reg
-    SLICE_X2Y30.BY       net (fanout=1)        0.298   UART/receive/kcuart/valid_reg_delay<7>
-    SLICE_X2Y30.CLK      Tdh         (-Th)     0.130   UART/receive/kcuart/valid_reg_delay<8>
-                                                       UART/receive/kcuart/valid_loop[8].msbs.delay16_srl
+    SLICE_X0Y28.XQ       Tcko                  0.417   UART/rx_counter_led_uart/kcuart/valid_reg_delay<7>
+                                                       UART/rx_counter_led_uart/kcuart/valid_loop[7].data_reg
+    SLICE_X0Y27.BY       net (fanout=1)        0.282   UART/rx_counter_led_uart/kcuart/valid_reg_delay<7>
+    SLICE_X0Y27.CLK      Tdh         (-Th)     0.130   UART/rx_counter_led_uart/kcuart/valid_reg_delay<8>
+                                                       UART/rx_counter_led_uart/kcuart/valid_loop[8].msbs.delay16_srl
     -------------------------------------------------  ---------------------------
-    Total                                      0.585ns (0.287ns logic, 0.298ns route)
-                                                       (49.1% logic, 50.9% route)
+    Total                                      0.569ns (0.287ns logic, 0.282ns route)
+                                                       (50.4% logic, 49.6% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point UART/receive/kcuart/valid_loop[4].msbs.delay16_srl (SLICE_X0Y30.BY), 1 path
+Paths for end point UART/rx_user_uart/kcuart/valid_loop[8].msbs.delay16_srl (SLICE_X4Y28.BY), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.576ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               UART/receive/kcuart/valid_loop[3].data_reg (FF)
-  Destination:          UART/receive/kcuart/valid_loop[4].msbs.delay16_srl (FF)
+Slack (hold path):      0.561ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               UART/rx_user_uart/kcuart/valid_loop[7].data_reg (FF)
+  Destination:          UART/rx_user_uart/kcuart/valid_loop[8].msbs.delay16_srl (FF)
   Requirement:          0.000ns
-  Data Path Delay:      0.592ns (Levels of Logic = 1)
-  Clock Path Skew:      0.016ns (0.071 - 0.055)
+  Data Path Delay:      0.569ns (Levels of Logic = 1)
+  Clock Path Skew:      0.008ns (0.073 - 0.065)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 0.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: UART/receive/kcuart/valid_loop[3].data_reg to UART/receive/kcuart/valid_loop[4].msbs.delay16_srl
+  Minimum Data Path: UART/rx_user_uart/kcuart/valid_loop[7].data_reg to UART/rx_user_uart/kcuart/valid_loop[8].msbs.delay16_srl
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X0Y29.XQ       Tcko                  0.417   UART/receive/kcuart/valid_reg_delay<3>
-                                                       UART/receive/kcuart/valid_loop[3].data_reg
-    SLICE_X0Y30.BY       net (fanout=1)        0.305   UART/receive/kcuart/valid_reg_delay<3>
-    SLICE_X0Y30.CLK      Tdh         (-Th)     0.130   UART/receive/kcuart/valid_reg_delay<5>
-                                                       UART/receive/kcuart/valid_loop[4].msbs.delay16_srl
+    SLICE_X4Y30.XQ       Tcko                  0.417   UART/rx_user_uart/kcuart/valid_reg_delay<7>
+                                                       UART/rx_user_uart/kcuart/valid_loop[7].data_reg
+    SLICE_X4Y28.BY       net (fanout=1)        0.282   UART/rx_user_uart/kcuart/valid_reg_delay<7>
+    SLICE_X4Y28.CLK      Tdh         (-Th)     0.130   UART/rx_user_uart/kcuart/valid_reg_delay<8>
+                                                       UART/rx_user_uart/kcuart/valid_loop[8].msbs.delay16_srl
     -------------------------------------------------  ---------------------------
-    Total                                      0.592ns (0.287ns logic, 0.305ns route)
-                                                       (48.5% logic, 51.5% route)
+    Total                                      0.569ns (0.287ns logic, 0.282ns route)
+                                                       (50.4% logic, 49.6% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point UART/processor/stack_ram_loop[5].stack_bit/G (SLICE_X14Y0.BY), 1 path
+Paths for end point UART/rx_counter_led_uart/buf/data_width_loop[7].data_srl (SLICE_X2Y12.BX), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.579ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               UART/processor/pc_loop[5].register_bit (FF)
-  Destination:          UART/processor/stack_ram_loop[5].stack_bit/G (RAM)
+Slack (hold path):      0.561ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               UART/rx_counter_led_uart/kcuart/data_loop[7].data_reg (FF)
+  Destination:          UART/rx_counter_led_uart/buf/data_width_loop[7].data_srl (FF)
   Requirement:          0.000ns
-  Data Path Delay:      0.613ns (Levels of Logic = 1)
-  Clock Path Skew:      0.034ns (0.177 - 0.143)
+  Data Path Delay:      0.611ns (Levels of Logic = 1)
+  Clock Path Skew:      0.050ns (0.282 - 0.232)
   Source Clock:         clk_slow rising at 0.000ns
   Destination Clock:    clk_slow rising at 0.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: UART/processor/pc_loop[5].register_bit to UART/processor/stack_ram_loop[5].stack_bit/G
+  Minimum Data Path: UART/rx_counter_led_uart/kcuart/data_loop[7].data_reg to UART/rx_counter_led_uart/buf/data_width_loop[7].data_srl
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X15Y2.YQ       Tcko                  0.419   UART/address<4>
-                                                       UART/processor/pc_loop[5].register_bit
-    SLICE_X14Y0.BY       net (fanout=3)        0.324   UART/address<5>
-    SLICE_X14Y0.CLK      Tdh         (-Th)     0.130   UART/processor/stack_pop_data<5>
-                                                       UART/processor/stack_ram_loop[5].stack_bit/G
+    SLICE_X0Y13.XQ       Tcko                  0.417   UART/rx_counter_led_uart/uart_data_out<7>
+                                                       UART/rx_counter_led_uart/kcuart/data_loop[7].data_reg
+    SLICE_X2Y12.BX       net (fanout=2)        0.346   UART/rx_counter_led_uart/uart_data_out<7>
+    SLICE_X2Y12.CLK      Tdh         (-Th)     0.152   UART/rx_data_counter_led<7>
+                                                       UART/rx_counter_led_uart/buf/data_width_loop[7].data_srl
     -------------------------------------------------  ---------------------------
-    Total                                      0.613ns (0.289ns logic, 0.324ns route)
-                                                       (47.1% logic, 52.9% route)
+    Total                                      0.611ns (0.265ns logic, 0.346ns route)
+                                                       (43.4% logic, 56.6% route)
 
 --------------------------------------------------------------------------------
 
@@ -562,9 +580,9 @@ Slack: 165.338ns (period - (min low pulse limit / (low pulse / period)))
   Period: 166.666ns
   Low pulse: 83.333ns
   Low pulse limit: 0.664ns (Tcl)
-  Physical resource: UART/processor/store_data<3>/CLK
-  Logical resource: UART/processor/store_loop[3].store_flop/CK
-  Location pin: SLICE_X12Y16.CLK
+  Physical resource: UART/processor/store_data<4>/CLK
+  Logical resource: UART/processor/store_loop[4].store_flop/CK
+  Location pin: SLICE_X8Y10.CLK
   Clock network: clk_slow
 --------------------------------------------------------------------------------
 
@@ -576,8 +594,8 @@ Derived Constraints for CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG
 |           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
 |                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
-|CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG|     83.333ns|     20.000ns|      4.352ns|            0|            0|            0|         6570|
-| CLOCK_DIVIDE_BY_TWO/CLKDV_BUF |    166.667ns|      8.704ns|          N/A|            0|            0|         6570|            0|
+|CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG|     83.333ns|     20.000ns|      4.867ns|            0|            0|            0|        11782|
+| CLOCK_DIVIDE_BY_TWO/CLKDV_BUF |    166.667ns|      9.735ns|          N/A|            0|            0|        11782|            0|
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
 
 All constraints were met.
@@ -592,7 +610,7 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |    8.704|         |         |         |
+clk            |    9.735|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -601,7 +619,7 @@ Timing summary:
 
 Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
 
-Constraints cover 6570 paths, 0 nets, and 1360 connections
+Constraints cover 11782 paths, 0 nets, and 2226 connections
 
 Design statistics:
    Minimum period:  20.000ns{1}   (Maximum frequency:  50.000MHz)
@@ -610,14 +628,14 @@ Design statistics:
 ------------------------------------Footnotes-----------------------------------
 1)  The minimum period statistic assumes all single cycle delays.
 
-Analysis completed Sun Jun 16 13:41:45 2019 
+Analysis completed Wed Jun 19 00:39:26 2019 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 371 MB
+Peak Memory Usage: 374 MB
 
 
 

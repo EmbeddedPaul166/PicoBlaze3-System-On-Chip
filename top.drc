@@ -1,10 +1,14 @@
 Release 14.7 Drc P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Sun Jun 16 13:41:47 2019
+Wed Jun 19 00:39:27 2019
 
 drc -z top.ncd top.pcf
 
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   LED_DRIVER_UART/current_state_cmp_eq0005 is sourced by a combinatorial pin.
+   This is not good design practice. Use the CE pin to control the loading of
+   data into the flip-flop.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
@@ -37,5 +41,5 @@ WARNING:PhysDesignRules:812 - Dangling pin <DIA14> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA15> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
-DRC detected 0 errors and 16 warnings.  Please see the previously displayed
+DRC detected 0 errors and 17 warnings.  Please see the previously displayed
 individual error or warning messages for more details.

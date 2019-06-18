@@ -9,42 +9,44 @@ Target Device  : xc3s50a
 Target Package : tq144
 Target Speed   : -5
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Sun Jun 16 13:41:36 2019
+Mapped Date    : Wed Jun 19 00:39:15 2019
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:   16
+Number of warnings:   17
 Logic Utilization:
-  Number of Slice Flip Flops:           146 out of   1,408   10%
-  Number of 4 input LUTs:               273 out of   1,408   19%
+  Total Number Slice Registers:         309 out of   1,408   21%
+    Number used as Flip Flops:          283
+    Number used as Latches:              26
+  Number of 4 input LUTs:               536 out of   1,408   38%
 Logic Distribution:
-  Number of occupied Slices:            157 out of     704   22%
-    Number of Slices containing only related logic:     157 out of     157 100%
-    Number of Slices containing unrelated logic:          0 out of     157   0%
+  Number of occupied Slices:            321 out of     704   45%
+    Number of Slices containing only related logic:     321 out of     321 100%
+    Number of Slices containing unrelated logic:          0 out of     321   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         275 out of   1,408   19%
-    Number used as logic:               169
-    Number used as a route-thru:          2
+  Total Number of 4 input LUTs:         555 out of   1,408   39%
+    Number used as logic:               370
+    Number used as a route-thru:         19
     Number used for Dual Port RAMs:      16
       (Two LUTs used per Dual Port RAM)
     Number used for 32x1 RAMs:           52
       (Two LUTs used per 32x1 RAM)
-    Number used as Shift registers:      36
+    Number used as Shift registers:      98
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                  5 out of     108    4%
-  Number of BUFGMUXs:                     2 out of      24    8%
+  Number of bonded IOBs:                 14 out of     108   12%
+  Number of BUFGMUXs:                     3 out of      24   12%
   Number of DCMs:                         1 out of       2   50%
   Number of RAMB16BWEs:                   1 out of       3   33%
 
-Average Fanout of Non-Clock Nets:                3.90
+Average Fanout of Non-Clock Nets:                3.89
 
-Peak Memory Usage:  623 MB
-Total REAL time to MAP completion:  1 secs 
-Total CPU time to MAP completion:   1 secs 
+Peak Memory Usage:  625 MB
+Total REAL time to MAP completion:  2 secs 
+Total CPU time to MAP completion:   2 secs 
 
 NOTES:
 
@@ -85,6 +87,10 @@ Section 1 - Errors
 
 Section 2 - Warnings
 --------------------
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   LED_DRIVER_UART/current_state_cmp_eq0005 is sourced by a combinatorial pin.
+   This is not good design practice. Use the CE pin to control the loading of
+   data into the flip-flop.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
@@ -129,13 +135,122 @@ INFO:LIT:244 - All of the single ended outputs in this design are using slew
 
 Section 4 - Removed Logic Summary
 ---------------------------------
-   2 block(s) optimized away
+  29 block(s) removed
+   9 block(s) optimized away
+  31 signal(s) removed
 
 Section 5 - Removed Logic
 -------------------------
 
+The trimmed logic report below shows the logic removed from your design due to
+sourceless or loadless signals, and VCC or ground connections.  If the removal
+of a signal or symbol results in the subsequent removal of an additional signal
+or symbol, the message explaining that second removal will be indented.  This
+indentation will be repeated as a chain of related logic is removed.
+
+To quickly locate the original cause for the removal of a chain of logic, look
+above the place where that logic is listed in the trimming report, then locate
+the lines that are least indented (begin at the leftmost edge).
+
+Loadless block "UART/tx_led_uart/kcuart/pipeline_serial" (SFF) removed.
+ The signal "UART/tx_led_uart/kcuart/data_01234567" is loadless and has been
+removed.
+  Loadless block "UART/tx_led_uart/kcuart/mux7_muxf6" (MUX) removed.
+   The signal "UART/tx_led_uart/kcuart/data_0123" is loadless and has been removed.
+    Loadless block "UART/tx_led_uart/kcuart/mux5_muxf5" (MUX) removed.
+     The signal "UART/tx_led_uart/kcuart/data_01" is loadless and has been removed.
+      Loadless block "UART/tx_led_uart/kcuart/mux1_lut" (ROM) removed.
+       The signal "UART/tx_led_uart/fifo_data_out<0>" is loadless and has been removed.
+       The signal "UART/tx_led_uart/fifo_data_out<1>" is loadless and has been removed.
+     The signal "UART/tx_led_uart/kcuart/data_23" is loadless and has been removed.
+      Loadless block "UART/tx_led_uart/kcuart/mux2_lut" (ROM) removed.
+       The signal "UART/tx_led_uart/fifo_data_out<2>" is loadless and has been removed.
+       The signal "UART/tx_led_uart/fifo_data_out<3>" is loadless and has been removed.
+   The signal "UART/tx_led_uart/kcuart/data_4567" is loadless and has been removed.
+    Loadless block "UART/tx_led_uart/kcuart/mux6_muxf5" (MUX) removed.
+     The signal "UART/tx_led_uart/kcuart/data_45" is loadless and has been removed.
+      Loadless block "UART/tx_led_uart/kcuart/mux3_lut" (ROM) removed.
+       The signal "UART/tx_led_uart/fifo_data_out<4>" is loadless and has been removed.
+       The signal "UART/tx_led_uart/fifo_data_out<5>" is loadless and has been removed.
+     The signal "UART/tx_led_uart/kcuart/data_67" is loadless and has been removed.
+      Loadless block "UART/tx_led_uart/kcuart/mux4_lut" (ROM) removed.
+       The signal "UART/tx_led_uart/fifo_data_out<6>" is loadless and has been removed.
+       The signal "UART/tx_led_uart/fifo_data_out<7>" is loadless and has been removed.
+
+The trimmed logic reported below is either:
+   1. part of a cycle
+   2. part of disabled logic
+   3. a side-effect of other trimmed logic
+
+The signal "UART/out_port_led<0>" is unused and has been removed.
+ Unused block "UART/out_port_led_0" (FF) removed.
+  The signal "UART/out_port_led_not0001" is unused and has been removed.
+   Unused block "UART/out_port_led_not00011" (ROM) removed.
+The signal "UART/out_port_led<1>" is unused and has been removed.
+ Unused block "UART/out_port_led_1" (FF) removed.
+The signal "UART/out_port_led<2>" is unused and has been removed.
+ Unused block "UART/out_port_led_2" (FF) removed.
+The signal "UART/out_port_led<3>" is unused and has been removed.
+ Unused block "UART/out_port_led_3" (FF) removed.
+The signal "UART/out_port_led<4>" is unused and has been removed.
+ Unused block "UART/out_port_led_4" (FF) removed.
+The signal "UART/out_port_led<5>" is unused and has been removed.
+ Unused block "UART/out_port_led_5" (FF) removed.
+The signal "UART/out_port_led<6>" is unused and has been removed.
+ Unused block "UART/out_port_led_6" (FF) removed.
+The signal "UART/out_port_led<7>" is unused and has been removed.
+ Unused block "UART/out_port_led_7" (FF) removed.
+The signal "UART/rx_counter_led_uart/kcuart/decode_data_strobe" is unused and
+has been removed.
+The signal "UART/rx_counter_led_uart/kcuart/decode_valid_char" is unused and has
+been removed.
+The signal "UART/rx_counter_led_uart/kcuart/edge_delay" is unused and has been
+removed.
+The signal "UART/rx_counter_led_uart/kcuart/start_bit" is unused and has been
+removed.
+ Unused block "UART/rx_counter_led_uart/kcuart/start_reg" (FF) removed.
+  The signal "UART/rx_counter_led_uart/kcuart/start_delay" is unused and has been
+removed.
+The signal "UART/rx_counter_led_uart/kcuart/start_edge" is unused and has been
+removed.
+ Unused block "UART/rx_counter_led_uart/kcuart/edge_reg" (FF) removed.
+The signal "UART/rx_counter_led_uart/kcuart/sync_serial" is unused and has been
+removed.
+Unused block "UART/rx_counter_led_uart/kcuart/edge_srl" (SRLC16E) removed.
+Unused block "UART/rx_counter_led_uart/kcuart/start_srl" (SRLC16E) removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[0].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[1].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[2].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[3].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[4].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[5].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[6].data_srl" (SRLC16E)
+removed.
+Unused block "UART/tx_led_uart/buf/data_width_loop[7].data_srl" (SRLC16E)
+removed.
+
 Optimized Block(s):
 TYPE 		BLOCK
+LUT3 		UART/rx_counter_led_uart/buf/valid_lut
+   optimized to 0
+FD 		UART/rx_counter_led_uart/kcuart/stop_reg
+   optimized to 0
+LUT2 		UART/rx_counter_led_uart/kcuart/strobe_lut
+   optimized to 0
+FD 		UART/rx_counter_led_uart/kcuart/strobe_reg
+   optimized to 0
+FD 		UART/rx_counter_led_uart/kcuart/sync_reg
+   optimized to 0
+LUT4 		UART/rx_counter_led_uart/kcuart/valid_lut
+   optimized to 0
+FDE 		UART/rx_counter_led_uart/kcuart/valid_reg
+   optimized to 0
 GND 		XST_GND
 VCC 		XST_VCC
 
@@ -149,10 +264,19 @@ Section 6 - IOB Properties
 | IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew    | Reg (s)      | Resistor | IBUF/IFD | SUSPEND          |
 |                                    |                  |           |                      | Term  | Strength | Rate    |              |          | Delay    |                  |
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| alarm                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| an<0>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| an<1>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| an<2>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | clk                                | IBUF             | INPUT     | LVCMOS33             |       |          |         |              |          | 0 / 0    |                  |
 | rst                                | IBUF             | INPUT     | LVCMOS33             |       |          |         |              | PULLDOWN | 0 / 0    |                  |
 | rx                                 | IBUF             | INPUT     | LVCMOS33             |       |          |         |              |          | 0 / 0    |                  |
+| sseg<0>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<1>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<2>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<3>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<4>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<5>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<6>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | tx                                 | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 

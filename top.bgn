@@ -5,7 +5,7 @@ Loading device for application Rf_Device from file '3s50a.nph' in environment
    "top" is an NCD, version 3.2, device xc3s50a, package tq144, speed -5
 Opened constraints file top.pcf.
 
-Sun Jun 16 13:41:47 2019
+Wed Jun 19 00:39:27 2019
 
 /home/paul/Software/Xilinx_ISE/14.7/ISE_DS/ISE/bin/lin64/unwrapped/bitgen -intstyle ise -w -g DebugBitstream:No -g Binary:no -g CRC:Enable -g Reset_on_err:No -g ConfigRate:25 -g ProgPin:PullUp -g DonePin:PullUp -g TckPin:PullUp -g TdiPin:PullUp -g TdoPin:PullUp -g TmsPin:PullUp -g UnusedPin:PullDown -g UserID:0xFFFFFFFF -g StartUpClk:CClk -g DONE_cycle:4 -g GTS_cycle:5 -g GWE_cycle:6 -g LCK_cycle:NoWait -g Security:None -g DonePipe:Yes -g DriveDone:No -g en_sw_gsr:No -g en_porb:Yes -g drive_awake:No -g sw_clk:Startupclk -g sw_gwe_cycle:5 -g sw_gts_cycle:4 top.ncd 
 
@@ -117,6 +117,10 @@ There were 1 CONFIG constraint(s) processed from top.pcf.
    CONFIG VCCAUX = "3.3"
 
 Running DRC.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   LED_DRIVER_UART/current_state_cmp_eq0005 is sourced by a combinatorial pin.
+   This is not good design practice. Use the CE pin to control the loading of
+   data into the flip-flop.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
@@ -149,7 +153,7 @@ WARNING:PhysDesignRules:812 - Dangling pin <DIA14> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA15> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
-DRC detected 0 errors and 16 warnings.  Please see the previously displayed
+DRC detected 0 errors and 17 warnings.  Please see the previously displayed
 individual error or warning messages for more details.
 Creating bit map...
 Saving bit stream in "top.bit".

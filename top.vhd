@@ -34,8 +34,8 @@ entity top is
            rx : in  STD_LOGIC;
            clk : in  STD_LOGIC;
 			  rst : in STD_LOGIC;
-			  sseg : out  STD_LOGIC_VECTOR (2 downto 0);
-			  an : out  STD_LOGIC_VECTOR (7 downto 0));
+			  sseg : out  STD_LOGIC_VECTOR (6 downto 0);
+			  an : out  STD_LOGIC_VECTOR (2 downto 0));
 end top;
 
 architecture Behavioral of top is
@@ -59,13 +59,12 @@ component pBlaze3_uart
               clk : in std_logic);
 end component;
 
---component led8a_driver 
---   Port ( clk_in : in  STD_LOGIC;
---			  sseg : out  STD_LOGIC_VECTOR (6 downto 0);
---			  an : out  STD_LOGIC_VECTOR (7 downto 0);
---			  tx: out std_logic;
---           rx: in std_logic);
---end component;	  
+component led8a_driver 
+   Port ( clk_in : in  STD_LOGIC;
+			  sseg : out  STD_LOGIC_VECTOR (6 downto 0);
+			  an : out  STD_LOGIC_VECTOR (2 downto 0);
+           rx: in std_logic);
+end component;	  
 			
 signal tx_8seg : std_logic;
 signal tx_led : std_logic;
@@ -88,13 +87,11 @@ UART: pBlaze3_uart
 				  rx_counter_led => rx_counter_led,
               clk => clk_slow);
 				  
---LED_DRIVER_UART: led8a_driver 
---    generic map(F_Hz, true)
---    PORT MAP( clk_in => clk_slow,
---				  sseg => sseg,
---				  an => an,
---				  tx => open,   --temporarily
---				  rx => open);  --temporarily
+LED_DRIVER_UART: led8a_driver 
+    PORT MAP( clk_in => clk_slow,
+				  sseg => sseg,
+				  an => an,
+				  rx => tx_8seg);
 				  
 end Behavioral;
 

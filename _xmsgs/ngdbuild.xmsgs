@@ -8,5 +8,8 @@
 <msg type="info" file="ConstraintSystem" num="0" >The Period constraint &lt;PERIOD = 12MHz;&gt; [top.ucf(14)], is specified using the Net Period method which is not recommended. Please use the Timespec PERIOD method.
 </msg>
 
+<msg type="warning" file="NgdBuild" num="443" delta="old" >SFF primitive &apos;<arg fmt="%s" index="1">UART/tx_led_uart/kcuart/pipeline_serial</arg>&apos; has unconnected output pin
+</msg>
+
 </messages>
 

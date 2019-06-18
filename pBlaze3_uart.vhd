@@ -123,6 +123,7 @@ signal port_id         : std_logic_vector(7 downto 0);
 signal out_port_user   : std_logic_vector(7 downto 0);
 signal out_port_8seg   : std_logic_vector(7 downto 0);
 signal out_port_led   : std_logic_vector(7 downto 0);
+signal out_port   : std_logic_vector(7 downto 0);
 signal in_port         : std_logic_vector(7 downto 0);
 signal write_strobe    : std_logic;
 signal read_strobe     : std_logic;
@@ -144,7 +145,7 @@ signal timer_pulse   : std_logic;
 -- Signals for UART connections
 --
 signal          baud_count_38400 : integer range 0 to 127 :=0;
-signal        en_16_x_baud_38400 : std_logic;
+signal        en_16_x_baud_38400 : std_logic := '0';
 signal        write_to_uart_user : std_logic;
 signal              tx_full_user : std_logic;
 signal         tx_half_full_user : std_logic;
@@ -155,7 +156,7 @@ signal              rx_full_user : std_logic;
 signal         rx_half_full_user : std_logic;
 
 signal           baud_count_9600 : integer range 0 to 127 :=0;
-signal              en_16_x_9600 : std_logic;
+signal         en_16_x_baud_9600 : std_logic := '0';
 
 signal        write_to_uart_8seg : std_logic;
 signal              tx_full_8seg : std_logic;
@@ -312,13 +313,13 @@ begin
 		  case port_id is
 		  
 		    -- read UART status at address 00 hex
-          when "00000111" =>    out_port_user <= out_port;
+          when "00001000" =>    out_port_user <= out_port;
 
           -- read UART receive data at address 01 hex
-          when "00001000" =>    out_port_8seg <= out_port;
+          when "00010000" =>    out_port_8seg <= out_port;
 
           -- read UART status at address 02 hex
-          when "00001001" =>    out_port_led <= out_port;	  
+          when "00100000" =>    out_port_led <= out_port;	  
         
           -- Don't care used for all other addresses to ensure minimum logic implementation
           when others =>    out_port_user <= "XXXXXXXX";
@@ -338,7 +339,9 @@ begin
   -- This is a combinatorial decode because the FIFO is the 'port register'.
   --
 
-  write_to_uart <= write_strobe and port_id(0);
+  write_to_uart_user <= write_strobe and port_id(3);
+  write_to_uart_8seg <= write_strobe and port_id(4);
+  write_to_uart_led <= write_strobe and port_id(5);
 
   --
   ----------------------------------------------------------------------------------------------------------------------------------
@@ -348,10 +351,9 @@ begin
   -- Connect the 8-bit, 1 stop-bit, no parity transmit and receive macros.
   -- Each contains an embedded 16-byte FIFO buffer.
   --
-
-
+  
   --User-pBlaze3 uart
-  tx_user: uart_tx 
+  tx_user_uart: uart_tx 
   port map (            data_in => out_port_user, 
                    write_buffer => write_to_uart_user,
                    reset_buffer => '0',
@@ -361,7 +363,7 @@ begin
                buffer_half_full => tx_half_full_user,
                             clk => clk );
 
-  rx_user: uart_rx
+  rx_user_uart: uart_rx
   port map (            serial_in => rx_user,
                          data_out => rx_data_user,
                       read_buffer => read_from_uart_user,
@@ -383,11 +385,11 @@ begin
          en_16_x_baud_38400 <= '0';
       end if;
     end if;
-  end process baud_timer;										
+  end process baud_timer_38400;										
 										
 										
   --pBlaze3-8seg uart								
-  tx_8seg: uart_tx 
+  tx_8seg_uart: uart_tx 
   port map (            data_in => out_port_8seg, 
                    write_buffer => write_to_uart_8seg,
                    reset_buffer => '0',
@@ -399,7 +401,7 @@ begin
 									 									 
 									 
   --pBlaze3-3 LEDs uart								 
-  tx_led: uart_tx 
+  tx_led_uart: uart_tx 
   port map (            data_in => out_port_led, 
                    write_buffer => write_to_uart_led,
                    reset_buffer => '0',
@@ -411,7 +413,7 @@ begin
 								  
  
   --pBlaze3-PWMCounter uart
-  rx_counter_led: uart_rx
+  rx_counter_led_uart: uart_rx
   port map (            serial_in => rx_counter_led,
                          data_out => rx_data_counter_led,
                       read_buffer => read_from_uart_counter_led,
@@ -433,7 +435,7 @@ begin
          en_16_x_baud_9600 <= '0';
       end if;
     end if;
-  end process baud_timer;
+  end process baud_timer_9600;
 
 
   ----------------------------------------------------------------------------------------------------------------------------------

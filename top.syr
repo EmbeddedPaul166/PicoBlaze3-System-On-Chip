@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.05 secs
+Total CPU time to Xst completion: 0.03 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.05 secs
+Total CPU time to Xst completion: 0.03 secs
  
 --> 
 Reading design: top.prj
@@ -113,21 +113,23 @@ Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR
 Architecture low_level_definition of Entity bbfifo_16x8 is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/kcuart_tx.vhd" in Library work.
 Architecture low_level_definition of Entity kcuart_tx is up to date.
+Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_rx.vhd" in Library work.
+Architecture macro_level_definition of Entity uart_rx is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/kcpsm3.vhd" in Library work.
 Architecture low_level_definition of Entity kcpsm3 is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Software/uclock.vhd" in Library work.
 Architecture low_level_definition of Entity uclock is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_tx.vhd" in Library work.
 Architecture macro_level_definition of Entity uart_tx is up to date.
-Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_rx.vhd" in Library work.
-Architecture macro_level_definition of Entity uart_rx is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/clk_div.vhd" in Library work.
 Architecture behavioral of Entity clk_div is up to date.
-Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_clock.vhd" in Library work.
-Entity <uart_clock> compiled.
-Entity <uart_clock> (Architecture <behavioral>) compiled.
+Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/pBlaze3_uart.vhd" in Library work.
+Architecture behavioral of Entity pblaze3_uart is up to date.
+Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/led8a_driver.vhd" in Library work.
+Architecture behavioral of Entity led8a_driver is up to date.
 Compiling vhdl file "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd" in Library work.
-Architecture behavioral of Entity top is up to date.
+Entity <top> compiled.
+Entity <top> (Architecture <behavioral>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
@@ -136,7 +138,11 @@ Analyzing hierarchy for entity <top> in library <work> (architecture <behavioral
 
 Analyzing hierarchy for entity <clk_div> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <uart_clock> in library <work> (architecture <behavioral>).
+Analyzing hierarchy for entity <pBlaze3_uart> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <led8a_driver> in library <work> (architecture <behavioral>) with generics.
+	CLKDIV_INTERNAL = true
+	MAIN_CLK = 100000000
 
 Analyzing hierarchy for entity <kcpsm3> in library <work> (architecture <low_level_definition>).
 
@@ -280,8 +286,8 @@ WARNING:Xst:2591 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <top> in library <work> (Architecture <behavioral>).
-WARNING:Xst:753 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd" line 62: Unconnected output port 'CLKIN_IBUFG_OUT' of component 'clk_div'.
-WARNING:Xst:753 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd" line 62: Unconnected output port 'CLK0_OUT' of component 'clk_div'.
+WARNING:Xst:753 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd" line 75: Unconnected output port 'CLKIN_IBUFG_OUT' of component 'clk_div'.
+WARNING:Xst:753 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd" line 75: Unconnected output port 'CLK0_OUT' of component 'clk_div'.
 Entity <top> analyzed. Unit <top> generated.
 
 Analyzing Entity <clk_div> in library <work> (Architecture <behavioral>).
@@ -306,9 +312,8 @@ Analyzing Entity <clk_div> in library <work> (Architecture <behavioral>).
     Set user-defined property "STARTUP_WAIT =  FALSE" for instance <DCM_SP_INST> in unit <clk_div>.
 Entity <clk_div> analyzed. Unit <clk_div> generated.
 
-Analyzing Entity <uart_clock> in library <work> (Architecture <behavioral>).
-INFO:Xst:1561 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_clock.vhd" line 241: Mux is complete : default of case is discarded
-Entity <uart_clock> analyzed. Unit <uart_clock> generated.
+Analyzing Entity <pBlaze3_uart> in library <work> (Architecture <behavioral>).
+Entity <pBlaze3_uart> analyzed. Unit <pBlaze3_uart> generated.
 
 Analyzing Entity <kcpsm3> in library <work> (Architecture <low_level_definition>).
     Set user-defined property "INIT =  1" for instance <t_state_lut> in unit <kcpsm3>.
@@ -709,6 +714,13 @@ Analyzing Entity <kcuart_rx> in library <work> (Architecture <low_level_definiti
     Set user-defined property "INIT =  0" for instance <strobe_reg> in unit <kcuart_rx>.
 Entity <kcuart_rx> analyzed. Unit <kcuart_rx> generated.
 
+Analyzing generic Entity <led8a_driver> in library <work> (Architecture <behavioral>).
+	CLKDIV_INTERNAL = true
+	MAIN_CLK = 100000000
+WARNING:Xst:819 - "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/led8a_driver.vhd" line 70: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+   <digit_address>
+Entity <led8a_driver> analyzed. Unit <led8a_driver> generated.
+
 
 =========================================================================
 *                           HDL Synthesis                               *
@@ -756,25 +768,65 @@ Synthesizing Unit <uart_rx>.
 Unit <uart_rx> synthesized.
 
 
-Synthesizing Unit <uart_clock>.
-    Related source file is "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/uart_clock.vhd".
-WARNING:Xst:646 - Signal <port_id<7:1>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-    Found 1-bit register for signal <alarm>.
-    Found 7-bit up counter for signal <baud_count>.
-    Found 1-bit register for signal <en_16_x_baud>.
+Synthesizing Unit <pBlaze3_uart>.
+    Related source file is "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/pBlaze3_uart.vhd".
+    Found 7-bit up counter for signal <baud_count_38400>.
+    Found 7-bit up counter for signal <baud_count_9600>.
+    Found 1-bit register for signal <en_16_x_baud_38400>.
+    Found 1-bit register for signal <en_16_x_baud_9600>.
     Found 8-bit register for signal <in_port>.
     Found 1-bit register for signal <interrupt>.
-    Found 1-bit register for signal <read_from_uart>.
+    Found 8-bit register for signal <out_port_8seg>.
+    Found 8-bit register for signal <out_port_led>.
+    Found 8-bit register for signal <out_port_user>.
+    Found 1-bit register for signal <read_from_uart_counter_led>.
+    Found 1-bit register for signal <read_from_uart_user>.
     Found 6-bit up counter for signal <timer_count>.
     Found 1-bit register for signal <timer_pulse>.
     Summary:
+	inferred   3 Counter(s).
+	inferred  38 D-type flip-flop(s).
+Unit <pBlaze3_uart> synthesized.
+
+
+Synthesizing Unit <led8a_driver>.
+    Related source file is "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/led8a_driver.vhd".
+WARNING:Xst:646 - Signal <rx_half_full> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <rx_full> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found finite state machine <FSM_0> for signal <current_state>.
+    -----------------------------------------------------------------------
+    | States             | 5                                              |
+    | Transitions        | 12                                             |
+    | Inputs             | 5                                              |
+    | Outputs            | 5                                              |
+    | Clock              | clk_in                    (rising_edge)        |
+    | Reset              | rx_data_present           (negative)           |
+    | Reset type         | synchronous                                    |
+    | Reset State        | no_data_received                               |
+    | Power Up State     | address_ready                                  |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+WARNING:Xst:737 - Found 2-bit latch for signal <digit_address>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 8-bit latch for signal <a>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 8-bit latch for signal <b>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 8-bit latch for signal <c>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+    Found 7-bit up counter for signal <baud_count>.
+    Found 17-bit up counter for signal <clkdiv_counter>.
+    Found 1-bit register for signal <en_16_x_baud>.
+    Found 3-bit register for signal <one_hot>.
+    Found 1-bit register for signal <slow_clk>.
+    Summary:
+	inferred   1 Finite State Machine(s).
 	inferred   2 Counter(s).
-	inferred  13 D-type flip-flop(s).
-Unit <uart_clock> synthesized.
+	inferred   5 D-type flip-flop(s).
+Unit <led8a_driver> synthesized.
 
 
 Synthesizing Unit <top>.
     Related source file is "/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd".
+WARNING:Xst:646 - Signal <tx_led> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:653 - Signal <rx_counter_led> is used but never assigned. This sourceless signal will be automatically connected to value 0.
 Unit <top> synthesized.
 
 
@@ -782,12 +834,17 @@ Unit <top> synthesized.
 HDL Synthesis Report
 
 Macro Statistics
-# Counters                                             : 2
+# Counters                                             : 5
+ 17-bit up counter                                     : 1
  6-bit up counter                                      : 1
- 7-bit up counter                                      : 1
-# Registers                                            : 6
- 1-bit register                                        : 5
- 8-bit register                                        : 1
+ 7-bit up counter                                      : 3
+# Registers                                            : 13
+ 1-bit register                                        : 8
+ 3-bit register                                        : 1
+ 8-bit register                                        : 4
+# Latches                                              : 4
+ 2-bit latch                                           : 1
+ 8-bit latch                                           : 3
 
 =========================================================================
 
@@ -795,23 +852,39 @@ Macro Statistics
 *                       Advanced HDL Synthesis                          *
 =========================================================================
 
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <LED_DRIVER_UART/current_state/FSM> on signal <current_state[1:3]> with gray encoding.
+------------------------------
+ State            | Encoding
+------------------------------
+ address_ready    | 000
+ data_ready       | 110
+ address_received | 011
+ data_received    | 010
+ no_data_received | 001
+------------------------------
 
 =========================================================================
 Advanced HDL Synthesis Report
 
 Macro Statistics
-# Counters                                             : 2
+# FSMs                                                 : 1
+# Counters                                             : 5
+ 17-bit up counter                                     : 1
  6-bit up counter                                      : 1
- 7-bit up counter                                      : 1
-# Registers                                            : 133
- Flip-Flops                                            : 133
+ 7-bit up counter                                      : 3
+# Registers                                            : 251
+ Flip-Flops                                            : 251
+# Latches                                              : 4
+ 2-bit latch                                           : 1
+ 8-bit latch                                           : 3
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-INFO:Xst:1901 - Instance program_rom/ram_1024_x_18 in unit uart_clock of type RAMB16_S18 has been replaced by RAMB16BWE
+INFO:Xst:1901 - Instance program_rom/ram_1024_x_18 in unit pBlaze3_uart of type RAMB16_S18 has been replaced by RAMB16BWE
 
 Optimizing unit <top> ...
 
@@ -823,11 +896,13 @@ Optimizing unit <bbfifo_16x8> ...
 
 Optimizing unit <kcuart_rx> ...
 
-Optimizing unit <uart_clock> ...
+Optimizing unit <pBlaze3_uart> ...
+
+Optimizing unit <led8a_driver> ...
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 21.
+Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 44.
 
 Final Macro Processing ...
 
@@ -835,8 +910,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 146
- Flip-Flops                                            : 146
+# Registers                                            : 298
+ Flip-Flops                                            : 298
 
 =========================================================================
 
@@ -862,44 +937,49 @@ Optimization Goal                  : Speed
 Keep Hierarchy                     : No
 
 Design Statistics
-# IOs                              : 5
+# IOs                              : 14
 
 Cell Usage :
-# BELS                             : 290
+# BELS                             : 625
 #      GND                         : 1
-#      INV                         : 7
-#      LUT1                        : 2
-#      LUT2                        : 18
-#      LUT2_D                      : 1
-#      LUT3                        : 84
-#      LUT4                        : 65
-#      MULT_AND                    : 3
-#      MUXCY                       : 48
-#      MUXF5                       : 11
-#      MUXF6                       : 1
+#      INV                         : 11
+#      LUT1                        : 19
+#      LUT2                        : 36
+#      LUT2_D                      : 4
+#      LUT3                        : 118
+#      LUT3_D                      : 3
+#      LUT3_L                      : 1
+#      LUT4                        : 204
+#      LUT4_D                      : 2
+#      LUT4_L                      : 6
+#      MULT_AND                    : 9
+#      MUXCY                       : 87
+#      MUXF5                       : 33
+#      MUXF6                       : 3
 #      VCC                         : 1
-#      XORCY                       : 48
-# FlipFlops/Latches                : 146
-#      FD                          : 36
-#      FDE                         : 29
-#      FDR                         : 48
-#      FDRE                        : 20
-#      FDRS                        : 1
+#      XORCY                       : 87
+# FlipFlops/Latches                : 324
+#      FD                          : 44
+#      FDE                         : 105
+#      FDR                         : 85
+#      FDRE                        : 42
+#      FDRS                        : 4
 #      FDRSE                       : 10
-#      FDS                         : 2
+#      FDS                         : 8
+#      LDE                         : 26
 # RAMS                             : 27
 #      RAM16X1D                    : 8
 #      RAM32X1S                    : 10
 #      RAM64X1S                    : 8
 #      RAMB16BWE                   : 1
-# Shift Registers                  : 36
-#      SRL16E                      : 36
-# Clock Buffers                    : 2
-#      BUFG                        : 2
-# IO Buffers                       : 5
+# Shift Registers                  : 108
+#      SRL16E                      : 108
+# Clock Buffers                    : 3
+#      BUFG                        : 3
+# IO Buffers                       : 14
 #      IBUF                        : 2
 #      IBUFG                       : 1
-#      OBUF                        : 2
+#      OBUF                        : 11
 # DCMs                             : 1
 #      DCM_SP                      : 1
 =========================================================================
@@ -909,16 +989,16 @@ Device utilization summary:
 
 Selected Device : 3s50atq144-5 
 
- Number of Slices:                      147  out of    704    20%  
- Number of Slice Flip Flops:            146  out of   1408    10%  
- Number of 4 input LUTs:                281  out of   1408    19%  
-    Number used as logic:               177
-    Number used as Shift registers:      36
+ Number of Slices:                      303  out of    704    43%  
+ Number of Slice Flip Flops:            324  out of   1408    23%  
+ Number of 4 input LUTs:                580  out of   1408    41%  
+    Number used as logic:               404
+    Number used as Shift registers:     108
     Number used as RAMs:                 68
- Number of IOs:                           5
- Number of bonded IOBs:                   5  out of    108     4%  
+ Number of IOs:                          14
+ Number of bonded IOBs:                  14  out of    108    12%  
  Number of BRAMs:                         1  out of      3    33%  
- Number of GCLKs:                         2  out of     24     8%  
+ Number of GCLKs:                         3  out of     24    12%  
  Number of DCMs:                          1  out of      2    50%  
 
 ---------------------------
@@ -939,11 +1019,18 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
------------------------------------+--------------------------------------+-------+
-Clock Signal                       | Clock buffer(FF name)                | Load  |
------------------------------------+--------------------------------------+-------+
-clk                                | CLOCK_DIVIDE_BY_TWO/DCM_SP_INST:CLKDV| 209   |
------------------------------------+--------------------------------------+-------+
+------------------------------------------------------------------------------------+-----------------------------------------+-------+
+Clock Signal                                                                        | Clock buffer(FF name)                   | Load  |
+------------------------------------------------------------------------------------+-----------------------------------------+-------+
+clk                                                                                 | CLOCK_DIVIDE_BY_TWO/DCM_SP_INST:CLKDV   | 430   |
+LED_DRIVER_UART/current_state_cmp_eq00061(LED_DRIVER_UART/current_state_FSM_Out11:O)| BUFG(*)(LED_DRIVER_UART/a_7)            | 24    |
+LED_DRIVER_UART/current_state_cmp_eq0005(LED_DRIVER_UART/current_state_FSM_Out01:O) | NONE(*)(LED_DRIVER_UART/digit_address_1)| 2     |
+LED_DRIVER_UART/slow_clk                                                            | NONE(LED_DRIVER_UART/one_hot_2)         | 3     |
+------------------------------------------------------------------------------------+-----------------------------------------+-------+
+(*) These 2 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
@@ -953,9 +1040,9 @@ Timing Summary:
 ---------------
 Speed Grade: -5
 
-   Minimum period: 4.339ns (Maximum Frequency: 230.476MHz)
+   Minimum period: 4.492ns (Maximum Frequency: 222.625MHz)
    Minimum input arrival time before clock: 1.378ns
-   Maximum output required time after clock: 5.248ns
+   Maximum output required time after clock: 10.952ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -964,32 +1051,76 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clk'
-  Clock period: 4.339ns (frequency: 230.476MHz)
-  Total number of paths / destination ports: 4863 / 640
+  Clock period: 4.492ns (frequency: 222.625MHz)
+  Total number of paths / destination ports: 9867 / 1207
 -------------------------------------------------------------------------
-Delay:               8.678ns (Levels of Logic = 8)
-  Source:            UART/program_rom/ram_1024_x_18 (RAM)
-  Destination:       UART/transmit/buf/count_width_loop[3].register_bit (FF)
+Delay:               8.984ns (Levels of Logic = 9)
+  Source:            LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl (FF)
+  Destination:       LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit (FF)
   Source Clock:      clk rising 0.5X
   Destination Clock: clk rising 0.5X
 
-  Data Path: UART/program_rom/ram_1024_x_18 to UART/transmit/buf/count_width_loop[3].register_bit
+  Data Path: LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl to LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     RAMB16BWE:CLKA->DOA7   10   2.107   0.750  UART/program_rom/ram_1024_x_18 (UART/instruction<7>)
-     RAM16X1D:DPRA3->DPO    1   0.562   0.380  UART/processor/reg_loop[0].register_bit (UART/processor/sy<0>)
-     LUT3:I2->O           77   0.561   1.151  UART/processor/reg_loop[0].operand_select_mux (UART/port_id<0>)
-     LUT2_D:I1->O          5   0.562   0.540  UART/write_to_uart1 (UART/write_to_uart)
-     LUT4:I3->O            1   0.561   0.000  UART/transmit/buf/count_width_loop[0].count_lut (UART/transmit/buf/half_count<0>)
-     MUXCY:S->O            1   0.523   0.000  UART/transmit/buf/count_width_loop[0].lsb_count.count_muxcy (UART/transmit/buf/count_carry<0>)
-     MUXCY:CI->O           1   0.065   0.000  UART/transmit/buf/count_width_loop[1].mid_count.count_muxcy (UART/transmit/buf/count_carry<1>)
-     MUXCY:CI->O           0   0.065   0.000  UART/transmit/buf/count_width_loop[2].mid_count.count_muxcy (UART/transmit/buf/count_carry<2>)
-     XORCY:CI->O           1   0.654   0.000  UART/transmit/buf/count_width_loop[3].upper_count.count_xor (UART/transmit/buf/next_count<3>)
-     FDRE:D                    0.197          UART/transmit/buf/count_width_loop[3].register_bit
+     SRL16E:CLK->Q         6   3.050   0.592  LED_DRIVER_UART/receive/buf/data_width_loop[4].data_srl (LED_DRIVER_UART/rx_data<4>)
+     LUT4:I2->O            1   0.561   0.000  LED_DRIVER_UART/current_state_cmp_eq00001_SW3_F (N63)
+     MUXF5:I0->O           1   0.229   0.380  LED_DRIVER_UART/current_state_cmp_eq00001_SW3 (N59)
+     LUT4:I2->O            1   0.561   0.380  LED_DRIVER_UART/read_from_uart13 (LED_DRIVER_UART/read_from_uart13)
+     LUT3_D:I2->O          5   0.561   0.604  LED_DRIVER_UART/read_from_uart35 (LED_DRIVER_UART/read_from_uart)
+     LUT4:I1->O            1   0.562   0.000  LED_DRIVER_UART/receive/buf/count_width_loop[0].count_lut (LED_DRIVER_UART/receive/buf/half_count<0>)
+     MUXCY:S->O            1   0.523   0.000  LED_DRIVER_UART/receive/buf/count_width_loop[0].lsb_count.count_muxcy (LED_DRIVER_UART/receive/buf/count_carry<0>)
+     MUXCY:CI->O           1   0.065   0.000  LED_DRIVER_UART/receive/buf/count_width_loop[1].mid_count.count_muxcy (LED_DRIVER_UART/receive/buf/count_carry<1>)
+     MUXCY:CI->O           0   0.065   0.000  LED_DRIVER_UART/receive/buf/count_width_loop[2].mid_count.count_muxcy (LED_DRIVER_UART/receive/buf/count_carry<2>)
+     XORCY:CI->O           1   0.654   0.000  LED_DRIVER_UART/receive/buf/count_width_loop[3].upper_count.count_xor (LED_DRIVER_UART/receive/buf/next_count<3>)
+     FDRE:D                    0.197          LED_DRIVER_UART/receive/buf/count_width_loop[3].register_bit
     ----------------------------------------
-    Total                      8.678ns (5.857ns logic, 2.821ns route)
-                                       (67.5% logic, 32.5% route)
+    Total                      8.984ns (7.028ns logic, 1.956ns route)
+                                       (78.2% logic, 21.8% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'LED_DRIVER_UART/current_state_cmp_eq00061'
+  Clock period: 1.834ns (frequency: 545.271MHz)
+  Total number of paths / destination ports: 24 / 24
+-------------------------------------------------------------------------
+Delay:               1.834ns (Levels of Logic = 1)
+  Source:            LED_DRIVER_UART/c_7 (LATCH)
+  Destination:       LED_DRIVER_UART/c_7 (LATCH)
+  Source Clock:      LED_DRIVER_UART/current_state_cmp_eq00061 falling
+  Destination Clock: LED_DRIVER_UART/current_state_cmp_eq00061 falling
+
+  Data Path: LED_DRIVER_UART/c_7 to LED_DRIVER_UART/c_7
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LDE:G->Q              2   0.629   0.446  LED_DRIVER_UART/c_7 (LED_DRIVER_UART/c_7)
+     LUT4:I1->O            1   0.562   0.000  LED_DRIVER_UART/c_mux0003<7>1 (LED_DRIVER_UART/c_mux0003<7>)
+     LDE:D                     0.197          LED_DRIVER_UART/c_7
+    ----------------------------------------
+    Total                      1.834ns (1.388ns logic, 0.446ns route)
+                                       (75.7% logic, 24.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'LED_DRIVER_UART/slow_clk'
+  Clock period: 1.585ns (frequency: 630.776MHz)
+  Total number of paths / destination ports: 3 / 3
+-------------------------------------------------------------------------
+Delay:               1.585ns (Levels of Logic = 0)
+  Source:            LED_DRIVER_UART/one_hot_1 (FF)
+  Destination:       LED_DRIVER_UART/one_hot_2 (FF)
+  Source Clock:      LED_DRIVER_UART/slow_clk rising
+  Destination Clock: LED_DRIVER_UART/slow_clk rising
+
+  Data Path: LED_DRIVER_UART/one_hot_1 to LED_DRIVER_UART/one_hot_2
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q              17   0.495   0.893  LED_DRIVER_UART/one_hot_1 (LED_DRIVER_UART/one_hot_1)
+     FD:D                      0.197          LED_DRIVER_UART/one_hot_2
+    ----------------------------------------
+    Total                      1.585ns (0.692ns logic, 0.893ns route)
+                                       (43.6% logic, 56.4% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
@@ -997,50 +1128,100 @@ Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
 -------------------------------------------------------------------------
 Offset:              1.378ns (Levels of Logic = 1)
   Source:            rx (PAD)
-  Destination:       UART/receive/kcuart/sync_reg (FF)
+  Destination:       UART/rx_user_uart/kcuart/sync_reg (FF)
   Destination Clock: clk rising 0.5X
 
-  Data Path: rx to UART/receive/kcuart/sync_reg
+  Data Path: rx to UART/rx_user_uart/kcuart/sync_reg
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O             1   0.824   0.357  rx_IBUF (rx_IBUF)
-     FD:D                      0.197          UART/receive/kcuart/sync_reg
+     FD:D                      0.197          UART/rx_user_uart/kcuart/sync_reg
     ----------------------------------------
     Total                      1.378ns (1.021ns logic, 0.357ns route)
                                        (74.1% logic, 25.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
-  Total number of paths / destination ports: 2 / 2
+  Total number of paths / destination ports: 1 / 1
 -------------------------------------------------------------------------
 Offset:              5.248ns (Levels of Logic = 1)
-  Source:            UART/transmit/kcuart/pipeline_serial (FF)
+  Source:            UART/tx_user_uart/kcuart/pipeline_serial (FF)
   Destination:       tx (PAD)
   Source Clock:      clk rising 0.5X
 
-  Data Path: UART/transmit/kcuart/pipeline_serial to tx
+  Data Path: UART/tx_user_uart/kcuart/pipeline_serial to tx
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDRS:C->Q             1   0.495   0.357  UART/transmit/kcuart/pipeline_serial (tx_OBUF)
+     FDRS:C->Q             1   0.495   0.357  UART/tx_user_uart/kcuart/pipeline_serial (tx_OBUF)
      OBUF:I->O                 4.396          tx_OBUF (tx)
     ----------------------------------------
     Total                      5.248ns (4.891ns logic, 0.357ns route)
                                        (93.2% logic, 6.8% route)
 
 =========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'LED_DRIVER_UART/slow_clk'
+  Total number of paths / destination ports: 793 / 10
+-------------------------------------------------------------------------
+Offset:              10.952ns (Levels of Logic = 7)
+  Source:            LED_DRIVER_UART/one_hot_1 (FF)
+  Destination:       sseg<5> (PAD)
+  Source Clock:      LED_DRIVER_UART/slow_clk rising
+
+  Data Path: LED_DRIVER_UART/one_hot_1 to sseg<5>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q              17   0.495   1.001  LED_DRIVER_UART/one_hot_1 (LED_DRIVER_UART/one_hot_1)
+     LUT3:I0->O            1   0.561   0.000  LED_DRIVER_UART/digit<1>_F (N95)
+     MUXF5:I0->O          18   0.229   0.974  LED_DRIVER_UART/digit<1> (LED_DRIVER_UART/digit<1>)
+     LUT3:I1->O            1   0.562   0.380  LED_DRIVER_UART/sseg<5>3_SW0 (N29)
+     LUT4:I2->O            5   0.561   0.646  LED_DRIVER_UART/sseg<5>3 (LED_DRIVER_UART/N24)
+     LUT3:I0->O            1   0.561   0.000  LED_DRIVER_UART/sseg<3>72_G (N98)
+     MUXF5:I1->O           1   0.229   0.357  LED_DRIVER_UART/sseg<3>72 (sseg_3_OBUF)
+     OBUF:I->O                 4.396          sseg_3_OBUF (sseg<3>)
+    ----------------------------------------
+    Total                     10.952ns (7.594ns logic, 3.358ns route)
+                                       (69.3% logic, 30.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'LED_DRIVER_UART/current_state_cmp_eq00061'
+  Total number of paths / destination ports: 486 / 7
+-------------------------------------------------------------------------
+Offset:              10.532ns (Levels of Logic = 7)
+  Source:            LED_DRIVER_UART/a_1 (LATCH)
+  Destination:       sseg<5> (PAD)
+  Source Clock:      LED_DRIVER_UART/current_state_cmp_eq00061 falling
+
+  Data Path: LED_DRIVER_UART/a_1 to sseg<5>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LDE:G->Q              2   0.629   0.446  LED_DRIVER_UART/a_1 (LED_DRIVER_UART/a_1)
+     LUT3:I1->O            1   0.562   0.000  LED_DRIVER_UART/digit<1>_F (N95)
+     MUXF5:I0->O          18   0.229   0.974  LED_DRIVER_UART/digit<1> (LED_DRIVER_UART/digit<1>)
+     LUT3:I1->O            1   0.562   0.380  LED_DRIVER_UART/sseg<5>3_SW0 (N29)
+     LUT4:I2->O            5   0.561   0.646  LED_DRIVER_UART/sseg<5>3 (LED_DRIVER_UART/N24)
+     LUT3:I0->O            1   0.561   0.000  LED_DRIVER_UART/sseg<3>72_G (N98)
+     MUXF5:I1->O           1   0.229   0.357  LED_DRIVER_UART/sseg<3>72 (sseg_3_OBUF)
+     OBUF:I->O                 4.396          sseg_3_OBUF (sseg<3>)
+    ----------------------------------------
+    Total                     10.532ns (7.729ns logic, 2.803ns route)
+                                       (73.4% logic, 26.6% route)
+
+=========================================================================
 
 
-Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 4.29 secs
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 5.45 secs
  
 --> 
 
 
-Total memory usage is 556940 kilobytes
+Total memory usage is 558032 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  127 (   0 filtered)
+Number of warnings :  135 (   0 filtered)
 Number of infos    :    2 (   0 filtered)
 

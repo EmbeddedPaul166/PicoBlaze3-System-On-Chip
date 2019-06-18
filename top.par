@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-paul-GV72-7RE::  Sun Jun 16 13:41:39 2019
+paul-GV72-7RE::  Wed Jun 19 00:39:19 2019
 
 par -w -intstyle ise -ol high -t 1 top_map.ncd top.ncd top.pcf 
 
@@ -20,7 +20,7 @@ Device speed data version:  "PRODUCTION 1.42 2013-10-13".
 
 Design Summary Report:
 
- Number of External IOBs                           5 out of 108     4%
+ Number of External IOBs                          14 out of 108    12%
 
    Number of External Input IOBs                  3
 
@@ -28,20 +28,20 @@ Design Summary Report:
         Number of LOCed External Input IBUFs      3 out of 3     100%
 
 
-   Number of External Output IOBs                 2
+   Number of External Output IOBs                11
 
-      Number of External Output IOBs              2
-        Number of LOCed External Output IOBs      2 out of 2     100%
+      Number of External Output IOBs             11
+        Number of LOCed External Output IOBs     11 out of 11    100%
 
 
    Number of External Bidir IOBs                  0
 
 
-   Number of BUFGMUXs                        2 out of 24      8%
+   Number of BUFGMUXs                        3 out of 24     12%
    Number of DCMs                            1 out of 2      50%
    Number of RAMB16BWEs                      1 out of 3      33%
-   Number of Slices                        157 out of 704    22%
-      Number of SLICEMs                     54 out of 352    15%
+   Number of Slices                        321 out of 704    45%
+      Number of SLICEMs                     88 out of 352    25%
 
 
 
@@ -59,41 +59,40 @@ Total REAL time at the beginning of Placer: 1 secs
 Total CPU  time at the beginning of Placer: 1 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:d3173ec) REAL time: 1 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:54e52608) REAL time: 1 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:d3173ec) REAL time: 1 secs 
+Phase 2.7  Design Feasibility Check (Checksum:54e52608) REAL time: 1 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:d3173ec) REAL time: 1 secs 
+Phase 3.31  Local Placement Optimization (Checksum:54e52608) REAL time: 1 secs 
 
 Phase 4.2  Initial Clock and IO Placement
 
-Phase 4.2  Initial Clock and IO Placement (Checksum:159d8b8b) REAL time: 2 secs 
+Phase 4.2  Initial Clock and IO Placement (Checksum:666f8dda) REAL time: 2 secs 
 
 Phase 5.30  Global Clock Region Assignment
-Phase 5.30  Global Clock Region Assignment (Checksum:159d8b8b) REAL time: 2 secs 
+Phase 5.30  Global Clock Region Assignment (Checksum:666f8dda) REAL time: 2 secs 
 
 Phase 6.36  Local Placement Optimization
-Phase 6.36  Local Placement Optimization (Checksum:159d8b8b) REAL time: 2 secs 
+Phase 6.36  Local Placement Optimization (Checksum:666f8dda) REAL time: 2 secs 
 
 Phase 7.8  Global Placement
-
-...............................................
-...............................
-...................
-Phase 7.8  Global Placement (Checksum:f52b3d1d) REAL time: 2 secs 
+......................................................................
+................................
+.....
+Phase 7.8  Global Placement (Checksum:b9c4c1eb) REAL time: 2 secs 
 
 Phase 8.5  Local Placement Optimization
-Phase 8.5  Local Placement Optimization (Checksum:f52b3d1d) REAL time: 2 secs 
+Phase 8.5  Local Placement Optimization (Checksum:b9c4c1eb) REAL time: 2 secs 
 
 Phase 9.18  Placement Optimization
-Phase 9.18  Placement Optimization (Checksum:eea379a2) REAL time: 2 secs 
+Phase 9.18  Placement Optimization (Checksum:daf0e7ac) REAL time: 3 secs 
 
 Phase 10.5  Local Placement Optimization
-Phase 10.5  Local Placement Optimization (Checksum:eea379a2) REAL time: 2 secs 
+Phase 10.5  Local Placement Optimization (Checksum:daf0e7ac) REAL time: 3 secs 
 
-Total REAL time to Placer completion: 2 secs 
+Total REAL time to Placer completion: 3 secs 
 Total CPU  time to Placer completion: 2 secs 
 Writing design to file top.ncd
 
@@ -102,26 +101,30 @@ Writing design to file top.ncd
 Starting Router
 
 
-Phase  1  : 1426 unrouted;      REAL time: 3 secs 
+Phase  1  : 2783 unrouted;      REAL time: 3 secs 
 
-Phase  2  : 1198 unrouted;      REAL time: 3 secs 
+Phase  2  : 2290 unrouted;      REAL time: 3 secs 
 
-Phase  3  : 266 unrouted;      REAL time: 3 secs 
+Phase  3  : 492 unrouted;      REAL time: 3 secs 
 
-Phase  4  : 266 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
+Phase  4  : 492 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
 
 Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
 
 Updating file: top.ncd with current fully routed design.
 
-Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 4 secs 
 
-Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 4 secs 
 
-Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 3 secs 
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 4 secs 
+WARNING:Route:455 - CLK Net:LED_DRIVER_UART/slow_clk may have excessive skew because 
+      2 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:LED_DRIVER_UART/current_state_cmp_eq0005 may have excessive skew because 
+      1 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 3 secs 
-Total CPU time to Router completion: 3 secs 
+Total REAL time to Router completion: 4 secs 
+Total CPU time to Router completion: 4 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -139,7 +142,18 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|            clk_slow | BUFGMUX_X1Y10| No   |  129 |  0.189     |  0.646      |
+|            clk_slow | BUFGMUX_X1Y10| No   |  222 |  0.159     |  0.616      |
++---------------------+--------------+------+------+------------+-------------+
+|LED_DRIVER_UART/curr |              |      |      |            |             |
+|ent_state_cmp_eq0006 |              |      |      |            |             |
+|                     |  BUFGMUX_X1Y0| No   |   12 |  0.011     |  0.501      |
++---------------------+--------------+------+------+------------+-------------+
+|LED_DRIVER_UART/curr |              |      |      |            |             |
+|ent_state_cmp_eq0005 |              |      |      |            |             |
+|                     |         Local|      |    2 |  0.000     |  1.220      |
++---------------------+--------------+------+------+------------+-------------+
+|LED_DRIVER_UART/slow |              |      |      |            |             |
+|                _clk |         Local|      |    3 |  0.000     |  1.285      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -164,8 +178,8 @@ Asterisk (*) preceding a constraint indicates it was not met.
   NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG" PER | MINLOWPULSE |    63.332ns|    20.000ns|       0|           0
   IOD = 83.3333333 ns HIGH 50%              |             |            |            |        |            
 ----------------------------------------------------------------------------------------------------------
-  PERIOD analysis for net "CLOCK_DIVIDE_BY_ | SETUP       |   157.962ns|     8.704ns|       0|           0
-  TWO/CLKDV_BUF" derived from  NET "CLOCK_D | HOLD        |     0.548ns|            |       0|           0
+  PERIOD analysis for net "CLOCK_DIVIDE_BY_ | SETUP       |   156.931ns|     9.735ns|       0|           0
+  TWO/CLKDV_BUF" derived from  NET "CLOCK_D | HOLD        |     0.559ns|            |       0|           0
   IVIDE_BY_TWO/CLKIN_IBUFG" PERIOD = 83.333 |             |            |            |        |            
   3333 ns HIGH 50%                          |             |            |            |        |            
 ----------------------------------------------------------------------------------------------------------
@@ -181,8 +195,8 @@ Derived Constraints for CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG
 |           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
 |                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
-|CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG|     83.333ns|     20.000ns|      4.352ns|            0|            0|            0|         6570|
-| CLOCK_DIVIDE_BY_TWO/CLKDV_BUF |    166.667ns|      8.704ns|          N/A|            0|            0|         6570|            0|
+|CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG|     83.333ns|     20.000ns|      4.867ns|            0|            0|            0|        11782|
+| CLOCK_DIVIDE_BY_TWO/CLKDV_BUF |    166.667ns|      9.735ns|          N/A|            0|            0|        11782|            0|
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
 
 All constraints were met.
@@ -192,17 +206,17 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 3 secs 
-Total CPU time to PAR completion: 3 secs 
+Total REAL time to PAR completion: 4 secs 
+Total CPU time to PAR completion: 4 secs 
 
-Peak Memory Usage:  589 MB
+Peak Memory Usage:  592 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.
 Timing: Completed - No errors found.
 
 Number of error messages: 0
-Number of warning messages: 0
+Number of warning messages: 2
 Number of info messages: 0
 
 Writing design to file top.ncd

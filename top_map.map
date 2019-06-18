@@ -9,13 +9,17 @@ Target Device  : xc3s50a
 Target Package : tq144
 Target Speed   : -5
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Sun Jun 16 13:41:36 2019
+Mapped Date    : Wed Jun 19 00:39:15 2019
 
 Mapping design into LUTs...
 Running directed packing...
 Running delay-based LUT packing...
 Running related packing...
 Updating timing models...
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   LED_DRIVER_UART/current_state_cmp_eq0005 is sourced by a combinatorial pin.
+   This is not good design practice. Use the CE pin to control the loading of
+   data into the flip-flop.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
    block:<UART/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
 WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
@@ -54,37 +58,39 @@ Design Summary
 
 Design Summary:
 Number of errors:      0
-Number of warnings:   16
+Number of warnings:   17
 Logic Utilization:
-  Number of Slice Flip Flops:           146 out of   1,408   10%
-  Number of 4 input LUTs:               273 out of   1,408   19%
+  Total Number Slice Registers:         309 out of   1,408   21%
+    Number used as Flip Flops:          283
+    Number used as Latches:              26
+  Number of 4 input LUTs:               536 out of   1,408   38%
 Logic Distribution:
-  Number of occupied Slices:            157 out of     704   22%
-    Number of Slices containing only related logic:     157 out of     157 100%
-    Number of Slices containing unrelated logic:          0 out of     157   0%
+  Number of occupied Slices:            321 out of     704   45%
+    Number of Slices containing only related logic:     321 out of     321 100%
+    Number of Slices containing unrelated logic:          0 out of     321   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         275 out of   1,408   19%
-    Number used as logic:               169
-    Number used as a route-thru:          2
+  Total Number of 4 input LUTs:         555 out of   1,408   39%
+    Number used as logic:               370
+    Number used as a route-thru:         19
     Number used for Dual Port RAMs:      16
       (Two LUTs used per Dual Port RAM)
     Number used for 32x1 RAMs:           52
       (Two LUTs used per 32x1 RAM)
-    Number used as Shift registers:      36
+    Number used as Shift registers:      98
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                  5 out of     108    4%
-  Number of BUFGMUXs:                     2 out of      24    8%
+  Number of bonded IOBs:                 14 out of     108   12%
+  Number of BUFGMUXs:                     3 out of      24   12%
   Number of DCMs:                         1 out of       2   50%
   Number of RAMB16BWEs:                   1 out of       3   33%
 
-Average Fanout of Non-Clock Nets:                3.90
+Average Fanout of Non-Clock Nets:                3.89
 
-Peak Memory Usage:  623 MB
-Total REAL time to MAP completion:  1 secs 
-Total CPU time to MAP completion:   1 secs 
+Peak Memory Usage:  625 MB
+Total REAL time to MAP completion:  2 secs 
+Total CPU time to MAP completion:   2 secs 
 
 NOTES:
 
