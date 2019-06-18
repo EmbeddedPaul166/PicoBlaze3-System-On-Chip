@@ -1,0 +1,14 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Sun Jun 16 13:41:37 2019
+//! **************************************************************************
+
+SCHEMATIC START;
+CONFIG VCCAUX = "3.3";
+COMP "rx" LOCATE = SITE "P132" LEVEL 1;
+COMP "tx" LOCATE = SITE "P130" LEVEL 1;
+COMP "clk" LOCATE = SITE "P129" LEVEL 1;
+COMP "rst" LOCATE = SITE "P70" LEVEL 1;
+COMP "alarm" LOCATE = SITE "P46" LEVEL 1;
+NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG" PERIOD = 83.3333333 ns HIGH 50%;
+SCHEMATIC END;
+

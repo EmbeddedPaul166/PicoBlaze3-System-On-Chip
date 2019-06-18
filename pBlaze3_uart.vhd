@@ -45,18 +45,20 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 ------------------------------------------------------------------------------------
 --
 --
-entity uart_clock is
-    Port (    tx : out std_logic;
-              rx : in std_logic;
-           alarm : out std_logic;
-             clk : in std_logic);
-    end uart_clock;
+entity pBlaze3_uart is
+    Port (    tx_user : out std_logic;
+              rx_user : in std_logic;
+				  tx_8seg : out std_logic;
+				  tx_led : out std_logic;
+              rx_counter_led : in std_logic;
+              clk : in std_logic);
+    end pBlaze3_uart;
 --
 ------------------------------------------------------------------------------------
 --
 -- Start of test architecture
 --
-architecture Behavioral of uart_clock is
+architecture Behavioral of pBlaze3_uart is
 --
 ------------------------------------------------------------------------------------
 --
@@ -118,7 +120,9 @@ architecture Behavioral of uart_clock is
 signal address         : std_logic_vector(9 downto 0);
 signal instruction     : std_logic_vector(17 downto 0);
 signal port_id         : std_logic_vector(7 downto 0);
-signal out_port        : std_logic_vector(7 downto 0);
+signal out_port_user   : std_logic_vector(7 downto 0);
+signal out_port_8seg   : std_logic_vector(7 downto 0);
+signal out_port_led   : std_logic_vector(7 downto 0);
 signal in_port         : std_logic_vector(7 downto 0);
 signal write_strobe    : std_logic;
 signal read_strobe     : std_logic;
@@ -127,7 +131,10 @@ signal interrupt_ack   : std_logic;
 --
 -- Signals for connection of peripherals
 --
-signal uart_status_port : std_logic_vector(7 downto 0);
+signal uart_status_port_user : std_logic_vector(7 downto 0);
+signal uart_status_port_8seg : std_logic_vector(7 downto 0);
+signal uart_status_port_led : std_logic_vector(7 downto 0);
+signal uart_status_port_counter_led : std_logic_vector(7 downto 0);
 --
 -- Signals to form an timer generating an interrupt every microsecond
 --
@@ -136,16 +143,33 @@ signal timer_pulse   : std_logic;
 --
 -- Signals for UART connections
 --
-signal          baud_count : integer range 0 to 127 :=0;
-signal        en_16_x_baud : std_logic;
-signal       write_to_uart : std_logic;
-signal             tx_full : std_logic;
-signal        tx_half_full : std_logic;
-signal      read_from_uart : std_logic;
-signal             rx_data : std_logic_vector(7 downto 0);
-signal     rx_data_present : std_logic;
-signal             rx_full : std_logic;
-signal        rx_half_full : std_logic;
+signal          baud_count_38400 : integer range 0 to 127 :=0;
+signal        en_16_x_baud_38400 : std_logic;
+signal        write_to_uart_user : std_logic;
+signal              tx_full_user : std_logic;
+signal         tx_half_full_user : std_logic;
+signal       read_from_uart_user : std_logic;
+signal              rx_data_user : std_logic_vector(7 downto 0);
+signal      rx_data_present_user : std_logic;
+signal              rx_full_user : std_logic;
+signal         rx_half_full_user : std_logic;
+
+signal           baud_count_9600 : integer range 0 to 127 :=0;
+signal              en_16_x_9600 : std_logic;
+
+signal        write_to_uart_8seg : std_logic;
+signal              tx_full_8seg : std_logic;
+signal         tx_half_full_8seg : std_logic;
+
+signal       write_to_uart_led : std_logic;
+signal             tx_full_led : std_logic;
+signal        tx_half_full_led : std_logic;
+
+signal            read_from_uart_counter_led : std_logic;
+signal                   rx_data_counter_led : std_logic_vector(7 downto 0);
+signal           rx_data_present_counter_led : std_logic;
+signal                   rx_full_counter_led : std_logic;
+signal              rx_half_full_counter_led : std_logic;
 --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
@@ -221,7 +245,10 @@ begin
   -- UART FIFO status signals to form a bus
   --
 
-  uart_status_port <= "000" & rx_data_present & rx_full & rx_half_full & tx_full & tx_half_full ;
+  uart_status_port_user <= "000" & rx_data_present_user & rx_full_user & rx_half_full_user & tx_full_user & tx_half_full_user;
+  uart_status_port_8seg <= "000000" & tx_full_8seg & tx_half_full_8seg;
+  uart_status_port_led <= "000000" & tx_full_led & tx_half_full_led;
+  uart_status_port_counter_led <= "000" & rx_data_present_counter_led & rx_full_counter_led & rx_half_full_counter_led & "00";
 
   --
   -- The inputs connect via a pipelined multiplexer
@@ -230,15 +257,26 @@ begin
   input_ports: process(clk)
   begin
     if clk'event and clk='1' then
-
-      case port_id(0) is
-
-        
+              
+		  case port_id is
+       
         -- read UART status at address 00 hex
-        when '0' =>    in_port <= uart_status_port;
+        when "00000001" =>    in_port <= uart_status_port_user;
 
         -- read UART receive data at address 01 hex
-        when '1' =>    in_port <= rx_data;
+        when "00000010" =>    in_port <= rx_data_user;
+
+        -- read UART status at address 02 hex
+        when "00000011" =>    in_port <= uart_status_port_counter_led;
+		  
+		  -- read UART status at address 03 hex
+		  when "00000100" =>    in_port <= rx_data_counter_led;
+		  
+        -- transmit UART status at address 04 hex
+        when "00000101" =>    in_port <= uart_status_port_8seg;
+
+        -- transmit UART status at address 05 hex
+        when "00000110" =>    in_port <= uart_status_port_led;	  
         
         -- Don't care used for all other addresses to ensure minimum logic implementation
         when others =>    in_port <= "XXXXXXXX";  
@@ -249,7 +287,8 @@ begin
       -- The fact that the read strobe will occur after the actual data is read by 
       -- the KCPSM3 is acceptable because it is really means 'I have read you'!
 
-      read_from_uart <= read_strobe and port_id(0); 
+      read_from_uart_user <= read_strobe and (not port_id(0)) and port_id(1) and (not port_id(2)); 
+		read_from_uart_counter_led <= read_strobe and (not port_id(0)) and (not port_id(1)) and port_id(2); 
 
     end if;
 
@@ -269,12 +308,24 @@ begin
 
     if clk'event and clk='1' then
       if write_strobe='1' then
+              
+		  case port_id is
+		  
+		    -- read UART status at address 00 hex
+          when "00000111" =>    out_port_user <= out_port;
 
-        -- Alarm register at address 00 hex with data bit0 providing control
+          -- read UART receive data at address 01 hex
+          when "00001000" =>    out_port_8seg <= out_port;
 
-        if port_id(0)='0' then
-          alarm <= out_port(0);
-        end if;
+          -- read UART status at address 02 hex
+          when "00001001" =>    out_port_led <= out_port;	  
+        
+          -- Don't care used for all other addresses to ensure minimum logic implementation
+          when others =>    out_port_user <= "XXXXXXXX";
+									 out_port_8seg <= "XXXXXXXX";
+									 out_port_led <= "XXXXXXXX";
+
+        end case;
 
       end if;
 
@@ -298,47 +349,92 @@ begin
   -- Each contains an embedded 16-byte FIFO buffer.
   --
 
-  transmit: uart_tx 
-  port map (            data_in => out_port, 
-                   write_buffer => write_to_uart,
+
+  --User-pBlaze3 uart
+  tx_user: uart_tx 
+  port map (            data_in => out_port_user, 
+                   write_buffer => write_to_uart_user,
                    reset_buffer => '0',
-                   en_16_x_baud => en_16_x_baud,
-                     serial_out => tx,
-                    buffer_full => tx_full,
-               buffer_half_full => tx_half_full,
+                   en_16_x_baud => en_16_x_baud_38400,
+                     serial_out => tx_user,
+                    buffer_full => tx_full_user,
+               buffer_half_full => tx_half_full_user,
                             clk => clk );
 
-  receive: uart_rx
-  port map (            serial_in => rx,
-                         data_out => rx_data,
-                      read_buffer => read_from_uart,
+  rx_user: uart_rx
+  port map (            serial_in => rx_user,
+                         data_out => rx_data_user,
+                      read_buffer => read_from_uart_user,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud,
-              buffer_data_present => rx_data_present,
-                      buffer_full => rx_full,
-                 buffer_half_full => rx_half_full,
+                     en_16_x_baud => en_16_x_baud_38400,
+              buffer_data_present => rx_data_present_user,
+                      buffer_full => rx_full_user,
+                 buffer_half_full => rx_half_full_user,
                               clk => clk );  
-  
-  --
-  -- Set baud rate to 38400 for the UART communications
-  -- Requires en_16_x_baud to be 614400Hz which is a single cycle pulse every 90 cycles at 55MHz 
-  --
-  -- NOTE : If the highest value for baud_count exceeds 127 you will need to adjust 
-  --        the range of integers in the signal declaration for baud_count.
-  --
-
-  baud_timer: process(clk)
+										
+  baud_timer_38400: process(clk)
   begin
     if clk'event and clk='1' then
-      if baud_count=89 then
-           baud_count <= 0;
-         en_16_x_baud <= '1';
+      if baud_count_38400=9 then
+           baud_count_38400 <= 0;
+         en_16_x_baud_38400 <= '1';
        else
-           baud_count <= baud_count + 1;
-         en_16_x_baud <= '0';
+           baud_count_38400 <= baud_count_38400 + 1;
+         en_16_x_baud_38400 <= '0';
+      end if;
+    end if;
+  end process baud_timer;										
+										
+										
+  --pBlaze3-8seg uart								
+  tx_8seg: uart_tx 
+  port map (            data_in => out_port_8seg, 
+                   write_buffer => write_to_uart_8seg,
+                   reset_buffer => '0',
+                   en_16_x_baud => en_16_x_baud_9600,
+                     serial_out => tx_8seg,
+                    buffer_full => tx_full_8seg,
+               buffer_half_full => tx_half_full_8seg,
+                            clk => clk );
+									 									 
+									 
+  --pBlaze3-3 LEDs uart								 
+  tx_led: uart_tx 
+  port map (            data_in => out_port_led, 
+                   write_buffer => write_to_uart_led,
+                   reset_buffer => '0',
+                   en_16_x_baud => en_16_x_baud_9600,
+                     serial_out => tx_led,
+                    buffer_full => tx_full_led,
+               buffer_half_full => tx_half_full_led,
+                            clk => clk );
+								  
+ 
+  --pBlaze3-PWMCounter uart
+  rx_counter_led: uart_rx
+  port map (            serial_in => rx_counter_led,
+                         data_out => rx_data_counter_led,
+                      read_buffer => read_from_uart_counter_led,
+                     reset_buffer => '0',
+                     en_16_x_baud => en_16_x_baud_9600,
+              buffer_data_present => rx_data_present_counter_led,
+                      buffer_full => rx_full_counter_led,
+                 buffer_half_full => rx_half_full_counter_led,
+                              clk => clk );  
+
+  baud_timer_9600: process(clk)
+  begin
+    if clk'event and clk='1' then
+      if baud_count_9600=38 then
+           baud_count_9600 <= 0;
+         en_16_x_baud_9600 <= '1';
+       else
+           baud_count_9600 <= baud_count_9600 + 1;
+         en_16_x_baud_9600 <= '0';
       end if;
     end if;
   end process baud_timer;
+
 
   ----------------------------------------------------------------------------------------------------------------------------------
 
@@ -346,7 +442,7 @@ end Behavioral;
 
 ------------------------------------------------------------------------------------------------------------------------------------
 --
--- END OF FILE uart_clock.vhd
+-- END OF FILE pBlaze3_uart.vhd
 --
 ------------------------------------------------------------------------------------------------------------------------------------
 
