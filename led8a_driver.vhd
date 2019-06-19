@@ -67,7 +67,7 @@ begin
     end if;
 end process;
  
-FSM : process(current_state, rx_data, rx_data_present) is
+FSM : process(current_state, rx_data, rx_data_present) is --may not work because of stop between address code and address, data code and data
 begin
 	 read_from_uart <= '0';
     next_state <= current_state;
