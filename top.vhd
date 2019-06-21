@@ -71,6 +71,14 @@ component led_driver
            led_three : out  STD_LOGIC);
 end component;
 
+component pwm_counter
+    Port ( clk_in : in  STD_LOGIC;
+           led_one : in  STD_LOGIC;
+           led_two : in  STD_LOGIC;
+           led_three : in  STD_LOGIC;
+           tx : out  STD_LOGIC);
+end component;
+
 component led8a_driver 
    Port ( clk_in : in  STD_LOGIC;
 			  sseg : out  STD_LOGIC_VECTOR (6 downto 0);
@@ -81,8 +89,15 @@ end component;
 signal tx_8seg : std_logic;
 signal tx_led : std_logic;
 signal rx_counter_led : std_logic;
+signal led_one_value :   STD_LOGIC;
+signal led_two_value :   STD_LOGIC;
+signal led_three_value :   STD_LOGIC;
 
 begin
+
+led_one <= led_one_value;
+led_two <= led_two_value;
+led_three <= led_three_value;
 
 CLOCK_DIVIDE_BY_TWO: clk_div
     Port map( CLKIN_IN => clk, 
@@ -99,15 +114,22 @@ KCPSM3: pBlaze3_uart
 				  rx_counter_led => rx_counter_led,
               clk => clk_slow);
 
-LED_DRIVER: led_driver
-    Port map( clk_in => clk,
+LED_PWM_DRIVER: led_driver
+    Port map( clk_in => clk_slow,
               rx => tx_led,
-              led_one => led_one,
-              led_two => led_two,
-              led_three => led_three);
-	  
-SEG_DRIVER_UART: led8a_driver 
-    PORT MAP( clk_in => clk_slow,
+              led_one => led_one_value,
+              led_two => led_two_value,
+              led_three => led_three_value);
+
+PWM_COUNTER_DRIVER: pwm_counter
+    Port map( clk_in => clk_slow,
+              led_one => led_one_value,
+              led_two => led_two_value,
+              led_three => led_three_value,
+              tx => rx_counter_led);
+  
+SSEG_DRIVER: led8a_driver 
+    Port map( clk_in => clk_slow,
 				  sseg => sseg,
 				  an => an,
 				  rx => tx_8seg);

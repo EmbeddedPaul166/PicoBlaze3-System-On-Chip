@@ -19,6 +19,7 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -74,110 +75,88 @@ signal rst_one    : std_logic := '0';
 signal rst_two    : std_logic := '0';
 signal rst_three    : std_logic := '0';
 
+signal digit_address : std_logic_vector(1 downto 0);
+
+signal slow_clk    : std_logic := '0';
+
 type state is (address_ready, data_ready, address_received, data_received, no_data_received);
-signal current_state, next_state : state;
+signal current_state, previous_state: state := address_ready;
 
 begin
 
-
-state_change : process(clk_in) is
+clk_div_by_2: process(clk_in)
 begin
-    if rising_edge(clk_in) then
-        current_state <= next_state;
-    end if;
+	if rising_Edge(clk_in) then
+		slow_clk <= not slow_clk;
+	end if;
 end process;
- 
-FSM : process(current_state, rx_data, rx_data_present) is
-begin
 
+ 
+FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is
+begin
+	 if rising_Edge(clk_in) then
 	 read_from_uart <= '0';
 	 rst_one <= '0';
 	 rst_two <= '0';
-	 rst_three <= '0';
+	 rst_three <= '0';	 
 	 
-    next_state <= current_state;
     case current_state is
 
-		  when address_ready =>
-				
+		  when address_received =>	  
 				if rx_data_present = '0' then
-					next_state <= no_data_received;
-				else
-					if rx_data = std_logic_vector(to_unsigned(130, rx_data'length)) then
-						read_from_uart <= '1';
-						next_state <= address_received;
-					else
-					
-					end if;
-				end if;
-				
-		  when data_ready =>
-		  
-				if rx_data_present = '0' then
-					next_state <= no_data_received;
-				else
-					if rx_data = std_logic_vector(to_unsigned(132, rx_data'length)) then
-						read_from_uart <= '1';
-						next_state <= data_received;
-					else
-					
-					end if;
-				end if;
-
-		  when address_received =>
-		  
-				if rx_data_present = '0' then
-					next_state <= no_data_received;
+					previous_state <= current_state;
+					current_state <= no_data_received;
 				else
 					digit_address <= rx_data(1 downto 0);
 					read_from_uart <= '1';
-					next_state <= data_ready;
+					previous_state <= current_state;
+					current_state <= data_received;
 				end if;
 				
-        when data_received =>
-				
+        when data_received =>			
 				if rx_data_present = '0' then
-					next_state <= no_data_received;
+					previous_state <= current_state;
+					current_state <= no_data_received;
 				elsif digit_address = "01" then
-					pwm_one_value <= rx_data;
+					pwm_one_value <= to_integer(unsigned(rx_data));
 					rst_one <= '1';
 					read_from_uart <= '1';
-					next_state <= address_ready;
+					previous_state <= current_state;
+					current_state <= address_received;
 				elsif digit_address = "10" then
-					pwm_two_value <= rx_data;
+					pwm_two_value <= to_integer(unsigned(rx_data));
 					rst_two <= '1';
 					read_from_uart <= '1';
-					next_state <= address_ready;
+					previous_state <= current_state;
+					current_state <= address_received;
 				elsif digit_address = "11" then
-					pwm_three_value <= rx_data;
+					pwm_three_value <= to_integer(unsigned(rx_data));
 					rst_three <= '1';
 					read_from_uart <= '1';
-					next_state <= address_ready;
-				else
-				
+					previous_state <= current_state;
+					current_state <= address_received;
 				end if;
  
         when no_data_received =>
             if rx_data_present = '1' then
-					if rx_data = std_logic_vector(to_unsigned(130, rx_data'length)) then
-						next_state <= address_ready;
-					elsif rx_data = std_logic_vector(to_unsigned(132, rx_data'length)) then
-						next_state <= data_ready;
-					else
-					
+					if previous_state = address_received then
+						previous_state <= current_state;
+						current_state <= address_received;
+					elsif previous_state = data_received then
+						previous_state <= current_state;
+						current_state <= data_received;
 					end if;
-				else
-					next_state <= no_data_received;
             end if;
- 
+		  when others =>
     end case;
+	 end if;
 end process;
 
-  pwm_one_counter: process(clk_in)
+  pwm_one_counter: process(slow_clk, rst_one)
   begin
 	 if rst_one ='1' then
-		pwm_one_count <= '0';
-    elsif clk_in'event and clk_in='1' then
+		pwm_one_count <= 0;
+    elsif slow_clk'event and slow_clk='1' then
       if pwm_one_count = 127 then
            pwm_one_count <= 0;
            
@@ -193,11 +172,11 @@ end process;
     end if;
   end process pwm_one_counter;
 
-  pwm_two_counter: process(clk_in)
+  pwm_two_counter: process(slow_clk, rst_two)
   begin
 	 if rst_two ='1' then
-		pwm_two_count <= '0';
-    elsif clk_in'event and clk_in='1' then
+		pwm_two_count <= 0;
+    elsif slow_clk'event and slow_clk='1' then
       if pwm_two_count = 127 then
            pwm_two_count <= 0;
            
@@ -213,11 +192,11 @@ end process;
     end if;
   end process pwm_two_counter;
 
-  pwm_three_counter: process(clk_in)
+  pwm_three_counter: process(slow_clk, rst_three)
   begin
 	 if rst_three ='1' then
-		pwm_three_count <= '0';
-    elsif clk_in'event and clk_in='1' then
+		pwm_three_count <= 0;
+    elsif slow_clk'event and slow_clk='1' then
       if pwm_three_count = 127 then
            pwm_three_count <= 0;
            

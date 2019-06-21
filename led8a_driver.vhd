@@ -42,7 +42,7 @@ signal seg: std_logic_vector(6 downto 0);
 
 signal baud_count      : integer range 0 to 127 :=0;
 signal en_16_x_baud    : std_logic;
-signal read_from_uart  : std_logic;
+signal read_from_uart  : std_logic := '0';
 signal rx_data         : std_logic_vector(7 downto 0);
 signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
@@ -53,96 +53,68 @@ signal b :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN1
 signal c :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN2
 signal digit_address :  STD_LOGIC_VECTOR (1 downto 0);
 
-type state is (address_ready, data_ready, address_received, data_received, no_data_received);
-signal current_state, next_state : state;
+type state is (address_received, data_received, data_read, no_data_received);
+signal current_state, previous_state : state := address_received;
 
 begin
 
 
 
-state_change : process(clk_in) is
-begin
-    if rising_edge(clk_in) then
-        current_state <= next_state;
-    end if;
-end process;
  
-FSM : process(current_state, rx_data, rx_data_present) is --may not work because of stop between address code and address, data code and data
+FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is --may not work because of stop between address code and address, data code and data
 begin
+	 
+	 if rising_edge(clk_in) then
 	 read_from_uart <= '0';
-    next_state <= current_state;
     case current_state is
-
-		  when address_ready =>
-				
-				if rx_data_present = '0' then
-					next_state <= no_data_received;
-				else
-					if rx_data = std_logic_vector(to_unsigned(12, rx_data'length)) then
-						read_from_uart <= '1';
-						next_state <= address_received;
-					else
-					
-					end if;
-				end if;
-				
-		  when data_ready =>
-		  
-				if rx_data_present = '0' then
-					next_state <= no_data_received;
-				else
-					if rx_data = std_logic_vector(to_unsigned(10, rx_data'length)) then
-						read_from_uart <= '1';
-						next_state <= data_received;
-					else
-					
-					end if;
-				end if;
-
 		  when address_received =>
 		  
 				if rx_data_present = '0' then
-					next_state <= no_data_received;
-				else
+					previous_state <= current_state;
+					current_state <= no_data_received;
+				elsif rx_data_present = '1' then
 					digit_address <= rx_data(1 downto 0);
 					read_from_uart <= '1';
-					next_state <= data_ready;
+					previous_state <= current_state;
+					current_state <= data_received;
 				end if;
 				
         when data_received =>
 				
 				if rx_data_present = '0' then
-					next_state <= no_data_received;
+					previous_state <= current_state;
+					current_state <= no_data_received;
 				elsif digit_address = "01" then
 					a <= rx_data;
 					read_from_uart <= '1';
-					next_state <= address_ready;
+					previous_state <= current_state;
+					current_state <= address_received;
 				elsif digit_address = "10" then
 					b <= rx_data;
 					read_from_uart <= '1';
-					next_state <= address_ready;
+					previous_state <= current_state;
+					current_state <= address_received;
 				elsif digit_address = "11" then
 					c <= rx_data;
 					read_from_uart <= '1';
-					next_state <= address_ready;
-				else
-				
+					previous_state <= current_state;
+					current_state <= address_received;
 				end if;
  
         when no_data_received =>
             if rx_data_present = '1' then
-					if rx_data = std_logic_vector(to_unsigned(12, rx_data'length)) then
-						next_state <= address_ready;
-					elsif rx_data = std_logic_vector(to_unsigned(10, rx_data'length)) then
-						next_state <= data_ready;
-					else
-					
+					if previous_state = address_received then
+						previous_state <= current_state;
+						current_state <= address_received;
+					elsif previous_state = data_received then
+						previous_state <= current_state;
+						current_state <= data_received;
 					end if;
-				else
-					next_state <= no_data_received;
             end if;
- 
+			when others =>
+				
     end case;
+	 end if;
 end process;
 
 
