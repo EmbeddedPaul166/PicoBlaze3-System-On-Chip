@@ -32,6 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity pwm_counter is
     Port ( clk_in : in  STD_LOGIC;
+			  en_16_x_baud_9600 : in  std_logic;
            led_one : in  STD_LOGIC;
            led_two : in  STD_LOGIC;
            led_three : in  STD_LOGIC;
@@ -53,28 +54,15 @@ architecture Behavioral of pwm_counter is
 
 constant total_signal_count : integer range 0 to 255 := 255;
 
-signal           baud_count_9600 : integer range 0 to 127 :=0;
-signal         en_16_x_baud_9600 : std_logic := '0';
-signal             write_to_uart : std_logic;
+signal             write_to_uart : std_logic := '0';
 signal                   tx_full : std_logic;
 signal              tx_half_full : std_logic;
 signal                   data_tx : std_logic_vector(7 downto 0);
-
-signal pwm_one_value : integer range 0 to 255 :=255;
-signal pwm_two_value : integer range 0 to 255 :=255;
-signal pwm_three_value : integer range 0 to 255 :=255;
 
 signal pwm_one_value_up : integer range 0 to 255 :=0;
 signal pwm_two_value_up : integer range 0 to 255 :=0;
 signal pwm_three_value_up : integer range 0 to 255 :=0;
 
-signal led_one_fill_percentege : integer range 0 to 255 :=0;
-signal led_two_fill_percentege : integer range 0 to 255 :=0;
-signal led_three_fill_percentege : integer range 0 to 255 :=0;
-
-signal pwm_one_count : integer range 0 to 255 :=0;
-signal pwm_two_count : integer range 0 to 255 :=0;
-signal pwm_three_count : integer range 0 to 255 :=0;
 
 signal pwm_one_fin    : std_logic := '0';
 signal pwm_two_fin    : std_logic := '0';
@@ -89,7 +77,7 @@ signal current_state : state := led_one_write;
 
 begin
  
-FSM : process(current_state, data_tx, led_one_fill_percentege, led_two_fill_percentege, led_three_fill_percentege, pwm_one_value_up, pwm_two_value_up ,pwm_three_value_up) is
+FSM : process(clk_in, current_state, data_tx, pwm_one_value_up, pwm_two_value_up ,pwm_three_value_up) is
 begin
 	 if rising_edge(clk_in) then
 	 write_to_uart <= '0';	 
@@ -123,23 +111,11 @@ end process;
                buffer_half_full => tx_half_full,
                             clk => clk_in );
 
-  baud_timer_9600: process(clk_in)
-  begin
-    if clk_in'event and clk_in='1' then
-      if baud_count_9600=38 then
-           baud_count_9600 <= 0;
-         en_16_x_baud_9600 <= '1';
-       else
-           baud_count_9600 <= baud_count_9600 + 1;
-         en_16_x_baud_9600 <= '0';
-      end if;
-    end if;
-  end process baud_timer_9600;
 
   pwm_one_counter: process(clk_in, rst_one)
   begin
 	 if rst_one ='1' then
-		pwm_one_count <= 0;
+		pwm_one_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
 		pwm_one_fin <= '0';
       if led_one = '1' then
@@ -156,7 +132,7 @@ end process;
   pwm_two_counter: process(clk_in, rst_two)
   begin
 	 if rst_two ='1' then
-		pwm_two_count <= 0;
+		pwm_two_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
 		pwm_two_fin <= '0';
       if led_two = '1' then
@@ -173,7 +149,7 @@ end process;
   pwm_three_counter: process(clk_in, rst_three)
   begin
 	 if rst_three ='1' then
-		pwm_three_count <= 0;
+		pwm_three_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
 		pwm_three_fin <= '0';
       if led_three = '1' then

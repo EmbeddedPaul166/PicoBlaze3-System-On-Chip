@@ -6,6 +6,7 @@ entity led8a_driver is
     Generic ( MAIN_CLK: natural:=100E6;                 -- main frequency in Hz
               CLKDIV_INTERNAL: boolean:=True);         -- 
     Port ( clk_in : in  STD_LOGIC;                      -- main_clk or slow_clk (external)
+			  en_16_x_baud_9600 : in  STD_LOGIC;
            sseg : out  STD_LOGIC_VECTOR (6 downto 0);   -- active Low
            an : out  STD_LOGIC_VECTOR (2 downto 0);    -- active Low
            rx: in std_logic);
@@ -40,8 +41,6 @@ signal digit: std_logic_vector(7 downto 0):=x"00";
 signal one_hot,address: std_logic_vector(2 downto 0):="011";
 signal seg: std_logic_vector(6 downto 0);
 
-signal baud_count      : integer range 0 to 127 :=0;
-signal en_16_x_baud    : std_logic;
 signal read_from_uart  : std_logic := '0';
 signal rx_data         : std_logic_vector(7 downto 0);
 signal rx_data_present : std_logic;
@@ -53,7 +52,7 @@ signal b :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN1
 signal c :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN2
 signal digit_address :  STD_LOGIC_VECTOR (1 downto 0);
 
-type state is (address_received, data_received, data_read, no_data_received);
+type state is (address_received, data_received, no_data_received);
 signal current_state, previous_state : state := address_received;
 
 begin
@@ -129,24 +128,11 @@ sseg_out: sseg <= not(seg);
                          data_out => rx_data,
                       read_buffer => read_from_uart,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud,
+                     en_16_x_baud => en_16_x_baud_9600,
               buffer_data_present => rx_data_present,
                       buffer_full => rx_full,
                  buffer_half_full => rx_half_full,
                               clk => clk_in );  
-
-  baud_timer_9600: process(clk_in)
-  begin
-    if clk_in'event and clk_in='1' then
-      if baud_count=38 then
-           baud_count <= 0;
-         en_16_x_baud <= '1';
-       else
-           baud_count <= baud_count + 1;
-         en_16_x_baud <= '0';
-      end if;
-    end if;
-  end process baud_timer_9600;
 
  addr_reg: process(slow_clk)
  begin

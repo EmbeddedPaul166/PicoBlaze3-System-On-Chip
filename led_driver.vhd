@@ -32,6 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity led_driver is
     Port ( clk_in : in  STD_LOGIC;
+			  en_16_x_baud_9600 : in  std_logic;
            rx : in  STD_LOGIC;
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
@@ -55,9 +56,7 @@ architecture Behavioral of led_driver is
                             clk : in std_logic);
   end component;
 
-signal baud_count      : integer range 0 to 127 :=0;
-signal en_16_x_baud    : std_logic;
-signal read_from_uart  : std_logic;
+signal read_from_uart  : std_logic := '0';
 signal rx_data         : std_logic_vector(7 downto 0);
 signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
@@ -75,12 +74,12 @@ signal rst_one    : std_logic := '0';
 signal rst_two    : std_logic := '0';
 signal rst_three    : std_logic := '0';
 
-signal digit_address : std_logic_vector(1 downto 0);
+signal digit_address : std_logic_vector(1 downto 0) := "00";
 
 signal slow_clk    : std_logic := '0';
 
-type state is (address_ready, data_ready, address_received, data_received, no_data_received);
-signal current_state, previous_state: state := address_ready;
+type state is (address_received, data_received, no_data_received);
+signal current_state, previous_state: state := address_received;
 
 begin
 
@@ -217,24 +216,12 @@ end process;
                          data_out => rx_data,
                       read_buffer => read_from_uart,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud,
+                     en_16_x_baud => en_16_x_baud_9600,
               buffer_data_present => rx_data_present,
                       buffer_full => rx_full,
                  buffer_half_full => rx_half_full,
                               clk => clk_in );  
 
-  baud_timer_9600: process(clk_in)
-  begin
-    if clk_in'event and clk_in='1' then
-      if baud_count=38 then
-           baud_count <= 0;
-         en_16_x_baud <= '1';
-       else
-           baud_count <= baud_count + 1;
-         en_16_x_baud <= '0';
-      end if;
-    end if;
-  end process baud_timer_9600;
 
 
 end Behavioral;

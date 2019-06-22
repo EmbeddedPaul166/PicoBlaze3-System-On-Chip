@@ -46,7 +46,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --
 --
 entity pBlaze3_uart is
-    Port (    tx_user : out std_logic;
+    Port (    en_16_x_baud_9600 : in  std_logic;
+              en_16_x_baud_38400 : in  std_logic;
+				  tx_user : out std_logic;
               rx_user : in std_logic;
 				  tx_8seg : out std_logic;
 				  tx_led : out std_logic;
@@ -144,8 +146,7 @@ signal timer_pulse   : std_logic;
 --
 -- Signals for UART connections
 --
-signal          baud_count_38400 : integer range 0 to 127 :=0;
-signal        en_16_x_baud_38400 : std_logic := '0';
+
 signal        write_to_uart_user : std_logic;
 signal              tx_full_user : std_logic;
 signal         tx_half_full_user : std_logic;
@@ -154,9 +155,6 @@ signal              rx_data_user : std_logic_vector(7 downto 0);
 signal      rx_data_present_user : std_logic;
 signal              rx_full_user : std_logic;
 signal         rx_half_full_user : std_logic;
-
-signal           baud_count_9600 : integer range 0 to 127 :=0;
-signal         en_16_x_baud_9600 : std_logic := '0';
 
 signal        write_to_uart_8seg : std_logic;
 signal              tx_full_8seg : std_logic;
@@ -372,20 +370,7 @@ begin
               buffer_data_present => rx_data_present_user,
                       buffer_full => rx_full_user,
                  buffer_half_full => rx_half_full_user,
-                              clk => clk );  
-										
-  baud_timer_38400: process(clk)
-  begin
-    if clk'event and clk='1' then
-      if baud_count_38400=9 then
-           baud_count_38400 <= 0;
-         en_16_x_baud_38400 <= '1';
-       else
-           baud_count_38400 <= baud_count_38400 + 1;
-         en_16_x_baud_38400 <= '0';
-      end if;
-    end if;
-  end process baud_timer_38400;										
+                              clk => clk );  										
 										
 										
   --pBlaze3-8seg uart								
@@ -423,19 +408,6 @@ begin
                       buffer_full => rx_full_counter_led,
                  buffer_half_full => rx_half_full_counter_led,
                               clk => clk );  
-
-  baud_timer_9600: process(clk)
-  begin
-    if clk'event and clk='1' then
-      if baud_count_9600=38 then
-           baud_count_9600 <= 0;
-         en_16_x_baud_9600 <= '1';
-       else
-           baud_count_9600 <= baud_count_9600 + 1;
-         en_16_x_baud_9600 <= '0';
-      end if;
-    end if;
-  end process baud_timer_9600;
 
 
   ----------------------------------------------------------------------------------------------------------------------------------

@@ -53,8 +53,16 @@ component clk_div
            CLK0_OUT        : out   std_logic);
 end component;
 
+component baud_generator
+    Port ( clk : in  STD_LOGIC;
+           en_16_x_baud_9600 : out  STD_LOGIC;
+           en_16_x_baud_38400 : out  STD_LOGIC);
+end component;
+
 component pBlaze3_uart
-    Port (    tx_user : out std_logic;
+    Port (    en_16_x_baud_9600 : in  std_logic;
+              en_16_x_baud_38400 : in  std_logic;
+				  tx_user : out std_logic;
               rx_user : in std_logic;
 				  tx_8seg : out std_logic;
 				  tx_led : out std_logic;
@@ -65,6 +73,7 @@ end component;
 
 component led_driver
     Port ( clk_in : in  STD_LOGIC;
+			  en_16_x_baud_9600 : in  STD_LOGIC;
            rx : in  STD_LOGIC;
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
@@ -73,6 +82,7 @@ end component;
 
 component pwm_counter
     Port ( clk_in : in  STD_LOGIC;
+			  en_16_x_baud_9600 : in  STD_LOGIC;
            led_one : in  STD_LOGIC;
            led_two : in  STD_LOGIC;
            led_three : in  STD_LOGIC;
@@ -80,12 +90,16 @@ component pwm_counter
 end component;
 
 component led8a_driver 
-   Port ( clk_in : in  STD_LOGIC;
+   Port (  clk_in : in  STD_LOGIC;
+			  en_16_x_baud_9600 : in  STD_LOGIC;
 			  sseg : out  STD_LOGIC_VECTOR (6 downto 0);
 			  an : out  STD_LOGIC_VECTOR (2 downto 0);
-           rx: in std_logic);
+           rx: in STD_LOGIC);
 end component;	  
-			
+
+
+signal en_16_x_baud_9600_connect : std_logic;
+signal en_16_x_baud_38400_connect : std_logic;
 signal tx_8seg : std_logic;
 signal tx_led : std_logic;
 signal rx_counter_led : std_logic;
@@ -106,8 +120,15 @@ CLOCK_DIVIDE_BY_TWO: clk_div
 				  CLKIN_IBUFG_OUT => open, 
               CLK0_OUT => open);
 
+BAUD_GEN: baud_generator
+    Port map( clk => clk_slow,
+              en_16_x_baud_9600 => en_16_x_baud_9600_connect,
+              en_16_x_baud_38400 => en_16_x_baud_38400_connect);
+
 KCPSM3: pBlaze3_uart
-    Port map( tx_user => tx,
+    Port map( en_16_x_baud_9600 => en_16_x_baud_9600_connect,
+              en_16_x_baud_38400 => en_16_x_baud_38400_connect,
+				  tx_user => tx,
               rx_user => rx,
 				  tx_8seg => tx_8seg,
               tx_led => tx_led,
@@ -116,6 +137,7 @@ KCPSM3: pBlaze3_uart
 
 LED_PWM_DRIVER: led_driver
     Port map( clk_in => clk_slow,
+				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               rx => tx_led,
               led_one => led_one_value,
               led_two => led_two_value,
@@ -123,6 +145,7 @@ LED_PWM_DRIVER: led_driver
 
 PWM_COUNTER_DRIVER: pwm_counter
     Port map( clk_in => clk_slow,
+				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               led_one => led_one_value,
               led_two => led_two_value,
               led_three => led_three_value,
@@ -130,6 +153,7 @@ PWM_COUNTER_DRIVER: pwm_counter
   
 SSEG_DRIVER: led8a_driver 
     Port map( clk_in => clk_slow,
+				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
 				  sseg => sseg,
 				  an => an,
 				  rx => tx_8seg);
