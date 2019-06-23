@@ -147,6 +147,7 @@ signal timer_pulse   : std_logic;
 -- Signals for UART connections
 --
 
+
 signal        write_to_uart_user : std_logic;
 signal              tx_full_user : std_logic;
 signal         tx_half_full_user : std_logic;

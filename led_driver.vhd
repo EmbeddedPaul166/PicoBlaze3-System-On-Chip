@@ -157,16 +157,14 @@ end process;
 		pwm_one_count <= 0;
     elsif slow_clk'event and slow_clk='1' then
       if pwm_one_count = 127 then
-           pwm_one_count <= 0;
-           
+           pwm_one_count <= 0;         
        else
            pwm_one_count <= pwm_one_count + 1;
 			  if pwm_one_count >= pwm_one_value then
 				led_one <= '1';
 			  else
 				led_one <= '0';
-			  end if;
-           
+			  end if;          
       end if;
     end if;
   end process pwm_one_counter;
