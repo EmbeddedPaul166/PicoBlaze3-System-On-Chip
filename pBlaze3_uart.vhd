@@ -82,7 +82,7 @@ architecture Behavioral of pBlaze3_uart is
 --
 -- declaration of program ROM
 --
-  component uclock
+  component uart_kcpsm3
     Port (      address : in std_logic_vector(9 downto 0);
             instruction : out std_logic_vector(17 downto 0);
                     clk : in std_logic);
@@ -195,7 +195,7 @@ begin
                      reset => '0',
                        clk => clk);
  
-  program_rom: uclock
+  program_rom: uart_kcpsm3
     port map(      address => address,
                instruction => instruction,
                        clk => clk);
@@ -260,22 +260,22 @@ begin
               
 		  case port_id is
        
-        -- read UART status at address 00 hex
+        -- read UART status at address 01 hex
         when "00000001" =>    in_port <= uart_status_port_user;
 
-        -- read UART receive data at address 01 hex
+        -- read UART receive data at address 02 hex
         when "00000010" =>    in_port <= rx_data_user;
 
-        -- read UART status at address 02 hex
+        -- read UART status at address 03 hex
         when "00000011" =>    in_port <= uart_status_port_counter_led;
 		  
-		  -- read UART status at address 03 hex
+		  -- read UART status at address 04 hex
 		  when "00000100" =>    in_port <= rx_data_counter_led;
 		  
-        -- transmit UART status at address 04 hex
+        -- transmit UART status at address 05 hex
         when "00000101" =>    in_port <= uart_status_port_8seg;
 
-        -- transmit UART status at address 05 hex
+        -- transmit UART status at address 06 hex
         when "00000110" =>    in_port <= uart_status_port_led;	  
         
         -- Don't care used for all other addresses to ensure minimum logic implementation
@@ -311,13 +311,13 @@ begin
               
 		  case port_id is
 		  
-		    -- read UART status at address 00 hex
+		    -- write UART user
           when "00001000" =>    out_port_user <= out_port;
 
-          -- read UART receive data at address 01 hex
+          -- write UART 8seg
           when "00010000" =>    out_port_8seg <= out_port;
 
-          -- read UART status at address 02 hex
+          -- write UART led
           when "00100000" =>    out_port_led <= out_port;	  
         
           -- Don't care used for all other addresses to ensure minimum logic implementation

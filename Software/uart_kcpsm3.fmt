@@ -5,16 +5,16 @@
                       ;
                       ;Port definitions
                       ;
-                      CONSTANT UART_status_port, 00  ;UART status input
+                      CONSTANT UART_status_port, 01  ;UART status input
                       CONSTANT tx_half_full, 01      ;  Transmitter     half full - bit0
                       CONSTANT tx_full, 02           ;    FIFO               full - bit1
                       CONSTANT rx_half_full, 04      ;  Receiver        half full - bit2
                       CONSTANT rx_full, 08           ;    FIFO               full - bit3
                       CONSTANT rx_data_present, 10   ;               data present - bit4
                       ;
-                      CONSTANT UART_read_port, 01    ;UART Rx data input
+                      CONSTANT UART_read_port, 02    ;UART Rx data input
                       ;
-                      CONSTANT UART_write_port, 01   ;UART Tx data output
+                      CONSTANT UART_write_port, 08   ;UART Tx data output
                       ;
                       CONSTANT alarm_port, 00        ;Alarm output
                       CONSTANT alarm_control, 01     ;     bit0

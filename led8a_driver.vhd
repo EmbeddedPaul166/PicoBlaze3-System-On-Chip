@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity led8a_driver is
-    Generic ( MAIN_CLK: natural:=100E6;                 -- main frequency in Hz
+    Generic ( MAIN_CLK: natural:=6000000;                 -- main frequency in Hz
               CLKDIV_INTERNAL: boolean:=True);         -- 
     Port ( clk_in : in  STD_LOGIC;                      -- main_clk or slow_clk (external)
 			  en_16_x_baud_9600 : in  STD_LOGIC;
@@ -47,9 +47,9 @@ signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
 signal rx_half_full    : std_logic;
 
-signal a :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN0
-signal b :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN1
-signal c :  STD_LOGIC_VECTOR (7 downto 0);       -- digit AN2
+signal a :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN0
+signal b :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN1
+signal c :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN2
 signal digit_address :  STD_LOGIC_VECTOR (1 downto 0);
 
 type state is (address_received, data_received, no_data_received);
@@ -144,28 +144,23 @@ sseg_out: sseg <= not(seg);
 
  data_mux: with address select
  digit <= a when "011",
-          b when "110",
-          c when "101",
+          b when "101",
+          c when "110",
           DONTCARE when others;
 
- sseg_dec: with digit select           --        0
- seg <= "0000110" when x"31",          --      -----
-        "1011011" when x"32",          --    5|     |1
-        "1001111" when x"33",          --     |  6  |
-        "1100110" when x"34",          --      -----
-        "1101101" when x"35",          --    4|     |2
-        "1111101" when x"36",          --     |     |
-        "0000111" when x"37",          --      -----
-        "1111111" when x"38",          --        3
-        "1101111" when x"39",
-        "1110111" when x"61",
-        "1111100" when x"62",
-        "0111001" when x"63",
-        "1011110" when x"64",
-        "1111001" when x"65",
-        "1110001" when x"66",
-        "0111111" when x"30",
-        "1000000" when others;
+ sseg_dec: with digit select                
+ seg <= "1111110" when "00000000",			  --        0
+		  "0110000" when "00000001",          --      -----
+        "1101101" when "00000010",          --    5|     |1
+        "1111001" when "00000011",          --     |  6  |
+        "0110011" when "00000100",          --      -----
+        "1011011" when "00000101",          --    4|     |2
+        "1011111" when "00000110",          --     |     |
+        "1110000" when "00000111",          --      -----
+        "1111111" when "00001000",          --        3
+        "1111011" when "00001001",
+        "0000000" when others;
+
 
 -- clock signals
  clkdiv_true: if CLKDIV_INTERNAL generate
