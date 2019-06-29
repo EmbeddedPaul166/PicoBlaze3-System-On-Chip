@@ -64,9 +64,9 @@ component pBlaze3_uart
               en_16_x_baud_38400 : in  std_logic;
 				  tx_user : out std_logic;
               rx_user : in std_logic;
-				  tx_8seg : out std_logic;
+				  tx_sseg : out std_logic;
 				  tx_led : out std_logic;
-              rx_counter_led : in std_logic;
+              rx_pwm_gauge : in std_logic;
               clk : in std_logic);
 end component;
 
@@ -100,9 +100,9 @@ end component;
 
 signal en_16_x_baud_9600_connect : std_logic;
 signal en_16_x_baud_38400_connect : std_logic;
-signal tx_8seg : std_logic;
+signal tx_sseg : std_logic;
 signal tx_led : std_logic;
-signal rx_counter_led : std_logic;
+signal rx_pwm_gauge : std_logic;
 signal led_one_value :   STD_LOGIC;
 signal led_two_value :   STD_LOGIC;
 signal led_three_value :   STD_LOGIC;
@@ -130,12 +130,12 @@ KCPSM3: pBlaze3_uart
               en_16_x_baud_38400 => en_16_x_baud_38400_connect,
 				  tx_user => tx,
               rx_user => rx,
-				  tx_8seg => tx_8seg,
+				  tx_sseg => tx_sseg,
               tx_led => tx_led,
-				  rx_counter_led => rx_counter_led,
+				  rx_pwm_gauge => rx_pwm_gauge,
               clk => clk_slow);
 
-LED_PWM_DRIVER: led_driver
+LED: led_driver
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               rx => tx_led,
@@ -143,20 +143,20 @@ LED_PWM_DRIVER: led_driver
               led_two => led_two_value,
               led_three => led_three_value);
 
-PWM_COUNTER_DRIVER: pwm_counter
+PWM_GAUGE: pwm_counter
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               led_one => led_one_value,
               led_two => led_two_value,
               led_three => led_three_value,
-              tx => rx_counter_led);
+              tx => rx_pwm_gauge);
   
-SSEG_DRIVER: led8a_driver 
+SSEG: led8a_driver 
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
 				  sseg => sseg,
 				  an => an,
-				  rx => tx_8seg);
+				  rx => tx_sseg);
 				  
 end Behavioral;
 

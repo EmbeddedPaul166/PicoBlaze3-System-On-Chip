@@ -1,70 +1,44 @@
-                        ;KCPSM3 Program - Real Time Clock with UART communication.
-                        ;
-                        ;Ken Chapman - Xilinx Ltd - October 2003
+                        ;Declare necessary constants used
                         ;
                         ;
-                        ;Port definitions
+                        ;   KCPSM3-USER
+                        CONSTANT UART_status_port_user, 01           
+                        CONSTANT UART_read_port_user, 02
+                        CONSTANT UART_write_port_user, 08
+                        CONSTANT tx_half_full_user, 00                
+                        CONSTANT tx_full_user, 01                     
+                        CONSTANT rx_half_full_user, 02                
+                        CONSTANT rx_full_user, 03                     
+                        CONSTANT rx_data_present_user, 04             
                         ;
-                        CONSTANT UART_status_port, 01            ;UART status input
-                        CONSTANT tx_half_full, 01                ;  Transmitter     half full - bit0
-                        CONSTANT tx_full, 02                     ;    FIFO               full - bit1
-                        CONSTANT rx_half_full, 04                ;  Receiver        half full - bit2
-                        CONSTANT rx_full, 08                     ;    FIFO               full - bit3
-                        CONSTANT rx_data_present, 10             ;               data present - bit4
+                        ;   PWM_METER-KCPSM3
+                        CONSTANT UART_status_port_pwm_gauge, 03            
+                        CONSTANT UART_read_port_pwm_gauge, 04
+                        CONSTANT rx_half_full_pwm_gauge, 00                
+                        CONSTANT rx_full_pwm_gauge, 01                     
+                        CONSTANT rx_data_present_pwm_gauge, 02 
                         ;
-                        CONSTANT UART_read_port, 02              ;UART Rx data input
+                        ;   KCPSM3-SSEG
+                        CONSTANT UART_status_port_sseg, 05           
+                        CONSTANT UART_write_port_sseg, 10
+                        CONSTANT tx_half_full_sseg, 00                
+                        CONSTANT tx_full_sseg, 01                       
                         ;
-                        CONSTANT UART_write_port, 08             ;UART Tx data output
+                        ;   KCPSM3-LED
+                        CONSTANT UART_status_port_led, 06           
+                        CONSTANT UART_write_port_led, 20
+                        CONSTANT tx_half_full_led, 00                
+                        CONSTANT tx_full_led, 01                       
                         ;
-                        CONSTANT alarm_port, 00                  ;Alarm output
-                        CONSTANT alarm_control, 01               ;     bit0
                         ;
-                        ;Special Register usage
                         ;
+                        ; 
                         NAMEREG sF, UART_data                    ;used to pass data to and from the UART
                         ;
                         NAMEREG sE, store_pointer                ;used to pass location of data in scratch pad memory
                         ;
-                        ;Two registers to form a 16-bit counter used to count
-                        ;interrupt pulses generated at 1us intervals.
-                        ;
-                        NAMEREG sD, int_counter_lsb              ;lower 8-bits
-                        NAMEREG sC, int_counter_msb              ;upper 8-bits
-                        ;
-                        ;
-                        ;Scratch Pad Memory Locations
-                        ;
-                        ;
-                        CONSTANT us_time_stamp_lsb, 00           ;16-bit micro-second time stamp
-                        CONSTANT us_time_stamp_msb, 01
-                        ;
-                        CONSTANT us_time_lsb, 02                 ;16-bit micro-second real time value
-                        CONSTANT us_time_msb, 03
-                        ;
-                        CONSTANT ms_time_lsb, 04                 ;16-bit milli-second real time value
-                        CONSTANT ms_time_msb, 05
-                        ;
-                        CONSTANT real_time_hours, 06             ;Current clock time
-                        CONSTANT real_time_minutes, 07
-                        CONSTANT real_time_seconds, 08
-                        ;
-                        CONSTANT alarm_time_hours, 09            ;Alarm time
-                        CONSTANT alarm_time_minutes, 0A
-                        CONSTANT alarm_time_seconds, 0B
-                        ;
-                        CONSTANT alarm_status, 0C                ;Alarm status
-                        CONSTANT alarm_active, 01                ;    bit0 - Alarm is active
-                        CONSTANT alarm_armed, 02                 ;    bit1 - Alarm is armed
-                        ;
-                        CONSTANT time_preserve0, 10              ;storage for protection of registers
-                        CONSTANT time_preserve1, 11              ;used by the real time clock routine.
-                        CONSTANT time_preserve2, 12
-                        CONSTANT time_preserve3, 13
-                        CONSTANT time_preserve4, 14
-                        CONSTANT time_preserve5, 15
-                        ;
-                        ;UART character strings will be stored in scratch pad memory ending in carriage return.
-                        ;A string can be up to 16 characters with the start location defined by this constant.
+                        ;   UART character strings will be stored in scratch pad memory ending in carriage return.
+                        ;   A string can be up to 16 characters with the start location defined by this constant.
                         ;
                         CONSTANT string_start, 20
                         ;
@@ -82,11 +56,6 @@
                         STORE s0, real_time_hours
                         STORE s0, real_time_minutes
                         STORE s0, real_time_seconds
-                        STORE s0, alarm_time_hours
-                        STORE s0, alarm_time_minutes
-                        STORE s0, alarm_time_seconds
-                        STORE s0, alarm_status                   ;clear and disable alarm
-                        CALL alarm_drive                         ;turn off alarm control output port
                         LOAD int_counter_lsb, 00                 ;clear 'us' interrupt counter
                         LOAD int_counter_msb, 00
                         ENABLE INTERRUPT                         ;enable the 1us interrupts
@@ -113,7 +82,6 @@
                         COMPARE s0, character_T                  ;start of 'TIME' command?
                         JUMP Z, test_for_TIME
                         COMPARE s0, character_A                  ;start of 'ALARM' command?
-                        JUMP Z, test_for_ALARM
                         ;
                         ;trap other command starts here
                         ;
@@ -147,65 +115,6 @@
                         STORE s0, ms_time_msb
                         CALL transmit_time                       ;transmit new time to UART
                         JUMP prompt_input
-                        ;
-                        ;
-        test_for_ALARM: CALL fetch_char_from_memory
-                        COMPARE s0, character_L                  ;test for rest of 'ALARM'
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_A
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_R
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_M
-                        JUMP NZ, bad_input_command
-                        ;now have a valid ALARM command to process
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_CR                 ;carriage return means display alarm time
-                        JUMP NZ, set_alarm_command
-                        CALL transmit_alarm_time                 ;transmit time to UART
-                        JUMP prompt_input
-     set_alarm_command: COMPARE s0, character_space              ;test for ON or OFF command
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_O
-                        JUMP Z, set_alarm_on_off
-                        SUB s1, 01                               ;move memory pointer back to first character of 'hh:mm:ss' string
-                        CALL test_time_string                    ;interpret 'hh:mm:ss' string
-                        JUMP C, prompt_input                     ;test for invalid input
-                        STORE s6, alarm_time_hours               ;set new time into clock
-                        STORE s5, alarm_time_minutes
-                        STORE s4, alarm_time_seconds
-                        CALL transmit_alarm_time                 ;transmit new alarm time and status
-                        JUMP prompt_input
-      set_alarm_on_off: CALL fetch_char_from_memory
-                        COMPARE s0, character_N                  ;test for 'ON'
-                        JUMP NZ, test_OFF
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_CR
-                        JUMP NZ, bad_input_command
-                        FETCH s0, alarm_status                   ;turn alarm on
-                        OR s0, alarm_armed
-                        STORE s0, alarm_status
-                        CALL transmit_alarm_time                 ;transmit alarm time and status
-                        JUMP prompt_input
-              test_OFF: COMPARE s0, character_F                  ;test for for 'OFF'
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_F
-                        JUMP NZ, bad_input_command
-                        CALL fetch_char_from_memory
-                        COMPARE s0, character_CR
-                        JUMP NZ, bad_input_command
-                        LOAD s0, 00                              ;turn alarm off and stop an active alarm
-                        STORE s0, alarm_status
-                        CALL alarm_drive                         ;turn off alarm
-                        CALL transmit_alarm_time                 ;transmit alarm time and status
-                        JUMP prompt_input
-                        ;
-                        ;
                         ;
                         ;
                         ;Read an 'hh:mm:ss' time string and provide new values.
@@ -330,25 +239,6 @@ fetch_char_from_memory: FETCH s0, (s1)                           ;read character
             UART_write: OUTPUT UART_data, UART_write_port
                         RETURN
                         ;
-                        ;
-                        ;
-                        ;
-                        ;Alarm output
-                        ;
-                        ;Uses the alarm status scratch pad memory to set or reset the alarm
-                        ;control bit on the alarm output port.
-                        ;
-                        ;Registers used s0
-                        ;
-           alarm_drive: FETCH s0, alarm_status                   ;read status
-                        AND s0, alarm_active                     ;isolate bit0
-                        OUTPUT s0, alarm_port
-                        RETURN
-                        ;
-                        ;
-                        ;
-                        ;
-                        ;
                         ;Transmit the time to the UART port in the format hh:mm:ss and end
                         ;with a carriage return.
                         ;
@@ -393,34 +283,12 @@ fetch_char_from_memory: FETCH s0, (s1)                           ;read character
                         ;
                         ;Registers used s0, s1, s2, 'store_pointer' and 'UART_data'.
                         ;
-   transmit_alarm_time: LOAD store_pointer, alarm_time_hours     ;locate alarm time in memory
-                        CALL time_to_ASCII
-                        CALL transmit_string
-                        CALL send_Alarm
-                        CALL send_space
-                        FETCH s0, alarm_status                   ;read alarm status
-                        TEST s0, alarm_active                    ;test for active
-                        JUMP Z, test_armed
-                        CALL send_Active
-                        RETURN
             test_armed: TEST s0, alarm_armed                     ;test for on
                         JUMP Z, alarm_is_off
                         CALL send_ON
                         RETURN
-          alarm_is_off: CALL send_OFF
-                        RETURN
-                        ;
-                        ;
-                        ;Transmit ASCII string to UART
-                        ;
-                        ;An ASCII string must be provided in scratch pad memory commencing at the
-                        ;location specified by a constant named 'string_start'. The string must
-                        ;end with a carriage return (0D).
-                        ;
-                        ;Registers used s1 and 'UART_data'.
-                        ;               s0 is then used in subroutine 'send_to_UART'
-                        ;
        transmit_string: LOAD s1, string_start                    ;locate start of string
+                        ;
           next_char_tx: FETCH UART_data, (s1)                    ;read character from memory
                         CALL send_to_UART                        ;transmit character
                         COMPARE UART_data, character_CR          ;test for last character
@@ -608,18 +476,6 @@ fetch_char_from_memory: FETCH s0, (s1)                           ;read character
                         RETURN
                         ;
                         ;Send 'Alarm' string to the UART
-                        ;
-            send_Alarm: LOAD UART_data, character_A
-                        CALL send_to_UART
-                        LOAD UART_data, character_l
-                        CALL send_to_UART
-                        LOAD UART_data, character_a
-                        CALL send_to_UART
-                        LOAD UART_data, character_r
-                        CALL send_to_UART
-                        LOAD UART_data, character_m
-                        CALL send_to_UART
-                        RETURN
                         ;
                         ;Send 'OFF' string to the UART
                         ;

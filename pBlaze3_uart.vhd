@@ -50,9 +50,9 @@ entity pBlaze3_uart is
               en_16_x_baud_38400 : in  std_logic;
 				  tx_user : out std_logic;
               rx_user : in std_logic;
-				  tx_8seg : out std_logic;
+				  tx_sseg : out std_logic;
 				  tx_led : out std_logic;
-              rx_counter_led : in std_logic;
+              rx_pwm_gauge : in std_logic;
               clk : in std_logic);
     end pBlaze3_uart;
 --
@@ -123,7 +123,7 @@ signal address         : std_logic_vector(9 downto 0);
 signal instruction     : std_logic_vector(17 downto 0);
 signal port_id         : std_logic_vector(7 downto 0);
 signal out_port_user   : std_logic_vector(7 downto 0);
-signal out_port_8seg   : std_logic_vector(7 downto 0);
+signal out_port_sseg   : std_logic_vector(7 downto 0);
 signal out_port_led   : std_logic_vector(7 downto 0);
 signal out_port   : std_logic_vector(7 downto 0);
 signal in_port         : std_logic_vector(7 downto 0);
@@ -135,9 +135,9 @@ signal interrupt_ack   : std_logic;
 -- Signals for connection of peripherals
 --
 signal uart_status_port_user : std_logic_vector(7 downto 0);
-signal uart_status_port_8seg : std_logic_vector(7 downto 0);
+signal uart_status_port_sseg : std_logic_vector(7 downto 0);
 signal uart_status_port_led : std_logic_vector(7 downto 0);
-signal uart_status_port_counter_led : std_logic_vector(7 downto 0);
+signal uart_status_port_pwm_gauge : std_logic_vector(7 downto 0);
 --
 -- Signals to form an timer generating an interrupt every microsecond
 --
@@ -157,19 +157,19 @@ signal      rx_data_present_user : std_logic;
 signal              rx_full_user : std_logic;
 signal         rx_half_full_user : std_logic;
 
-signal        write_to_uart_8seg : std_logic;
-signal              tx_full_8seg : std_logic;
-signal         tx_half_full_8seg : std_logic;
+signal        write_to_uart_sseg : std_logic;
+signal              tx_full_sseg : std_logic;
+signal         tx_half_full_sseg : std_logic;
 
 signal       write_to_uart_led : std_logic;
 signal             tx_full_led : std_logic;
 signal        tx_half_full_led : std_logic;
 
-signal            read_from_uart_counter_led : std_logic;
-signal                   rx_data_counter_led : std_logic_vector(7 downto 0);
-signal           rx_data_present_counter_led : std_logic;
-signal                   rx_full_counter_led : std_logic;
-signal              rx_half_full_counter_led : std_logic;
+signal            read_from_uart_pwm_gauge : std_logic;
+signal                   rx_data_pwm_gauge : std_logic_vector(7 downto 0);
+signal           rx_data_present_pwm_gauge : std_logic;
+signal                   rx_full_pwm_gauge : std_logic;
+signal              rx_half_full_pwm_gauge : std_logic;
 --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
@@ -206,7 +206,7 @@ begin
   ----------------------------------------------------------------------------------------------------------------------------------
   --
   --
-  -- Interrupt is a generated once every 55 clock cycles to provide a 1us reference. 
+  -- Interrupt is a generated once every 6 clock cycles to provide a 1us reference. 
   -- Interrupt is automatically cleared by interrupt acknowledgment from KCPSM3.
   --
 
@@ -215,7 +215,7 @@ begin
 
     if clk'event and clk='1' then
       
-      if timer_count=54 then
+      if timer_count=6 then
          timer_count <= 0;
          timer_pulse <= '1';
        else
@@ -246,9 +246,9 @@ begin
   --
 
   uart_status_port_user <= "000" & rx_data_present_user & rx_full_user & rx_half_full_user & tx_full_user & tx_half_full_user;
-  uart_status_port_8seg <= "000000" & tx_full_8seg & tx_half_full_8seg;
+  uart_status_port_sseg <= "000000" & tx_full_8seg & tx_half_full_8seg;
   uart_status_port_led <= "000000" & tx_full_led & tx_half_full_led;
-  uart_status_port_counter_led <= "000" & rx_data_present_counter_led & rx_full_counter_led & rx_half_full_counter_led & "00";
+  uart_status_port_pwm_gauge <= "00000" & rx_data_present_counter_led & rx_full_counter_led & rx_half_full_counter_led;
 
   --
   -- The inputs connect via a pipelined multiplexer
@@ -267,13 +267,13 @@ begin
         when "00000010" =>    in_port <= rx_data_user;
 
         -- read UART status at address 03 hex
-        when "00000011" =>    in_port <= uart_status_port_counter_led;
+        when "00000011" =>    in_port <= uart_status_port_pwm_gauge;
 		  
 		  -- read UART status at address 04 hex
-		  when "00000100" =>    in_port <= rx_data_counter_led;
+		  when "00000100" =>    in_port <= rx_data_pwm_gauge;
 		  
         -- transmit UART status at address 05 hex
-        when "00000101" =>    in_port <= uart_status_port_8seg;
+        when "00000101" =>    in_port <= uart_status_port_sseg;
 
         -- transmit UART status at address 06 hex
         when "00000110" =>    in_port <= uart_status_port_led;	  
@@ -288,7 +288,7 @@ begin
       -- the KCPSM3 is acceptable because it is really means 'I have read you'!
 
       read_from_uart_user <= read_strobe and (not port_id(0)) and port_id(1) and (not port_id(2)); 
-		read_from_uart_counter_led <= read_strobe and (not port_id(0)) and (not port_id(1)) and port_id(2); 
+		read_from_uart_pwm_gauge <= read_strobe and (not port_id(0)) and (not port_id(1)) and port_id(2); 
 
     end if;
 
@@ -314,15 +314,15 @@ begin
 		    -- write UART user
           when "00001000" =>    out_port_user <= out_port;
 
-          -- write UART 8seg
-          when "00010000" =>    out_port_8seg <= out_port;
+          -- write UART sseg
+          when "00010000" =>    out_port_sseg <= out_port;
 
           -- write UART led
           when "00100000" =>    out_port_led <= out_port;	  
         
           -- Don't care used for all other addresses to ensure minimum logic implementation
           when others =>    out_port_user <= "XXXXXXXX";
-									 out_port_8seg <= "XXXXXXXX";
+									 out_port_sseg <= "XXXXXXXX";
 									 out_port_led <= "XXXXXXXX";
 
         end case;
@@ -339,7 +339,7 @@ begin
   --
 
   write_to_uart_user <= write_strobe and port_id(3);
-  write_to_uart_8seg <= write_strobe and port_id(4);
+  write_to_uart_sseg <= write_strobe and port_id(4);
   write_to_uart_led <= write_strobe and port_id(5);
 
   --
@@ -374,15 +374,15 @@ begin
                               clk => clk );  										
 										
 										
-  --pBlaze3-8seg uart								
-  tx_8seg_uart: uart_tx 
-  port map (            data_in => out_port_8seg, 
-                   write_buffer => write_to_uart_8seg,
+  --pBlaze3-sseg uart								
+  tx_sseg_uart: uart_tx 
+  port map (            data_in => out_port_sseg, 
+                   write_buffer => write_to_uart_sseg,
                    reset_buffer => '0',
                    en_16_x_baud => en_16_x_baud_9600,
-                     serial_out => tx_8seg,
-                    buffer_full => tx_full_8seg,
-               buffer_half_full => tx_half_full_8seg,
+                     serial_out => tx_sseg,
+                    buffer_full => tx_full_sseg,
+               buffer_half_full => tx_half_full_sseg,
                             clk => clk );
 									 									 
 									 
@@ -399,15 +399,15 @@ begin
 								  
  
   --pBlaze3-PWMCounter uart
-  rx_counter_led_uart: uart_rx
-  port map (            serial_in => rx_counter_led,
-                         data_out => rx_data_counter_led,
-                      read_buffer => read_from_uart_counter_led,
+  rx_pwm_gauge_uart: uart_rx
+  port map (            serial_in => rx_pwm_gauge,
+                         data_out => rx_data_pwm_gauge,
+                      read_buffer => read_from_uart_pwm_gauge,
                      reset_buffer => '0',
                      en_16_x_baud => en_16_x_baud_9600,
-              buffer_data_present => rx_data_present_counter_led,
-                      buffer_full => rx_full_counter_led,
-                 buffer_half_full => rx_half_full_counter_led,
+              buffer_data_present => rx_data_present_pwm_gauge,
+                      buffer_full => rx_full_pwm_gauge,
+                 buffer_half_full => rx_half_full_pwm_gauge,
                               clk => clk );  
 
 
