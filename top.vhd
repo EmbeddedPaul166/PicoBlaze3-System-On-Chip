@@ -135,7 +135,7 @@ KCPSM3: pBlaze3_uart
 				  rx_pwm_gauge => rx_pwm_gauge,
               clk => clk_slow);
 
-LED: led_driver
+LED_PWM_DRIVER: led_driver
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               rx => tx_led,
@@ -143,7 +143,7 @@ LED: led_driver
               led_two => led_two_value,
               led_three => led_three_value);
 
-PWM_GAUGE: pwm_counter
+PWM_GAUGE_DRIVER: pwm_counter
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
               led_one => led_one_value,
@@ -151,7 +151,7 @@ PWM_GAUGE: pwm_counter
               led_three => led_three_value,
               tx => rx_pwm_gauge);
   
-SSEG: led8a_driver 
+SSEG_DRIVER: led8a_driver 
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
 				  sseg => sseg,

@@ -246,9 +246,9 @@ begin
   --
 
   uart_status_port_user <= "000" & rx_data_present_user & rx_full_user & rx_half_full_user & tx_full_user & tx_half_full_user;
-  uart_status_port_sseg <= "000000" & tx_full_8seg & tx_half_full_8seg;
+  uart_status_port_sseg <= "000000" & tx_full_sseg & tx_half_full_sseg;
   uart_status_port_led <= "000000" & tx_full_led & tx_half_full_led;
-  uart_status_port_pwm_gauge <= "00000" & rx_data_present_counter_led & rx_full_counter_led & rx_half_full_counter_led;
+  uart_status_port_pwm_gauge <= "00000" & rx_data_present_pwm_gauge & rx_full_pwm_gauge & rx_half_full_pwm_gauge;
 
   --
   -- The inputs connect via a pipelined multiplexer

@@ -7,12 +7,12 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
-         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/BAUD_GEN - baud_generator - Behavioral</ClosedNode>
-         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_counter_led_uart - uart_rx - macro_level_definition</ClosedNode>
+         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_pwm_gauge_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_user_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/tx_8seg_uart - uart_tx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/tx_led_uart - uart_tx - macro_level_definition</ClosedNode>
+         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/tx_sseg_uart - uart_tx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/tx_user_uart - uart_tx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/LED - led_driver - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/LED_COUNTER_DRIVER - led_driver - Behavioral</ClosedNode>
@@ -24,6 +24,7 @@
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/PBLAZE3_UART - pBlaze3_uart - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/PWM_COUNTER_DRIVER - pwm_counter - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/PWM_GAUGE - pwm_counter - Behavioral</ClosedNode>
+         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/PWM_GAUGE_DRIVER - pwm_counter - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/SEG_DRIVER_UART - led8a_driver - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/SSEG - led8a_driver - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/SSEG_DRIVER - led8a_driver - Behavioral</ClosedNode>
@@ -39,9 +40,9 @@
       <SelectedItems>
          <SelectedItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001f6000000020000000000000000000000000200000064ffffffff000000810000000300000002000001f60000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000232000000020000000000000000000000000200000064ffffffff000000810000000300000002000002320000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
       <CurrentItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</CurrentItem>
    </ItemView>
@@ -51,13 +52,13 @@
          <ClosedNode>Design Utilities/Compile HDL Simulation Libraries</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001e8000000010000000100000000000000000000000064ffffffff000000810000000000000001000001e80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
@@ -105,13 +106,13 @@
          <ClosedNode>Implement Design</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem>Generate Programming File</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >9</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001d9000000010000000100000000000000000000000064ffffffff000000810000000000000001000001d90000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
