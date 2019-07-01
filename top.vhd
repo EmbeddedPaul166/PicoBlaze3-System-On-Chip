@@ -100,7 +100,7 @@ end component;
 
 signal en_16_x_baud_9600_connect : std_logic;
 signal en_16_x_baud_38400_connect : std_logic;
-signal tx_sseg : std_logic;
+signal tx_sseg_connect : std_logic;
 signal tx_led : std_logic;
 signal rx_pwm_gauge : std_logic;
 signal led_one_value :   STD_LOGIC;
@@ -130,7 +130,7 @@ KCPSM3: pBlaze3_uart
               en_16_x_baud_38400 => en_16_x_baud_38400_connect,
 				  tx_user => tx,
               rx_user => rx,
-				  tx_sseg => tx_sseg,
+				  tx_sseg => tx_sseg_connect,
               tx_led => tx_led,
 				  rx_pwm_gauge => rx_pwm_gauge,
               clk => clk_slow);
@@ -156,7 +156,7 @@ SSEG_DRIVER: led8a_driver
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
 				  sseg => sseg,
 				  an => an,
-				  rx => tx_sseg);
+				  rx => tx_sseg_connect);
 				  
 end Behavioral;
 

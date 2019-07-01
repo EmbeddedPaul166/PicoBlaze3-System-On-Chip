@@ -41,7 +41,7 @@ signal digit: std_logic_vector(7 downto 0):=x"00";
 signal one_hot,address: std_logic_vector(2 downto 0):="011";
 signal seg: std_logic_vector(6 downto 0);
 
-signal read_from_uart  : std_logic := '0';
+signal read_from_uart  : std_logic;
 signal rx_data         : std_logic_vector(7 downto 0);
 signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
@@ -52,64 +52,52 @@ signal b :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN1
 signal c :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN2
 signal digit_address :  STD_LOGIC_VECTOR (1 downto 0);
 
-type state is (address_received, data_received, no_data_received);
-signal current_state, previous_state : state := address_received;
-
+type state is (data_read, address_received, data_received);
+signal current_state : state := data_read;
+signal previous_state : state := data_received;
 begin
 
 
 
  
-FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is --may not work because of stop between address code and address, data code and data
+FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is
 begin
 	 
 	 if rising_edge(clk_in) then
-	 read_from_uart <= '0';
     case current_state is
-		  when address_received =>
-		  
-				if rx_data_present = '0' then
-					previous_state <= current_state;
-					current_state <= no_data_received;
-				elsif rx_data_present = '1' then
-					digit_address <= rx_data(1 downto 0);
+	 
+		  when data_read =>
+				if rx_data_present = '1' then
 					read_from_uart <= '1';
-					previous_state <= current_state;
-					current_state <= data_received;
-				end if;
-				
-        when data_received =>
-				
-				if rx_data_present = '0' then
-					previous_state <= current_state;
-					current_state <= no_data_received;
-				elsif digit_address = "01" then
-					a <= rx_data;
-					read_from_uart <= '1';
-					previous_state <= current_state;
-					current_state <= address_received;
-				elsif digit_address = "10" then
-					b <= rx_data;
-					read_from_uart <= '1';
-					previous_state <= current_state;
-					current_state <= address_received;
-				elsif digit_address = "11" then
-					c <= rx_data;
-					read_from_uart <= '1';
-					previous_state <= current_state;
-					current_state <= address_received;
-				end if;
- 
-        when no_data_received =>
-            if rx_data_present = '1' then
 					if previous_state = address_received then
 						previous_state <= current_state;
-						current_state <= address_received;
+						current_state <= data_received;
 					elsif previous_state = data_received then
 						previous_state <= current_state;
-						current_state <= data_received;
+						current_state <= address_received;
 					end if;
-            end if;
+				end if;
+				
+		  when address_received =>
+		  
+				read_from_uart <= '0';
+				digit_address <= rx_data(1 downto 0);
+				previous_state <= current_state;
+				current_state <= data_read;
+				
+        when data_received =>
+		  
+				read_from_uart <= '0';
+				if digit_address = "01" then
+					a <= rx_data;
+				elsif digit_address = "10" then
+					b <= rx_data;
+				elsif digit_address = "11" then
+					c <= rx_data;
+				end if;
+				previous_state <= current_state;
+				current_state <= data_read;
+				
 			when others =>
 				
     end case;
