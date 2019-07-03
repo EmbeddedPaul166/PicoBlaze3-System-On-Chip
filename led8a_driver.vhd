@@ -50,55 +50,53 @@ signal rx_half_full    : std_logic;
 signal a :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN0
 signal b :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN1
 signal c :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN2
-signal digit_address :  STD_LOGIC_VECTOR (1 downto 0);
+signal digit_address :  STD_LOGIC_VECTOR (1 downto 0) := "11";
 
-type state is (data_read, address_received, data_received);
-signal current_state : state := data_read;
-signal previous_state : state := data_received;
+type state is (idle, data_read, data_received, change_address);
+signal current_state : state := idle;
 begin
-
-
-
  
 FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is
-begin
-	 
+begin	 
 	 if rising_edge(clk_in) then
+	 read_from_uart <= '0';	
     case current_state is
-	 
-		  when data_read =>
+		  
+		  when idle =>
+		  
 				if rx_data_present = '1' then
-					read_from_uart <= '1';
-					if previous_state = address_received then
-						previous_state <= current_state;
-						current_state <= data_received;
-					elsif previous_state = data_received then
-						previous_state <= current_state;
-						current_state <= address_received;
-					end if;
+					current_state <= data_read;
+				else
+					current_state <= idle;
 				end if;
 				
-		  when address_received =>
+		  when data_read =>
 		  
-				read_from_uart <= '0';
-				digit_address <= rx_data(1 downto 0);
-				previous_state <= current_state;
-				current_state <= data_read;
+				read_from_uart <= '1';				
+				current_state <= data_received;
 				
         when data_received =>
-		  
-				read_from_uart <= '0';
 				if digit_address = "01" then
 					a <= rx_data;
 				elsif digit_address = "10" then
 					b <= rx_data;
 				elsif digit_address = "11" then
 					c <= rx_data;
-				end if;
-				previous_state <= current_state;
-				current_state <= data_read;
+				end if;				
+				current_state <= change_address;
+					  
 				
-			when others =>
+		  when change_address =>
+				if digit_address = "01" then
+						digit_address <= "10";
+				elsif digit_address = "10" then
+						digit_address <= "11";
+				elsif digit_address = "11" then
+						digit_address <= "01";
+				end if;
+				current_state <= idle;
+			
+		  when others =>
 				
     end case;
 	 end if;

@@ -20,9 +20,10 @@
                         ;   KCPSM3-SSEG
                         CONSTANT UART_status_port_sseg, 05           
                         CONSTANT UART_write_port_sseg, 10
+                        CONSTANT UART_write_sseg, 40
                         CONSTANT tx_half_full_sseg, 00                
                         CONSTANT tx_full_sseg, 01                       
-                        
+                         
                         ;   KCPSM3-LED
                         CONSTANT UART_status_port_led, 06           
                         CONSTANT UART_write_port_led, 20
@@ -33,7 +34,7 @@
                         NAMEREG sE, UART_data_led
                         NAMEREG sD, UART_data_sseg
                         NAMEREG sC, UART_data_pw_gauge
-                        
+                         
                         NAMEREG sB, store_pointer                ;used to pass location of data in scratch pad memory
                         
                         ;ASCII table
@@ -112,21 +113,33 @@
                         CONSTANT character_BS, 08                ;Back Space command character
                         
                         
-                        
+            initialize: 
+                        ;LOAD UART_data_sseg, 00  ;UART FIFO patch to bring normal conditions for sending
+                        ;CALL send_to_UART_sseg
+                        ;LOAD UART_data_sseg, 00
+                        ;CALL send_to_UART_sseg
+                        ;LOAD UART_data_sseg, 00  
+                        ;CALL send_to_UART_sseg
+                        ;CALL send_to_UART_sseg
+                       
+                       
                         ;   Program loop
-          program_loop: LOAD UART_data_sseg, 01
+          program_loop: 
+                        LOAD UART_data_sseg, 01
                         CALL send_to_UART_sseg
                         LOAD UART_data_sseg, 03
                         CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 02
+                        LOAD UART_data_sseg, 05  
                         CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 04
-                        CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 03
-                        CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 05
-                        CALL send_to_UART_sseg
-                        JUMP program_loop
+                        ;LOAD UART_data_sseg, 02
+                        ;CALL send_to_UART_sseg 
+                        ;LOAD UART_data_sseg, 09
+                        ;CALL send_to_UART_sseg
+                        ;LOAD UART_data_sseg, 09
+                        ;CALL send_to_UART_sseg
+                        ;LOAD UART_data_sseg, 09
+                        ;CALL send_to_UART_sseg
+                  end:  JUMP end 
                         
                         
                         
@@ -143,4 +156,5 @@
                         JUMP send_to_UART_sseg
        UART_write_sseg: OUTPUT UART_data_sseg, UART_write_port_sseg
                         RETURN 
-                        
+            
+                       

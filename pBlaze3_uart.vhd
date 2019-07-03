@@ -147,7 +147,6 @@ signal timer_pulse   : std_logic;
 -- Signals for UART connections
 --
 
-
 signal        write_to_uart_user : std_logic;
 signal              tx_full_user : std_logic;
 signal         tx_half_full_user : std_logic;
@@ -318,7 +317,7 @@ begin
           when "00010000" =>    out_port_sseg <= out_port;
 
           -- write UART led
-          when "00100000" =>    out_port_led <= out_port;	  
+          when "00100000" =>    out_port_led <= out_port;
         
           -- Don't care used for all other addresses to ensure minimum logic implementation
           when others =>    out_port_user <= "XXXXXXXX";
@@ -337,6 +336,7 @@ begin
   -- write to UART transmitter FIFO buffer at address 01 hex.
   -- This is a combinatorial decode because the FIFO is the 'port register'.
   --
+
 
   write_to_uart_user <= write_strobe and port_id(3);
   write_to_uart_sseg <= write_strobe and port_id(4);

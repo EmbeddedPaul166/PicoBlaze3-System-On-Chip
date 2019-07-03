@@ -103,9 +103,9 @@ signal en_16_x_baud_38400_connect : std_logic;
 signal tx_sseg_connect : std_logic;
 signal tx_led : std_logic;
 signal rx_pwm_gauge : std_logic;
-signal led_one_value :   STD_LOGIC;
-signal led_two_value :   STD_LOGIC;
-signal led_three_value :   STD_LOGIC;
+signal led_one_value :   std_logic;
+signal led_two_value :   std_logic;
+signal led_three_value :   std_logic;
 
 begin
 

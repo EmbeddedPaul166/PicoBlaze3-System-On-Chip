@@ -7,6 +7,7 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_counter_led_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_pwm_gauge_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_user_uart - uart_rx - macro_level_definition</ClosedNode>
@@ -40,9 +41,9 @@
       <SelectedItems>
          <SelectedItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000232000000020000000000000000000000000200000064ffffffff000000810000000300000002000002320000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000021f000000020000000000000000000000000200000064ffffffff0000008100000003000000020000021f0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
       <CurrentItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</CurrentItem>
    </ItemView>
@@ -52,13 +53,13 @@
          <ClosedNode>Design Utilities/Compile HDL Simulation Libraries</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001e8000000010000000100000000000000000000000064ffffffff000000810000000000000001000001e80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
@@ -110,7 +111,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >9</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001d9000000010000000100000000000000000000000064ffffffff000000810000000000000001000001d90000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000e3000000010000000100000000000000000000000064ffffffff000000810000000000000001000000e30000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>
