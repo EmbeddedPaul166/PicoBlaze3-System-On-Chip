@@ -50,10 +50,11 @@ signal rx_half_full    : std_logic;
 signal a :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN0
 signal b :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN1
 signal c :  STD_LOGIC_VECTOR (7 downto 0) := x"00";       -- digit AN2
-signal digit_address :  STD_LOGIC_VECTOR (1 downto 0) := "11";
+signal digit_address :  STD_LOGIC_VECTOR (1 downto 0) := "01";
 
 type state is (idle, data_read, data_received, change_address);
 signal current_state : state := idle;
+
 begin
  
 FSM : process(clk_in, current_state, rx_data, rx_data_present, digit_address) is

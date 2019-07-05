@@ -33,10 +33,16 @@
                         NAMEREG sF, UART_data_user                    ;used to pass data to and from the UART
                         NAMEREG sE, UART_data_led
                         NAMEREG sD, UART_data_sseg
-                        NAMEREG sC, UART_data_pw_gauge
+                        NAMEREG sC, UART_data_pwm_gauge
                          
                         NAMEREG sB, store_pointer                ;used to pass location of data in scratch pad memory
                         
+                        NAMEREG s1, dividend ; preserved
+                        NAMEREG s2, divisor ; preserved
+                        NAMEREG s3, quotient ; preserved
+                        NAMEREG s4, remainder ; modified
+                        NAMEREG s5, bit_mask ; used to test bits in dividend
+                      
                         ;ASCII table
                         
                         CONSTANT character_a, 61
@@ -114,31 +120,33 @@
                         
                         
             initialize: 
-                        ;LOAD UART_data_sseg, 00  ;UART FIFO patch to bring normal conditions for sending
-                        ;CALL send_to_UART_sseg
-                        ;LOAD UART_data_sseg, 00
-                        ;CALL send_to_UART_sseg
-                        ;LOAD UART_data_sseg, 00  
-                        ;CALL send_to_UART_sseg
-                        ;CALL send_to_UART_sseg
+                        LOAD UART_data_led, 14
+                        CALL send_to_UART_led
+                        LOAD UART_data_led, 7F
+                        CALL send_to_UART_led
+                        LOAD UART_data_led, 14  
+                        CALL send_to_UART_led
                        
                        
                         ;   Program loop
           program_loop: 
-                        LOAD UART_data_sseg, 01
+                        CALL read_from_UART_pwm
+                        LOAD dividend, UART_data_pwm_gauge
+                        
+                        LOAD divisor, 64
+                        CALL divide
+                        LOAD UART_data_sseg, quotient
                         CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 03
+                        
+                        LOAD divisor, 0A
+                        CALL divide
+                        LOAD UART_data_sseg, quotient
                         CALL send_to_UART_sseg
-                        LOAD UART_data_sseg, 05  
+                        
+                        LOAD divisor, 01
+                        CALL divide
+                        LOAD UART_data_sseg, quotient
                         CALL send_to_UART_sseg
-                        ;LOAD UART_data_sseg, 02
-                        ;CALL send_to_UART_sseg 
-                        ;LOAD UART_data_sseg, 09
-                        ;CALL send_to_UART_sseg
-                        ;LOAD UART_data_sseg, 09
-                        ;CALL send_to_UART_sseg
-                        ;LOAD UART_data_sseg, 09
-                        ;CALL send_to_UART_sseg
                   end:  JUMP end 
                         
                         
@@ -158,3 +166,35 @@
                         RETURN 
             
                        
+      send_to_UART_led: INPUT s0, UART_status_port_led              
+                        TEST s0, tx_full_led
+                        JUMP Z, UART_write_led
+                        JUMP send_to_UART_led
+        UART_write_led: OUTPUT UART_data_led, UART_write_port_led
+                        RETURN
+                        
+    read_from_UART_pwm: INPUT s0, UART_status_port_pwm_gauge
+                        TEST s0, rx_data_present_pwm_gauge
+                        JUMP NZ, read_pwm_number                        
+                        JUMP read_from_UART_pwm
+                        
+       read_pwm_number: INPUT UART_data_pwm_gauge, UART_read_port_pwm_gauge                              
+                        RETURN
+              
+                divide:
+                        LOAD remainder, 00
+                        LOAD bit_mask, 80
+         division_loop: 
+                        TEST dividend, bit_mask 
+                        SLA remainder 
+                        SL0 quotient 
+                        COMPARE remainder, divisor 
+                        JUMP C, no_sub 
+                        SUB remainder, divisor 
+                        ADD quotient, 01 
+                no_sub:
+                        SR0 bit_mask 
+                        JUMP NZ, division_loop
+                        RETURN
+                        
+                        

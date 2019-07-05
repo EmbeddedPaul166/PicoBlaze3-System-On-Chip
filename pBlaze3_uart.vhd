@@ -302,12 +302,11 @@ begin
 
   -- adding the output registers to the clock processor
    
-  output_ports: process(clk)
+  output_ports: process(write_strobe, port_id, out_port) --deleted clk from sensitivity list
   begin
 
-    if clk'event and clk='1' then
-      if write_strobe='1' then
-              
+      if write_strobe'event and write_strobe='1' then  
+		
 		  case port_id is
 		  
 		    -- write UART user
@@ -325,10 +324,8 @@ begin
 									 out_port_led <= "XXXXXXXX";
 
         end case;
-
+		  
       end if;
-
-    end if; 
 
   end process output_ports;
 

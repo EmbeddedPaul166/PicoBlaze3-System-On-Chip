@@ -54,7 +54,7 @@ architecture Behavioral of pwm_counter is
 
 constant total_signal_count : integer range 0 to 255 := 255;
 
-signal             write_to_uart : std_logic := '0';
+signal             write_to_uart : std_logic;
 signal                   tx_full : std_logic;
 signal              tx_half_full : std_logic;
 signal                   data_tx : std_logic_vector(7 downto 0);
@@ -62,6 +62,10 @@ signal                   data_tx : std_logic_vector(7 downto 0);
 signal pwm_one_value_up : integer range 0 to 255 :=0;
 signal pwm_two_value_up : integer range 0 to 255 :=0;
 signal pwm_three_value_up : integer range 0 to 255 :=0;
+
+signal previous_pwm_one_value_up : integer range 0 to 255 := 255;
+signal previous_pwm_two_value_up : integer range 0 to 255 := 255;
+signal previous_pwm_three_value_up : integer range 0 to 255 := 255;
 
 
 signal pwm_one_fin    : std_logic := '0';
@@ -72,7 +76,7 @@ signal rst_one : std_logic :='0';
 signal rst_two : std_logic :='0';
 signal rst_three : std_logic :='0';
 
-type state is (led_one_write, led_two_write, led_three_write, write_data);
+type state is (led_one_write, led_two_write, led_three_write);
 signal current_state : state := led_one_write;
 
 begin
@@ -84,17 +88,32 @@ begin
     case current_state is
 	
 		  when led_one_write =>
-				data_tx <=	std_logic_vector(to_unsigned(pwm_one_value_up, data_tx'length));
-				current_state <= led_two_write;
+				if pwm_one_fin = '1' and tx_full = '0' and previous_pwm_one_value_up /= pwm_one_value_up then
+					data_tx <=	std_logic_vector(to_unsigned(pwm_one_value_up, data_tx'length));
+					write_to_uart <= '1';
+					current_state <= led_two_write;
+				else
+					current_state <= led_one_write;
+				end if;
+				
 		  when led_two_write =>
-				data_tx <= std_logic_vector(to_unsigned(pwm_two_value_up, data_tx'length));
-				current_state <= led_three_write;
-		  when led_three_write => 
-				data_tx <= std_logic_vector(to_unsigned(pwm_three_value_up, data_tx'length));
-				current_state <= write_data;
-		  when write_data => 
-				write_to_uart <= '1';
-				current_state <= led_one_write;
+				if pwm_two_fin = '1' and tx_full = '0' and previous_pwm_two_value_up /= pwm_two_value_up then
+					data_tx <= std_logic_vector(to_unsigned(pwm_two_value_up, data_tx'length));
+					write_to_uart <= '1';
+					current_state <= led_three_write;
+				else
+					current_state <= led_two_write;
+				end if;
+				
+		  when led_three_write =>
+				if pwm_three_fin = '1' and tx_full = '0' and previous_pwm_three_value_up /= pwm_three_value_up then
+					data_tx <= std_logic_vector(to_unsigned(pwm_three_value_up, data_tx'length));
+					write_to_uart <= '1';
+					current_state <= led_one_write;
+				else
+					current_state <= led_three_write;
+				end if;
+				
 		  when others =>
     end case;
 	 end if;
@@ -117,13 +136,14 @@ end process;
 	 if rst_one ='1' then
 		pwm_one_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		pwm_one_fin <= '0';
-      if led_one = '1' then
-			if pwm_one_value_up = 255 then
-				pwm_one_value_up <= 0;
+		if pwm_one_value_up = 255 then
 				pwm_one_fin <= '1';
-			else
+				previous_pwm_one_value_up <= pwm_one_value_up;
+				pwm_one_value_up <= 0;
+		else
+			if led_one = '1' then
 				pwm_one_value_up <= pwm_one_value_up + 1;
+				pwm_one_fin <= '0';			
 			end if;
 		end if;
     end if;
@@ -134,14 +154,15 @@ end process;
 	 if rst_two ='1' then
 		pwm_two_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		pwm_two_fin <= '0';
-      if led_two = '1' then
-			if pwm_two_value_up = 255 then
-				pwm_two_value_up <= 0;
+		if pwm_two_value_up = 255 then
 				pwm_two_fin <= '1';
-			else
+				previous_pwm_two_value_up <= pwm_two_value_up;
+				pwm_two_value_up <= 0;
+		else
+			if led_two = '1' then
 				pwm_two_value_up <= pwm_two_value_up + 1;
-			end if;		
+				pwm_two_fin <= '0';			
+			end if;
 		end if;
     end if;
   end process pwm_two_counter;
@@ -151,14 +172,15 @@ end process;
 	 if rst_three ='1' then
 		pwm_three_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		pwm_three_fin <= '0';
-      if led_three = '1' then
-			if pwm_three_value_up = 255 then
-				pwm_three_value_up <= 0;
+		if pwm_three_value_up = 255 then
 				pwm_three_fin <= '1';
-			else
+				previous_pwm_three_value_up <= pwm_three_value_up;
+				pwm_three_value_up <= 0;
+		else
+			if led_three = '1' then
 				pwm_three_value_up <= pwm_three_value_up + 1;
-			end if;			
+				pwm_three_fin <= '0';			
+			end if;
 		end if;
     end if;
   end process pwm_three_counter;
