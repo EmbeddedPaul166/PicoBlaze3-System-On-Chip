@@ -122,6 +122,8 @@
           initialize:
                       LOAD UART_data_user, character_N
                       CALL send_to_UART_user
+                      LOAD UART_data_user, character_N
+                      CALL send_to_UART_user
 
                       LOAD UART_data_led, 7F
                       CALL send_to_UART_led
@@ -129,6 +131,12 @@
                       CALL send_to_UART_led
                       LOAD UART_data_led, 7F
                       CALL send_to_UART_led
+                      LOAD UART_data_sseg, 02
+                      CALL send_to_UART_sseg
+                      LOAD UART_data_sseg, 02
+                      CALL send_to_UART_sseg
+                      LOAD UART_data_sseg, 02
+                      CALL send_to_UART_sseg
 
 
                       ;   Program loop
@@ -141,15 +149,21 @@
                       LOAD UART_data_sseg, quotient
                       CALL send_to_UART_sseg
 
+                      CALL send_to_UART_user
+
                       LOAD divisor, 0A
                       CALL divide
                       LOAD UART_data_sseg, quotient
                       CALL send_to_UART_sseg
 
+                      CALL send_to_UART_user
+
                       LOAD divisor, 01
                       CALL divide
                       LOAD UART_data_sseg, quotient
                       CALL send_to_UART_sseg
+
+                      CALL send_to_UART_user
 
                  end: JUMP end
 

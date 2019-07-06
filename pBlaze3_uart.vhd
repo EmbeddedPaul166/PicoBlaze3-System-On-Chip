@@ -302,32 +302,31 @@ begin
 
   -- adding the output registers to the clock processor
    
-  output_ports: process(write_strobe) --deleted clk from sensitivity list
-  begin
-
-      if write_strobe'event and write_strobe='1' then  
-		
-		  case port_id is
+  --output_ports: process(write_strobe, port_id, out_port) --deleted clk from sensitivity list
+  --begin 	
+			--case port_id is
 		  
-		    -- write UART user
-          when "00001000" =>    out_port_user <= out_port;
+				-- write UART user
+				--when "00001000" =>    out_port_user <= out_port;
 
-          -- write UART sseg
-          when "00010000" =>    out_port_sseg <= out_port;
+				-- write UART sseg
+				--when "00010000" =>    out_port_sseg <= out_port;
 
-          -- write UART led
-          when "00100000" =>    out_port_led <= out_port;
+				-- write UART led
+				--when "00100000" =>    out_port_led <= out_port;
         
-          -- Don't care used for all other addresses to ensure minimum logic implementation
-          when others =>    out_port_user <= "XXXXXXXX";
-									 out_port_sseg <= "XXXXXXXX";
-									 out_port_led <= "XXXXXXXX";
+				-- Don't care used for all other addresses to ensure minimum logic implementation
+				--when others =>
 
-        end case;
-		  
-      end if;
+			--end case;
 
-  end process output_ports;
+  --end process output_ports;
+	
+	out_port_user <= out_port when port_id = "00001000" and write_strobe = '1' else "XXXXXXXX";
+	out_port_sseg <= out_port when port_id = "00010000"  and write_strobe = '1' else "XXXXXXXX";
+	out_port_led <= out_port when port_id = "00100000"  and write_strobe = '1' else "XXXXXXXX";
+	
+
 
   --
   -- write to UART transmitter FIFO buffer at address 01 hex.
@@ -338,6 +337,7 @@ begin
   write_to_uart_user <= write_strobe and port_id(3);
   write_to_uart_sseg <= write_strobe and port_id(4);
   write_to_uart_led <= write_strobe and port_id(5);
+
 
   --
   ----------------------------------------------------------------------------------------------------------------------------------
