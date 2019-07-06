@@ -63,9 +63,9 @@ signal pwm_one_value_up : integer range 0 to 255 :=0;
 signal pwm_two_value_up : integer range 0 to 255 :=0;
 signal pwm_three_value_up : integer range 0 to 255 :=0;
 
-signal previous_pwm_one_value_up : integer range 0 to 255 := 255;
-signal previous_pwm_two_value_up : integer range 0 to 255 := 255;
-signal previous_pwm_three_value_up : integer range 0 to 255 := 255;
+signal previous_pwm_one_value_up : integer range 0 to 255 := 0;
+signal previous_pwm_two_value_up : integer range 0 to 255 := 0;
+signal previous_pwm_three_value_up : integer range 0 to 255 := 0;
 
 
 signal pwm_one_fin    : std_logic := '0';
@@ -136,54 +136,78 @@ end process;
 	 if rst_one ='1' then
 		pwm_one_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		if pwm_one_value_up = 255 then
+		if led_one = '1' then
+			if pwm_one_value_up = 255 then
 				pwm_one_fin <= '1';
-				previous_pwm_one_value_up <= pwm_one_value_up;
 				pwm_one_value_up <= 0;
-		else
-			if led_one = '1' then
+			else
 				pwm_one_value_up <= pwm_one_value_up + 1;
 				pwm_one_fin <= '0';			
 			end if;
+		else
+			pwm_one_fin <= '1';
 		end if;
     end if;
   end process pwm_one_counter;
+
+  reg_previous_pwm_one_value: process(pwm_one_fin)
+  begin
+		if rising_edge(pwm_one_fin) then
+			previous_pwm_one_value_up <= pwm_one_value_up;
+		end if;
+  end process;
 
   pwm_two_counter: process(clk_in, rst_two)
   begin
 	 if rst_two ='1' then
 		pwm_two_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		if pwm_two_value_up = 255 then
+		if led_two = '1' then
+			if pwm_two_value_up = 255 then
 				pwm_two_fin <= '1';
-				previous_pwm_two_value_up <= pwm_two_value_up;
 				pwm_two_value_up <= 0;
-		else
-			if led_two = '1' then
+			else
 				pwm_two_value_up <= pwm_two_value_up + 1;
 				pwm_two_fin <= '0';			
 			end if;
+		else
+			pwm_two_fin <= '1';
 		end if;
     end if;
   end process pwm_two_counter;
+
+  reg_previous_pwm_two_value: process(pwm_two_fin)
+  begin
+		if rising_edge(pwm_two_fin) then
+			previous_pwm_two_value_up <= pwm_two_value_up;
+		end if;
+  end process;
 
   pwm_three_counter: process(clk_in, rst_three)
   begin
 	 if rst_three ='1' then
 		pwm_three_value_up <= 0;
     elsif clk_in'event and clk_in='1' then
-		if pwm_three_value_up = 255 then
+		if led_three = '1' then
+			if pwm_three_value_up = 255 then
 				pwm_three_fin <= '1';
-				previous_pwm_three_value_up <= pwm_three_value_up;
 				pwm_three_value_up <= 0;
-		else
-			if led_three = '1' then
+			else
 				pwm_three_value_up <= pwm_three_value_up + 1;
 				pwm_three_fin <= '0';			
 			end if;
+		else
+			pwm_three_fin <= '1';
 		end if;
     end if;
   end process pwm_three_counter;
+
+  reg_previous_pwm_three_value: process(pwm_three_fin)
+  begin
+		if rising_edge(pwm_three_fin) then
+			previous_pwm_three_value_up <= pwm_three_value_up;
+		end if;
+  end process;
 
 end Behavioral;
 

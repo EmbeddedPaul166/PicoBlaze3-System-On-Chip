@@ -302,7 +302,7 @@ begin
 
   -- adding the output registers to the clock processor
    
-  output_ports: process(write_strobe, port_id, out_port) --deleted clk from sensitivity list
+  output_ports: process(write_strobe) --deleted clk from sensitivity list
   begin
 
       if write_strobe'event and write_strobe='1' then  

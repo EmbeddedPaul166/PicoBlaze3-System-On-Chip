@@ -120,11 +120,14 @@
 
 
           initialize:
-                      LOAD UART_data_led, 14
-                      CALL send_to_UART_led
+                      LOAD UART_data_user, character_N
+                      CALL send_to_UART_user
+
                       LOAD UART_data_led, 7F
                       CALL send_to_UART_led
                       LOAD UART_data_led, 14
+                      CALL send_to_UART_led
+                      LOAD UART_data_led, 7F
                       CALL send_to_UART_led
 
 
@@ -147,6 +150,7 @@
                       CALL divide
                       LOAD UART_data_sseg, quotient
                       CALL send_to_UART_sseg
+
                  end: JUMP end
 
 
