@@ -77,15 +77,18 @@ component led_driver
            rx : in  STD_LOGIC;
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
-           led_three : out  STD_LOGIC);
+           led_three : out  STD_LOGIC;
+			  led_one_count_up : out  integer range 0 to 255;
+           led_two_count_up : out  integer range 0 to 255;
+           led_three_count_up : out  integer range 0 to 255);
 end component;
 
 component pwm_counter
     Port ( clk_in : in  STD_LOGIC;
 			  en_16_x_baud_9600 : in  STD_LOGIC;
-           led_one : in  STD_LOGIC;
-           led_two : in  STD_LOGIC;
-           led_three : in  STD_LOGIC;
+			  led_one_count_up : in  integer range 0 to 255;
+           led_two_count_up : in  integer range 0 to 255;
+           led_three_count_up : in  integer range 0 to 255;
            tx : out  STD_LOGIC);
 end component;
 
@@ -106,6 +109,9 @@ signal rx_pwm_gauge : std_logic;
 signal led_one_value :   std_logic;
 signal led_two_value :   std_logic;
 signal led_three_value :   std_logic;
+signal led_one_count_up_connect :  integer range 0 to 255;
+signal led_two_count_up_connect :  integer range 0 to 255;
+signal led_three_count_up_connect : integer range 0 to 255;
 
 begin
 
@@ -141,14 +147,17 @@ LED_PWM_DRIVER: led_driver
               rx => tx_led,
               led_one => led_one_value,
               led_two => led_two_value,
-              led_three => led_three_value);
+              led_three => led_three_value,
+				  led_one_count_up => led_one_count_up_connect,
+              led_two_count_up => led_two_count_up_connect,
+              led_three_count_up => led_three_count_up_connect);
 
 PWM_GAUGE_DRIVER: pwm_counter
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_9600 => en_16_x_baud_9600_connect,
-              led_one => led_one_value,
-              led_two => led_two_value,
-              led_three => led_three_value,
+				  led_one_count_up => led_one_count_up_connect,
+              led_two_count_up => led_two_count_up_connect,
+              led_three_count_up => led_three_count_up_connect,
               tx => rx_pwm_gauge);
   
 SSEG_DRIVER: led8a_driver 

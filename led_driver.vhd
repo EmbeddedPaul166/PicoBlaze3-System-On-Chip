@@ -36,7 +36,10 @@ entity led_driver is
            rx : in  STD_LOGIC;
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
-           led_three : out  STD_LOGIC);
+           led_three : out  STD_LOGIC;
+			  led_one_count_up : out  integer range 0 to 255;
+           led_two_count_up : out  integer range 0 to 255;
+           led_three_count_up : out  integer range 0 to 255);
 end led_driver;
 
 architecture Behavioral of led_driver is
@@ -62,19 +65,17 @@ signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
 signal rx_half_full    : std_logic;
 
-signal pwm_one_value : integer range 0 to 127 :=127;
-signal pwm_two_value : integer range 0 to 127 :=127;
-signal pwm_three_value : integer range 0 to 127 :=127;
+signal pwm_one_value : integer range 0 to 255 :=255;
+signal pwm_two_value : integer range 0 to 255 :=255;
+signal pwm_three_value : integer range 0 to 255 :=255;
 
-signal pwm_one_count : integer range 0 to 127 :=0;
-signal pwm_two_count : integer range 0 to 127 :=0;
-signal pwm_three_count : integer range 0 to 127 :=0;
+signal pwm_one_count : integer range 0 to 255 :=0;
+signal pwm_two_count : integer range 0 to 255 :=0;
+signal pwm_three_count : integer range 0 to 255 :=0;
 
 signal rst_one    : std_logic := '0';
 signal rst_two    : std_logic := '0';
 signal rst_three    : std_logic := '0';
-
-signal slow_clk    : std_logic := '0';
 
 signal led_address :  STD_LOGIC_VECTOR (1 downto 0) := "01";
 
@@ -82,13 +83,6 @@ type state is (idle, data_read, data_received, change_address);
 signal current_state : state := idle;
 
 begin
-
-clk_div_by_2: process(clk_in)
-begin
-	if rising_Edge(clk_in) then
-		slow_clk <= not slow_clk;
-	end if;
-end process;
 
 FSM : process(clk_in, current_state, rx_data, rx_data_present, led_address) is
 begin	 
@@ -141,56 +135,59 @@ begin
     end case;
 	 end if;
 end process;
- 
 
-  pwm_one_counter: process(slow_clk, rst_one)
+
+  pwm_one_counter: process(clk_in, rst_one)
   begin
 	 if rst_one ='1' then
 		pwm_one_count <= 0;
-    elsif slow_clk'event and slow_clk='1' then
-      if pwm_one_count = 127 then
+    elsif clk_in'event and clk_in='1' then
+      if pwm_one_count = 255 then
            pwm_one_count <= 0;         
        else
            pwm_one_count <= pwm_one_count + 1;
 			  if pwm_one_count <= pwm_one_value then
 				led_one <= '1';
 			  else
+				led_one_count_up <= pwm_one_count;
 				led_one <= '0';
 			  end if;          
       end if;
     end if;
   end process pwm_one_counter;
 
-  pwm_two_counter: process(slow_clk, rst_two)
+  pwm_two_counter: process(clk_in, rst_two)
   begin
 	 if rst_two ='1' then
 		pwm_two_count <= 0;
-    elsif slow_clk'event and slow_clk='1' then
-      if pwm_two_count = 127 then
+    elsif clk_in'event and clk_in='1' then
+      if pwm_two_count = 255 then
            pwm_two_count <= 0;         
        else
            pwm_two_count <= pwm_two_count + 1;
 			  if pwm_two_count <= pwm_two_value then
 				led_two <= '1';
 			  else
+			   led_two_count_up <= pwm_two_count;
 				led_two <= '0';
 			  end if;        
       end if;
     end if;
   end process pwm_two_counter;
 
-  pwm_three_counter: process(slow_clk, rst_three)
+  pwm_three_counter: process(clk_in, rst_three)
   begin
 	 if rst_three ='1' then
 		pwm_three_count <= 0;
-    elsif slow_clk'event and slow_clk='1' then
-      if pwm_three_count = 127 then
+    elsif clk_in'event and clk_in='1' then
+      if pwm_three_count = 255 then
            pwm_three_count <= 0;          
        else
            pwm_three_count <= pwm_three_count + 1;
 			  if pwm_three_count <= pwm_three_value then
 				led_three <= '1';
 			  else
+			   led_three_count_up <= pwm_three_count;
 				led_three <= '0';
 			  end if;          
       end if;

@@ -33,9 +33,9 @@ use IEEE.NUMERIC_STD.ALL;
 entity pwm_counter is
     Port ( clk_in : in  STD_LOGIC;
 			  en_16_x_baud_9600 : in  std_logic;
-           led_one : in  STD_LOGIC;
-           led_two : in  STD_LOGIC;
-           led_three : in  STD_LOGIC;
+			  led_one_count_up : in  integer range 0 to 255;
+           led_two_count_up : in  integer range 0 to 255;
+           led_three_count_up : in  integer range 0 to 255;
            tx : out  STD_LOGIC);
 end pwm_counter;
 
@@ -59,37 +59,30 @@ signal                   tx_full : std_logic;
 signal              tx_half_full : std_logic;
 signal                   data_tx : std_logic_vector(7 downto 0);
 
-signal pwm_one_value_up : integer range 0 to 255 :=0;
-signal pwm_two_value_up : integer range 0 to 255 :=0;
-signal pwm_three_value_up : integer range 0 to 255 :=0;
 
-signal previous_pwm_one_value_up : integer range 0 to 255 := 0;
-signal previous_pwm_two_value_up : integer range 0 to 255 := 0;
-signal previous_pwm_three_value_up : integer range 0 to 255 := 0;
+signal reg_led_one_count_up : integer range 0 to 255 := 0;
+signal reg_led_two_count_up : integer range 0 to 255 := 0;
+signal reg_led_three_count_up : integer range 0 to 255 := 0;
 
-
-signal pwm_one_fin    : std_logic := '0';
-signal pwm_two_fin    : std_logic := '0';
-signal pwm_three_fin  : std_logic := '0';
-
-signal rst_one : std_logic :='0';
-signal rst_two : std_logic :='0';
-signal rst_three : std_logic :='0';
+signal previous_reg_led_one_count_up : integer range 0 to 255 := 0;
+signal previous_reg_led_two_count_up : integer range 0 to 255 := 0;
+signal previous_reg_led_three_count_up : integer range 0 to 255 := 0;
 
 type state is (led_one_write, led_two_write, led_three_write);
 signal current_state : state := led_one_write;
 
 begin
  
-FSM : process(clk_in, current_state, data_tx, pwm_one_value_up, pwm_two_value_up ,pwm_three_value_up) is
+FSM : process(clk_in, current_state,reg_led_one_count_up, reg_led_two_count_up, reg_led_three_count_up,
+				  previous_reg_led_one_count_up, previous_reg_led_two_count_up, previous_reg_led_three_count_up) is
 begin
 	 if rising_edge(clk_in) then
 	 write_to_uart <= '0';	 
     case current_state is
 	
 		  when led_one_write =>
-				if pwm_one_fin = '1' and tx_full = '0' and previous_pwm_one_value_up /= pwm_one_value_up then
-					data_tx <=	std_logic_vector(to_unsigned(pwm_one_value_up, data_tx'length));
+				if previous_reg_led_one_count_up /= reg_led_one_count_up then					
+					data_tx <=	std_logic_vector(to_unsigned(reg_led_one_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= led_two_write;
 				else
@@ -97,8 +90,8 @@ begin
 				end if;
 				
 		  when led_two_write =>
-				if pwm_two_fin = '1' and tx_full = '0' and previous_pwm_two_value_up /= pwm_two_value_up then
-					data_tx <= std_logic_vector(to_unsigned(pwm_two_value_up, data_tx'length));
+				if previous_reg_led_two_count_up /= reg_led_two_count_up then					
+					data_tx <=	std_logic_vector(to_unsigned(reg_led_two_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= led_three_write;
 				else
@@ -106,8 +99,8 @@ begin
 				end if;
 				
 		  when led_three_write =>
-				if pwm_three_fin = '1' and tx_full = '0' and previous_pwm_three_value_up /= pwm_three_value_up then
-					data_tx <= std_logic_vector(to_unsigned(pwm_three_value_up, data_tx'length));
+				if previous_reg_led_three_count_up /= reg_led_three_count_up then					
+					data_tx <=	std_logic_vector(to_unsigned(reg_led_three_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= led_one_write;
 				else
@@ -131,83 +124,50 @@ end process;
                             clk => clk_in );
 
 
-  pwm_one_counter: process(clk_in, rst_one)
-  begin
-	 if rst_one ='1' then
-		pwm_one_value_up <= 0;
-    elsif clk_in'event and clk_in='1' then
-		if led_one = '1' then
-			if pwm_one_value_up = 255 then
-				pwm_one_fin <= '1';
-				pwm_one_value_up <= 0;
-			else
-				pwm_one_value_up <= pwm_one_value_up + 1;
-				pwm_one_fin <= '0';			
-			end if;
-		else
-			pwm_one_fin <= '1';
-		end if;
-    end if;
-  end process pwm_one_counter;
 
-  reg_previous_pwm_one_value: process(pwm_one_fin)
+  reg_led_one_count: process(clk_in)
   begin
-		if rising_edge(pwm_one_fin) then
-			previous_pwm_one_value_up <= pwm_one_value_up;
+		if rising_edge(clk_in) then
+			reg_led_one_count_up <= led_one_count_up;
 		end if;
-  end process;
+  end process reg_led_one_count;
 
-  pwm_two_counter: process(clk_in, rst_two)
+  reg_led_two_count: process(clk_in)
   begin
-	 if rst_two ='1' then
-		pwm_two_value_up <= 0;
-    elsif clk_in'event and clk_in='1' then
-		if led_two = '1' then
-			if pwm_two_value_up = 255 then
-				pwm_two_fin <= '1';
-				pwm_two_value_up <= 0;
-			else
-				pwm_two_value_up <= pwm_two_value_up + 1;
-				pwm_two_fin <= '0';			
-			end if;
-		else
-			pwm_two_fin <= '1';
+		if rising_edge(clk_in) then
+			reg_led_two_count_up <= led_two_count_up;
 		end if;
-    end if;
-  end process pwm_two_counter;
+  end process reg_led_two_count;
 
-  reg_previous_pwm_two_value: process(pwm_two_fin)
+  reg_led_three_count: process(clk_in)
   begin
-		if rising_edge(pwm_two_fin) then
-			previous_pwm_two_value_up <= pwm_two_value_up;
+		if rising_edge(clk_in) then
+			reg_led_three_count_up <= led_three_count_up;
 		end if;
-  end process;
+  end process reg_led_three_count;
 
-  pwm_three_counter: process(clk_in, rst_three)
-  begin
-	 if rst_three ='1' then
-		pwm_three_value_up <= 0;
-    elsif clk_in'event and clk_in='1' then
-		if led_three = '1' then
-			if pwm_three_value_up = 255 then
-				pwm_three_fin <= '1';
-				pwm_three_value_up <= 0;
-			else
-				pwm_three_value_up <= pwm_three_value_up + 1;
-				pwm_three_fin <= '0';			
-			end if;
-		else
-			pwm_three_fin <= '1';
-		end if;
-    end if;
-  end process pwm_three_counter;
 
-  reg_previous_pwm_three_value: process(pwm_three_fin)
+
+  reg_previous_led_one_count: process(clk_in)
   begin
-		if rising_edge(pwm_three_fin) then
-			previous_pwm_three_value_up <= pwm_three_value_up;
+		if rising_edge(clk_in) then
+			previous_reg_led_one_count_up <= reg_led_one_count_up;
 		end if;
-  end process;
+  end process reg_previous_led_one_count;
+
+  reg_previous_led_two_count: process(clk_in)
+  begin
+		if rising_edge(clk_in) then
+			previous_reg_led_two_count_up <= reg_led_two_count_up;
+		end if;
+  end process reg_previous_led_two_count;
+
+  reg_previous_led_three_count: process(clk_in)
+  begin
+		if rising_edge(clk_in) then
+			previous_reg_led_three_count_up <= reg_led_three_count_up;
+		end if;
+  end process reg_previous_led_three_count;
 
 end Behavioral;
 
