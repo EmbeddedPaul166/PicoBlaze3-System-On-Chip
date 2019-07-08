@@ -32,13 +32,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity baud_generator is
     Port ( clk : in  STD_LOGIC;
            en_16_x_baud_9600 : out  STD_LOGIC;
-           en_16_x_baud_38400 : out  STD_LOGIC);
+           en_16_x_baud_4800 : out  STD_LOGIC);
 end baud_generator;
 
 architecture Behavioral of baud_generator is
 
 signal           baud_count_9600 : integer range 0 to 127;
-signal          baud_count_38400 : integer range 0 to 127;
+signal          baud_count_4800 : integer range 0 to 127;
 
 begin
 
@@ -56,18 +56,18 @@ begin
   end process baud_timer_9600;
 	
 	
-  baud_timer_38400: process(clk)
+  baud_timer_4800: process(clk)
   begin
     if clk'event and clk='1' then
-      if baud_count_38400=9 then
-         baud_count_38400 <= 0;
-         en_16_x_baud_38400 <= '1';
+      if baud_count_4800=77 then
+         baud_count_4800 <= 0;
+         en_16_x_baud_4800 <= '1';
        else
-         baud_count_38400 <= baud_count_38400 + 1;
-         en_16_x_baud_38400 <= '0';
+         baud_count_4800 <= baud_count_4800 + 1;
+         en_16_x_baud_4800 <= '0';
       end if;
     end if;
-  end process baud_timer_38400;
+  end process baud_timer_4800;
 
 
 end Behavioral;

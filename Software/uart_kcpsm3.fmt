@@ -37,11 +37,17 @@
 
                       NAMEREG sb, store_pointer      ;used to pass location of data in scratch pad memory
 
-                      NAMEREG s1, dividend           ; preserved
-                      NAMEREG s2, divisor            ; preserved
-                      NAMEREG s3, quotient           ; preserved
-                      NAMEREG s4, remainder          ; modified
-                      NAMEREG s5, bit_mask           ; used to test bits in dividend
+                      NAMEREG sa, dividend           ; preserved
+                      NAMEREG s9, divisor            ; preserved
+                      NAMEREG s8, quotient           ; preserved
+                      NAMEREG s7, remainder          ; modified
+                      NAMEREG s6, bit_mask           ; used to test bits in dividend
+
+                      NAMEREG s5, multiplicand
+                      NAMEREG s4, multiplier
+                      NAMEREG s3, bit_mask
+                      NAMEREG s2, result_msb
+                      NAMEREG s1, result_lsb
 
                       ;ASCII table
 
@@ -120,18 +126,71 @@
 
 
           initialize:
-                      LOAD UART_data_led, FF
-                      CALL send_to_UART_led
-                      LOAD UART_data_led, 14
-                      CALL send_to_UART_led
-                      LOAD UART_data_led, FF
-                      CALL send_to_UART_led
-
 
                       ;   Program loop
         program_loop:
+                      CALL read_from_UART_user
+                      CALL send_to_UART_user
+                      TEST UART_data_user, character_l
+                      JUMP NZ, handle_led
+                      TEST UART_data_user, character_n
+                      JUMP NZ, switch_sseg_led_value
+                      JUMP program_loop
+          handle_led:
+                      CALL receive_led_number
+                      CALL send_to_UART_led
+                      JUMP program_loop
+ switch_sseg_led_value:
                       CALL read_from_UART_pwm
+                      CALL send_to_sseg
+                      JUMP program_loop
 
+  receive_led_number:
+                      LOAD UART_data_led, 00
+
+                      CALL receive_digit
+                      LOAD multiplicand, UART_data_user
+                      LOAD multiplier, 64
+                      CALL multiply
+                      ADD UART_data_led, result_lsb
+
+                      CALL receive_digit
+                      LOAD multiplicand, UART_data_user
+                      LOAD multiplier, 0A
+                      CALL multiply
+                      ADD UART_data_led, result_lsb
+
+                      CALL receive_digit
+                      ADD UART_data_led, result_lsb
+                      RETURN
+
+       receive_digit:
+                      CALL read_from_UART_user
+                      CALL send_to_UART_user
+                      TEST UART_data_user, 00
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 01
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 02
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 03
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 04
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 05
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 06
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 07
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 08
+                      JUMP Z, program_loop
+                      TEST UART_data_user, 09
+                      JUMP Z, program_loop
+                      RETURN
+
+
+        send_to_sseg:
                       LOAD dividend, UART_data_pwm_gauge
                       LOAD divisor, 64
                       CALL divide
@@ -150,39 +209,72 @@
                       LOAD UART_data_sseg, quotient
                       CALL send_to_UART_sseg
 
-                 end: JUMP end
+                      RETURN
 
-
-
-   send_to_UART_user: INPUT s0, UART_status_port_user
+   send_to_UART_user:
+                      INPUT s0, UART_status_port_user
                       TEST s0, tx_full_user
                       JUMP Z, UART_write_user
                       JUMP send_to_UART_user
-     UART_write_user: OUTPUT UART_data_user, UART_write_port_user
+     UART_write_user:
+                      OUTPUT UART_data_user, UART_write_port_user
                       RETURN
 
-   send_to_UART_sseg: INPUT s0, UART_status_port_sseg
+   send_to_UART_sseg:
+                      INPUT s0, UART_status_port_sseg
                       TEST s0, tx_full_sseg
                       JUMP Z, UART_write_sseg
                       JUMP send_to_UART_sseg
-     UART_write_sseg: OUTPUT UART_data_sseg, UART_write_port_sseg
+     UART_write_sseg:
+                      OUTPUT UART_data_sseg, UART_write_port_sseg
                       RETURN
 
 
-    send_to_UART_led: INPUT s0, UART_status_port_led
+    send_to_UART_led:
+                      INPUT s0, UART_status_port_led
                       TEST s0, tx_full_led
                       JUMP Z, UART_write_led
                       JUMP send_to_UART_led
-      UART_write_led: OUTPUT UART_data_led, UART_write_port_led
+      UART_write_led:
+                      OUTPUT UART_data_led, UART_write_port_led
                       RETURN
 
-  read_from_UART_pwm: INPUT s0, UART_status_port_pwm_gauge
+
+ read_from_UART_user:
+                      INPUT s0, UART_status_port_user
+                      TEST s0, rx_data_present_user
+                      JUMP NZ, read_number
+                      JUMP read_from_UART_user
+         read_number:
+                      INPUT UART_data_user, UART_read_port_user
+                      RETURN
+
+  read_from_UART_pwm:
+                      INPUT s0, UART_status_port_pwm_gauge
                       TEST s0, rx_data_present_pwm_gauge
                       JUMP NZ, read_pwm_number
                       JUMP read_from_UART_pwm
-
-     read_pwm_number: INPUT UART_data_pwm_gauge, UART_read_port_pwm_gauge
+     read_pwm_number:
+                      INPUT UART_data_pwm_gauge, UART_read_port_pwm_gauge
                       RETURN
+
+
+            multiply:
+                      LOAD bit_mask, 01
+                      LOAD result_msb, 00
+                      LOAD result_lsb, 00
+           mult_loop:
+                      TEST multiplier, bit_mask
+                      JUMP Z, no_add
+                      ADD result_msb, multiplicand
+              no_add:
+                      SRA result_msb
+                      SRA result_lsb
+                      SL0 bit_mask                   ; shift bit_mask left to examine
+                      JUMP NZ, mult_loop
+                      RETURN
+
+
 
               divide:
                       LOAD remainder, 00

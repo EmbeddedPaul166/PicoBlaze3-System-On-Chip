@@ -47,7 +47,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --
 entity pBlaze3_uart is
     Port (    en_16_x_baud_9600 : in  std_logic;
-              en_16_x_baud_38400 : in  std_logic;
+              en_16_x_baud_4800 : in  std_logic;
 				  tx_user : out std_logic;
               rx_user : in std_logic;
 				  tx_sseg : out std_logic;
@@ -353,7 +353,7 @@ begin
   port map (            data_in => out_port_user, 
                    write_buffer => write_to_uart_user,
                    reset_buffer => '0',
-                   en_16_x_baud => en_16_x_baud_38400,
+                   en_16_x_baud => en_16_x_baud_9600,
                      serial_out => tx_user,
                     buffer_full => tx_full_user,
                buffer_half_full => tx_half_full_user,
@@ -364,7 +364,7 @@ begin
                          data_out => rx_data_user,
                       read_buffer => read_from_uart_user,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud_38400,
+                     en_16_x_baud => en_16_x_baud_9600,
               buffer_data_present => rx_data_present_user,
                       buffer_full => rx_full_user,
                  buffer_half_full => rx_half_full_user,
@@ -376,7 +376,7 @@ begin
   port map (            data_in => out_port_sseg, 
                    write_buffer => write_to_uart_sseg,
                    reset_buffer => '0',
-                   en_16_x_baud => en_16_x_baud_9600,
+                   en_16_x_baud => en_16_x_baud_4800,
                      serial_out => tx_sseg,
                     buffer_full => tx_full_sseg,
                buffer_half_full => tx_half_full_sseg,
@@ -388,7 +388,7 @@ begin
   port map (            data_in => out_port_led, 
                    write_buffer => write_to_uart_led,
                    reset_buffer => '0',
-                   en_16_x_baud => en_16_x_baud_9600,
+                   en_16_x_baud => en_16_x_baud_4800,
                      serial_out => tx_led,
                     buffer_full => tx_full_led,
                buffer_half_full => tx_half_full_led,
@@ -401,7 +401,7 @@ begin
                          data_out => rx_data_pwm_gauge,
                       read_buffer => read_from_uart_pwm_gauge,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud_9600,
+                     en_16_x_baud => en_16_x_baud_4800,
               buffer_data_present => rx_data_present_pwm_gauge,
                       buffer_full => rx_full_pwm_gauge,
                  buffer_half_full => rx_half_full_pwm_gauge,

@@ -32,7 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity led_driver is
     Port ( clk_in : in  STD_LOGIC;
-			  en_16_x_baud_9600 : in  std_logic;
+			  en_16_x_baud_4800 : in  std_logic;
            rx : in  STD_LOGIC;
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
@@ -65,9 +65,9 @@ signal rx_data_present : std_logic;
 signal rx_full         : std_logic;
 signal rx_half_full    : std_logic;
 
-signal pwm_one_value : integer range 0 to 255 :=255;
-signal pwm_two_value : integer range 0 to 255 :=255;
-signal pwm_three_value : integer range 0 to 255 :=255;
+signal pwm_one_value : integer range 0 to 255 := 0;
+signal pwm_two_value : integer range 0 to 255 := 0;
+signal pwm_three_value : integer range 0 to 255 := 0;
 
 signal pwm_one_count : integer range 0 to 255 :=0;
 signal pwm_two_count : integer range 0 to 255 :=0;
@@ -136,6 +136,10 @@ begin
 	 end if;
 end process;
 
+	led_one_count_up <= pwm_one_value;
+	led_two_count_up <= pwm_two_value;
+	led_three_count_up <= pwm_three_value;
+
 
   pwm_one_counter: process(clk_in, rst_one)
   begin
@@ -145,13 +149,13 @@ end process;
       if pwm_one_count = 255 then
            pwm_one_count <= 0;         
        else
-           pwm_one_count <= pwm_one_count + 1;
 			  if pwm_one_count <= pwm_one_value then
 				led_one <= '1';
 			  else
-				led_one_count_up <= pwm_one_count;
+				--led_one_count_up <= pwm_one_count;
 				led_one <= '0';
-			  end if;          
+			  end if;
+			  pwm_one_count <= pwm_one_count + 1;
       end if;
     end if;
   end process pwm_one_counter;
@@ -164,13 +168,13 @@ end process;
       if pwm_two_count = 255 then
            pwm_two_count <= 0;         
        else
-           pwm_two_count <= pwm_two_count + 1;
 			  if pwm_two_count <= pwm_two_value then
 				led_two <= '1';
 			  else
-			   led_two_count_up <= pwm_two_count;
+			   --led_two_count_up <= pwm_two_count;
 				led_two <= '0';
-			  end if;        
+			  end if;
+			  pwm_two_count <= pwm_two_count + 1;
       end if;
     end if;
   end process pwm_two_counter;
@@ -183,13 +187,13 @@ end process;
       if pwm_three_count = 255 then
            pwm_three_count <= 0;          
        else
-           pwm_three_count <= pwm_three_count + 1;
 			  if pwm_three_count <= pwm_three_value then
 				led_three <= '1';
 			  else
-			   led_three_count_up <= pwm_three_count;
+			   --led_three_count_up <= pwm_three_count;
 				led_three <= '0';
-			  end if;          
+			  end if;
+			  pwm_three_count <= pwm_three_count + 1;
       end if;
     end if;
   end process pwm_three_counter;
@@ -199,7 +203,7 @@ end process;
                          data_out => rx_data,
                       read_buffer => read_from_uart,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud_9600,
+                     en_16_x_baud => en_16_x_baud_4800,
               buffer_data_present => rx_data_present,
                       buffer_full => rx_full,
                  buffer_half_full => rx_half_full,

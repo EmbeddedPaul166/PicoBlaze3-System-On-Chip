@@ -6,7 +6,7 @@ entity led8a_driver is
     Generic ( MAIN_CLK: natural:=6000000;                 -- main frequency in Hz
               CLKDIV_INTERNAL: boolean:=True);         -- 
     Port ( clk_in : in  STD_LOGIC;                      -- main_clk or slow_clk (external)
-			  en_16_x_baud_9600 : in  STD_LOGIC;
+			  en_16_x_baud_4800 : in  STD_LOGIC;
            sseg : out  STD_LOGIC_VECTOR (6 downto 0);   -- active Low
            an : out  STD_LOGIC_VECTOR (2 downto 0);    -- active Low
            rx: in std_logic);
@@ -115,7 +115,7 @@ sseg_out: sseg <= not(seg);
                          data_out => rx_data,
                       read_buffer => read_from_uart,
                      reset_buffer => '0',
-                     en_16_x_baud => en_16_x_baud_9600,
+                     en_16_x_baud => en_16_x_baud_4800,
               buffer_data_present => rx_data_present,
                       buffer_full => rx_full,
                  buffer_half_full => rx_half_full,
