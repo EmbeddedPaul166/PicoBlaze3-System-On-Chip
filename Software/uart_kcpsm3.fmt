@@ -3,7 +3,7 @@
                       ;   KCPSM3-USER
                       CONSTANT UART_status_port_user, 01
                       CONSTANT UART_read_port_user, 02
-                      CONSTANT UART_write_port_user, 08
+                      CONSTANT UART_write_port_user, 01
                       CONSTANT tx_half_full_user, 00
                       CONSTANT tx_full_user, 01
                       CONSTANT rx_half_full_user, 02
@@ -11,22 +11,22 @@
                       CONSTANT rx_data_present_user, 04
 
                       ;   PWM_GAUGE-KCPSM3
-                      CONSTANT UART_status_port_pwm_gauge, 03
-                      CONSTANT UART_read_port_pwm_gauge, 04
+                      CONSTANT UART_status_port_pwm_gauge, 04
+                      CONSTANT UART_read_port_pwm_gauge, 08
                       CONSTANT rx_half_full_pwm_gauge, 00
                       CONSTANT rx_full_pwm_gauge, 01
                       CONSTANT rx_data_present_pwm_gauge, 02
 
                       ;   KCPSM3-SSEG
-                      CONSTANT UART_status_port_sseg, 05
-                      CONSTANT UART_write_port_sseg, 10
-                      CONSTANT UART_write_sseg, 40
+                      CONSTANT UART_status_port_sseg, 10
+                      CONSTANT UART_write_port_sseg, 02
+                      ;CONSTANT UART_write_sseg, 40
                       CONSTANT tx_half_full_sseg, 00
                       CONSTANT tx_full_sseg, 01
 
                       ;   KCPSM3-LED
-                      CONSTANT UART_status_port_led, 06
-                      CONSTANT UART_write_port_led, 20
+                      CONSTANT UART_status_port_led, 20
+                      CONSTANT UART_write_port_led, 04
                       CONSTANT tx_half_full_led, 00
                       CONSTANT tx_full_led, 01
 
@@ -126,11 +126,20 @@
 
 
           initialize:
-
+                      DISABLE INTERRUPT
                       ;   Program loop
+                      LOAD UART_data_sseg, 05
+                      CALL send_to_UART_sseg
+                      CALL send_to_UART_sseg
+                      CALL send_to_UART_sseg
+                      LOAD UART_data_led, FF
+                      CALL send_to_UART_led
+                      CALL send_to_UART_led
+                      CALL send_to_UART_led
         program_loop:
                       CALL read_from_UART_user
                       CALL send_to_UART_user
+                      JUMP program_loop
                       TEST UART_data_user, character_l
                       JUMP NZ, handle_led
                       TEST UART_data_user, character_n

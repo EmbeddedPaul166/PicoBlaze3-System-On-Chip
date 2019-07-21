@@ -259,39 +259,41 @@ begin
               
 		  case port_id is
        
-        -- read UART status at address 01 hex
         when "00000001" =>    in_port <= uart_status_port_user;
 
-        -- read UART receive data at address 02 hex
         when "00000010" =>    in_port <= rx_data_user;
 
-        -- read UART status at address 03 hex
-        when "00000011" =>    in_port <= uart_status_port_pwm_gauge;
+        when "00000100" =>    in_port <= uart_status_port_pwm_gauge;
 		  
-		  -- read UART status at address 04 hex
-		  when "00000100" =>    in_port <= rx_data_pwm_gauge;
+		  when "00001000" =>    in_port <= rx_data_pwm_gauge;
 		  
-        -- transmit UART status at address 05 hex
-        when "00000101" =>    in_port <= uart_status_port_sseg;
+        when "00010000" =>    in_port <= uart_status_port_sseg;
 
-        -- transmit UART status at address 06 hex
-        when "00000110" =>    in_port <= uart_status_port_led;	  
+        when "00100000" =>    in_port <= uart_status_port_led;	  
         
-        -- Don't care used for all other addresses to ensure minimum logic implementation
         when others =>    in_port <= "XXXXXXXX";  
 
       end case;
-
+		
       -- Form read strobe for UART receiver FIFO buffer.
       -- The fact that the read strobe will occur after the actual data is read by 
       -- the KCPSM3 is acceptable because it is really means 'I have read you'!
-
-      read_from_uart_user <= read_strobe and (not port_id(0)) and port_id(1) and (not port_id(2)); 
-		read_from_uart_pwm_gauge <= read_strobe and (not port_id(0)) and (not port_id(1)) and port_id(2); 
-
+		  --read_from_uart_user <= read_strobe and port_id(1); 
+		  --read_from_uart_pwm_gauge <= read_strobe and port_id(3); 
     end if;
 
   end process input_ports;
+
+	read_from_uart_user_process: process(read_strobe, port_id(1))
+	begin
+		--if clk'event and clk = '1' then
+			if read_strobe = '1' and port_id(1) = '1' then
+				read_from_uart_user <= '1';
+			else
+				read_from_uart_user <= '0';
+			end if;
+		--end if;
+	end process;
 
 
   --
@@ -302,41 +304,33 @@ begin
 
   -- adding the output registers to the clock processor
    
-  --output_ports: process(write_strobe, port_id, out_port) --deleted clk from sensitivity list
+  --output_ports: process(clk) --deleted clk from sensitivity list
   --begin 	
-			--case port_id is
-		  
-				-- write UART user
-				--when "00001000" =>    out_port_user <= out_port;
-
-				-- write UART sseg
-				--when "00010000" =>    out_port_sseg <= out_port;
-
-				-- write UART led
-				--when "00100000" =>    out_port_led <= out_port;
-        
-				-- Don't care used for all other addresses to ensure minimum logic implementation
-				--when others =>
-
-			--end case;
+		--if clk'event and clk = '1' then
+		--if write_strobe = '1' then
+			--if port_id(0) = '1' then
+				--out_port_user <= out_port;
+			--elsif port_id(1) = '1' then
+				--out_port_sseg <= out_port;
+			--elsif port_id(2) = '1' then
+				--out_port_led <= out_port;
+			--end if;
+		--end if;
+		--end if;
 
   --end process output_ports;
 	
-	out_port_user <= out_port when port_id = "00001000" and write_strobe = '1' else "XXXXXXXX";
-	out_port_sseg <= out_port when port_id = "00010000"  and write_strobe = '1' else "XXXXXXXX";
-	out_port_led <= out_port when port_id = "00100000"  and write_strobe = '1' else "XXXXXXXX";
+	
+	out_port_user <= out_port when write_to_uart_user = '1' else "XXXXXXXX";
+	out_port_sseg <= out_port when write_to_uart_sseg = '1' else "XXXXXXXX";
+	out_port_led <= out_port when write_to_uart_led = '1' else "XXXXXXXX";
 	
 
 
-  --
-  -- write to UART transmitter FIFO buffer at address 01 hex.
-  -- This is a combinatorial decode because the FIFO is the 'port register'.
-  --
 
-
-  write_to_uart_user <= write_strobe and port_id(3);
-  write_to_uart_sseg <= write_strobe and port_id(4);
-  write_to_uart_led <= write_strobe and port_id(5);
+  write_to_uart_user <= write_strobe and port_id(0);
+  write_to_uart_sseg <= write_strobe and port_id(1);
+  write_to_uart_led <= write_strobe and port_id(2);
 
 
   --
