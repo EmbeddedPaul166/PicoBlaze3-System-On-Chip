@@ -76,7 +76,7 @@ begin
     case current_state is		  
 
 		  when led_one_write =>
-				if led_one_count_up /= 0 and tx_full = '0' then					
+				if led_one_count_up /= reg_led_one_count_up and tx_full = '0' then					
 					data_tx <=	std_logic_vector(to_unsigned(led_one_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= wait_after_write_one;
@@ -88,7 +88,7 @@ begin
 				current_state <= led_two_write;
 		  						
 		  when led_two_write =>
-				if led_two_count_up /= 0 and tx_full = '0' then					
+				if led_two_count_up /= reg_led_two_count_up and tx_full = '0' then					
 					data_tx <=	std_logic_vector(to_unsigned(led_two_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= wait_after_write_two;
@@ -100,7 +100,7 @@ begin
 				current_state <= led_three_write;
 				
 		  when led_three_write =>
-				if led_three_count_up /= 0 and tx_full = '0' then					
+				if led_three_count_up /= reg_led_three_count_up and tx_full = '0' then					
 					data_tx <=	std_logic_vector(to_unsigned(led_three_count_up, data_tx'length));
 					write_to_uart <= '1';
 					current_state <= wait_after_write_three;
