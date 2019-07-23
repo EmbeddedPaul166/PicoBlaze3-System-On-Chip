@@ -4,31 +4,31 @@
                         CONSTANT UART_status_port_user, 01           
                         CONSTANT UART_read_port_user, 02
                         CONSTANT UART_write_port_user, 01
-                        CONSTANT tx_half_full_user, 00                
-                        CONSTANT tx_full_user, 01                     
-                        CONSTANT rx_half_full_user, 02                
-                        CONSTANT rx_full_user, 03                     
-                        CONSTANT rx_data_present_user, 04             
+                        CONSTANT tx_half_full_user, 01                
+                        CONSTANT tx_full_user, 02                     
+                        CONSTANT rx_half_full_user, 04                
+                        CONSTANT rx_full_user, 08                     
+                        CONSTANT rx_data_present_user, 10             
                         
                         ;   PWM_GAUGE-KCPSM3
                         CONSTANT UART_status_port_pwm_gauge, 04            
                         CONSTANT UART_read_port_pwm_gauge, 08
-                        CONSTANT rx_half_full_pwm_gauge, 00                
-                        CONSTANT rx_full_pwm_gauge, 01                     
-                        CONSTANT rx_data_present_pwm_gauge, 02 
+                        CONSTANT rx_half_full_pwm_gauge, 01                
+                        CONSTANT rx_full_pwm_gauge, 02                     
+                        CONSTANT rx_data_present_pwm_gauge, 04 
                         
                         ;   KCPSM3-SSEG
                         CONSTANT UART_status_port_sseg, 10           
                         CONSTANT UART_write_port_sseg, 02
                         ;CONSTANT UART_write_sseg, 40
-                        CONSTANT tx_half_full_sseg, 00                
-                        CONSTANT tx_full_sseg, 01                       
+                        CONSTANT tx_half_full_sseg, 01                
+                        CONSTANT tx_full_sseg, 02                       
                          
                         ;   KCPSM3-LED
                         CONSTANT UART_status_port_led, 20           
                         CONSTANT UART_write_port_led, 04
-                        CONSTANT tx_half_full_led, 00                
-                        CONSTANT tx_full_led, 01                       
+                        CONSTANT tx_half_full_led, 01                
+                        CONSTANT tx_full_led, 02                       
                          
                         NAMEREG sF, UART_data_user                    ;used to pass data to and from the UART
                         NAMEREG sE, UART_data_led

@@ -129,7 +129,6 @@ signal out_port   : std_logic_vector(7 downto 0);
 signal in_port         : std_logic_vector(7 downto 0);
 signal write_strobe    : std_logic;
 signal read_strobe     : std_logic;
-signal interrupt       : std_logic;
 signal interrupt_ack   : std_logic;
 --
 -- Signals for connection of peripherals
@@ -189,7 +188,7 @@ begin
                   out_port => out_port,
                read_strobe => read_strobe,
                    in_port => in_port,
-                 interrupt => interrupt,
+                 interrupt => '0',
              interrupt_ack => interrupt_ack,
                      reset => '0',
                        clk => clk);
@@ -208,31 +207,6 @@ begin
   -- Interrupt is a generated once every 6 clock cycles to provide a 1us reference. 
   -- Interrupt is automatically cleared by interrupt acknowledgment from KCPSM3.
   --
-
-  Timer: process(clk)
-  begin
-
-    if clk'event and clk='1' then
-      
-      if timer_count=6 then
-         timer_count <= 0;
-         timer_pulse <= '1';
-       else
-         timer_count <= timer_count + 1;
-         timer_pulse <= '0';
-      end if;
-
-      if interrupt_ack = '1' then
-         interrupt <= '0';
-       elsif timer_pulse = '1' then 
-         interrupt <= '1';
-        else
-         interrupt <= interrupt;
-      end if;
-     
-    end if;
-    
-  end process Timer;
 
 
   --
