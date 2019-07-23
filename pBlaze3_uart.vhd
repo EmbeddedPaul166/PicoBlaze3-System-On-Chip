@@ -275,26 +275,12 @@ begin
 
       end case;
 		
-      -- Form read strobe for UART receiver FIFO buffer.
-      -- The fact that the read strobe will occur after the actual data is read by 
-      -- the KCPSM3 is acceptable because it is really means 'I have read you'!
-		  --read_from_uart_user <= read_strobe and port_id(1); 
-		  --read_from_uart_pwm_gauge <= read_strobe and port_id(3); 
+		read_from_uart_user <= read_strobe and port_id(1); 
+		read_from_uart_pwm_gauge <= read_strobe and port_id(3);
+		   
     end if;
 
   end process input_ports;
-
-	read_from_uart_user_process: process(read_strobe, port_id(1))
-	begin
-		--if clk'event and clk = '1' then
-			if read_strobe = '1' and port_id(1) = '1' then
-				read_from_uart_user <= '1';
-			else
-				read_from_uart_user <= '0';
-			end if;
-		--end if;
-	end process;
-
 
   --
   ----------------------------------------------------------------------------------------------------------------------------------
@@ -321,9 +307,9 @@ begin
   --end process output_ports;
 	
 	
-	out_port_user <= out_port when write_to_uart_user = '1' else "XXXXXXXX";
-	out_port_sseg <= out_port when write_to_uart_sseg = '1' else "XXXXXXXX";
-	out_port_led <= out_port when write_to_uart_led = '1' else "XXXXXXXX";
+	out_port_user <= out_port;
+	out_port_sseg <= out_port;
+	out_port_led <= out_port;
 	
 
 

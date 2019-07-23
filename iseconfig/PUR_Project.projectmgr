@@ -7,7 +7,6 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
-         <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_counter_led_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_pwm_gauge_uart - uart_rx - macro_level_definition</ClosedNode>
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/KCPSM3 - pBlaze3_uart - Behavioral/rx_user_uart - uart_rx - macro_level_definition</ClosedNode>
@@ -40,13 +39,13 @@
          <ClosedNode>/top - Behavioral |home|paul|Documents|Laboratory_reports|PUR|PUR_Project|PUR_Project|top.vhd/UART - pBlaze3_uart - Behavioral/tx_user_uart - uart_tx - macro_level_definition</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</SelectedItem>
+         <SelectedItem>processor - kcpsm3 - low_level_definition (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/kcpsm3.vhd)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000021f000000020000000000000000000000000200000064ffffffff0000008100000003000000020000021f0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000232000000020000000000000000000000000200000064ffffffff000000810000000300000002000002320000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>top - Behavioral (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/top.vhd)</CurrentItem>
+      <CurrentItem>processor - kcpsm3 - low_level_definition (/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/kcpsm3.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -58,7 +57,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f2000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f20000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000236000000010000000100000000000000000000000064ffffffff000000810000000000000001000002360000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>
@@ -108,13 +107,13 @@
          <ClosedNode>Implement Design</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Programming File</SelectedItem>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000e3000000010000000100000000000000000000000064ffffffff000000810000000000000001000000e30000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000236000000010000000100000000000000000000000064ffffffff000000810000000000000001000002360000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Programming File</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
@@ -175,7 +174,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f2000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f20000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000236000000010000000100000000000000000000000064ffffffff000000810000000000000001000002360000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>
@@ -191,5 +190,18 @@
       <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000018f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000018f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>View HDL Source</CurrentItem>
+   </ItemView>
+   <ItemView engineview="SynthesisOnly" sourcetype="DESUT_CDC" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem></SelectedItem>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000236000000010000000100000000000000000000000064ffffffff000000810000000000000001000002360000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem></CurrentItem>
    </ItemView>
 </Project>

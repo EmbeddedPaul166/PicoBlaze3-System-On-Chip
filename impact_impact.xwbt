@@ -1,8 +1,8 @@
 INTSTYLE=impact
 INFILE=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/impact.xsl
 OUTFILE=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/impact.xsl
-FAMILY=None
-PART=None
+FAMILY=Single
+PART=Single
 WORKINGDIR=/home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project
 LICENSE=iMPACT
 USER_INFO=iMPACT
