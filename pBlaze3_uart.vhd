@@ -1,50 +1,8 @@
---
--- KCPSM3 reference design - Real Time Clock with UART communications
---
--- Ken Chapman - Xilinx Ltd - October 2003
---
--- The design demonstrates the following:-
---           Connection of KCPSM3 to Program ROM
---           Connection of UART macros supplied with PicoBlaze with
---                Baud rate generation
---           Definition of input and output ports with 
---                Minimum decoding
---                Pipelining where appropriate
---           Interrupt circuit with
---                Simple fixed period timer
---                Automatic clearing using interrupt acknowledge from KCPSM3
---
--- The design is set up for a 55MHz system clock and UART communications rate of 38400 baud.
--- Please read design documentation to modify to your own requirements.
---
-------------------------------------------------------------------------------------
---
--- NOTICE:
---
--- Copyright Xilinx, Inc. 2003.   This code may be contain portions patented by other 
--- third parties.  By providing this core as one possible implementation of a standard,
--- Xilinx is making no representation that the provided implementation of this standard 
--- is free from any claims of infringement by any third party.  Xilinx expressly 
--- disclaims any warranty with respect to the adequacy of the implementation, including 
--- but not limited to any warranty or representation that the implementation is free 
--- from claims of any third party.  Furthermore, Xilinx is providing this core as a 
--- courtesy to you and suggests that you contact all third parties to obtain the 
--- necessary rights to use this implementation.
---
-------------------------------------------------------------------------------------
---
--- Library declarations
---
--- Standard IEEE libraries
---
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
---
-------------------------------------------------------------------------------------
---
---
+
 entity pBlaze3_uart is
     Port (    en_16_x_baud_9600 : in  std_logic;
               en_16_x_baud_4800 : in  std_logic;
@@ -55,17 +13,9 @@ entity pBlaze3_uart is
               rx_pwm_gauge : in std_logic;
               clk : in std_logic);
     end pBlaze3_uart;
---
-------------------------------------------------------------------------------------
---
--- Start of test architecture
---
+
 architecture Behavioral of pBlaze3_uart is
---
-------------------------------------------------------------------------------------
---
--- declaration of KCPSM3
---
+
   component kcpsm3 
     Port (      address : out std_logic_vector(9 downto 0);
             instruction : in std_logic_vector(17 downto 0);
@@ -130,21 +80,11 @@ signal in_port         : std_logic_vector(7 downto 0);
 signal write_strobe    : std_logic;
 signal read_strobe     : std_logic;
 signal interrupt_ack   : std_logic;
---
--- Signals for connection of peripherals
---
+
 signal uart_status_port_user : std_logic_vector(7 downto 0);
 signal uart_status_port_sseg : std_logic_vector(7 downto 0);
 signal uart_status_port_led : std_logic_vector(7 downto 0);
 signal uart_status_port_pwm_gauge : std_logic_vector(7 downto 0);
---
--- Signals to form an timer generating an interrupt every microsecond
---
-signal timer_count   : integer range 0 to 63 :=0;
-signal timer_pulse   : std_logic;
---
--- Signals for UART connections
---
 
 signal        write_to_uart_user : std_logic;
 signal              tx_full_user : std_logic;

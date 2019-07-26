@@ -1,33 +1,5 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    12:58:52 06/02/2019 
--- Design Name: 
--- Module Name:    top - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity top is
     Port ( tx : out  STD_LOGIC;
@@ -78,17 +50,17 @@ component led_driver
            led_one : out  STD_LOGIC;
            led_two : out  STD_LOGIC;
            led_three : out  STD_LOGIC;
-			  led_one_count_up : out  integer range 0 to 255;
-           led_two_count_up : out  integer range 0 to 255;
-           led_three_count_up : out  integer range 0 to 255);
+			  led_one_count_uptime : out  integer range 0 to 255;
+           led_two_count_uptime : out  integer range 0 to 255;
+           led_three_count_uptime : out  integer range 0 to 255);
 end component;
 
 component pwm_counter
     Port ( clk_in : in  STD_LOGIC;
 			  en_16_x_baud_4800 : in  STD_LOGIC;
-			  led_one_count_up : in  integer range 0 to 255;
-           led_two_count_up : in  integer range 0 to 255;
-           led_three_count_up : in  integer range 0 to 255;
+			  led_one_count_uptime : in  integer range 0 to 255;
+           led_two_count_uptime : in  integer range 0 to 255;
+           led_three_count_uptime : in  integer range 0 to 255;
            tx : out  STD_LOGIC);
 end component;
 
@@ -109,9 +81,9 @@ signal rx_pwm_gauge : std_logic;
 signal led_one_value :   std_logic;
 signal led_two_value :   std_logic;
 signal led_three_value :   std_logic;
-signal led_one_count_up_connect :  integer range 0 to 255;
-signal led_two_count_up_connect :  integer range 0 to 255;
-signal led_three_count_up_connect : integer range 0 to 255;
+signal led_one_count_uptime_connect :  integer range 0 to 255;
+signal led_two_count_uptime_connect :  integer range 0 to 255;
+signal led_three_count_uptime_connect : integer range 0 to 255;
 
 begin
 
@@ -148,16 +120,16 @@ LED_PWM_DRIVER: led_driver
               led_one => led_one_value,
               led_two => led_two_value,
               led_three => led_three_value,
-				  led_one_count_up => led_one_count_up_connect,
-              led_two_count_up => led_two_count_up_connect,
-              led_three_count_up => led_three_count_up_connect);
+				  led_one_count_uptime => led_one_count_uptime_connect,
+              led_two_count_uptime => led_two_count_uptime_connect,
+              led_three_count_uptime => led_three_count_uptime_connect);
 
 PWM_GAUGE_DRIVER: pwm_counter
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_4800 => en_16_x_baud_4800_connect,
-				  led_one_count_up => led_one_count_up_connect,
-              led_two_count_up => led_two_count_up_connect,
-              led_three_count_up => led_three_count_up_connect,
+				  led_one_count_uptime => led_one_count_uptime_connect,
+              led_two_count_uptime => led_two_count_uptime_connect,
+              led_three_count_uptime => led_three_count_uptime_connect,
               tx => rx_pwm_gauge);
   
 SSEG_DRIVER: led8a_driver 
