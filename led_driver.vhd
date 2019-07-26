@@ -50,10 +50,10 @@ signal led_one_connect    : std_logic := '0';
 signal led_two_connect    : std_logic := '0';
 signal led_three_connect    : std_logic := '0';
 
-signal led_address :  STD_LOGIC_VECTOR (1 downto 0) := "01";
+signal led_address : integer range 0 to 3 := 0;
 
-type state is (idle, data_read, data_received, change_address);
-signal current_state : state := idle;
+type state is (wait_for_address, data_read_address, address_received, wait_for_value, data_read_value, value_received);
+signal current_state : state := wait_for_address;
 
 begin
 
@@ -70,39 +70,46 @@ begin
 			rst_three <= '0';	 
 			case current_state is
 			
-				when idle =>
+				when wait_for_address =>
 					if rx_data_present = '1' then
-						current_state <= data_read;
+						current_state <= data_read_address;
 					else
-						current_state <= idle;
+						current_state <= wait_for_address;
 					end if;
 					
-				when data_read =>
+				when data_read_address =>
 					read_from_uart <= '1';				
-					current_state <= data_received;
+					current_state <= address_received;
 					
-				when data_received =>
-					if led_address = "01" then
+					
+				when address_received =>
+					led_address <= to_integer(unsigned(rx_data));
+					current_state <= wait_for_value;
+					
+					
+				when wait_for_value =>
+					if rx_data_present = '1' then
+						current_state <= data_read_value;
+					else
+						current_state <= wait_for_value;
+					end if;
+					
+				when data_read_value =>
+					read_from_uart <= '1';				
+					current_state <= value_received;
+					
+				when value_received =>
+					if led_address = 1 then
 						pwm_one_value <= to_integer(unsigned(rx_data));
 						rst_one <= '1';
-					elsif led_address = "10" then
+					elsif led_address = 2 then
 						pwm_two_value <= to_integer(unsigned(rx_data));
 						rst_two <= '1';
-					elsif led_address = "11" then
+					elsif led_address = 3 then
 						pwm_three_value <= to_integer(unsigned(rx_data));
 						rst_three <= '1';
 					end if;				
-					current_state <= change_address;
-					
-				when change_address =>
-					if led_address = "01" then
-							led_address <= "10";
-					elsif led_address = "10" then
-							led_address <= "11";
-					elsif led_address = "11" then
-							led_address <= "01";
-					end if;
-					current_state <= idle;
+					current_state <= wait_for_address;
 			
 				when others =>
 				
