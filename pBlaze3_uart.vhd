@@ -10,6 +10,7 @@ entity pBlaze3_uart is
               rx_user : in std_logic;
 				  tx_sseg : out std_logic;
 				  tx_led : out std_logic;
+				  tx_pwm_gauge : out std_logic;
               rx_pwm_gauge : in std_logic;
               clk : in std_logic);
     end pBlaze3_uart;
@@ -75,6 +76,7 @@ signal port_id         : std_logic_vector(7 downto 0);
 signal out_port_user   : std_logic_vector(7 downto 0);
 signal out_port_sseg   : std_logic_vector(7 downto 0);
 signal out_port_led   : std_logic_vector(7 downto 0);
+signal out_port_pwm_gauge   : std_logic_vector(7 downto 0);
 signal out_port   : std_logic_vector(7 downto 0);
 signal in_port         : std_logic_vector(7 downto 0);
 signal write_strobe    : std_logic;
@@ -108,6 +110,10 @@ signal                   rx_data_pwm_gauge : std_logic_vector(7 downto 0);
 signal           rx_data_present_pwm_gauge : std_logic;
 signal                   rx_full_pwm_gauge : std_logic;
 signal              rx_half_full_pwm_gauge : std_logic;
+
+signal        write_to_uart_pwm_gauge : std_logic;
+signal              tx_full_pwm_gauge : std_logic;
+signal         tx_half_full_pwm_gauge : std_logic;
 --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
@@ -161,7 +167,8 @@ begin
   uart_status_port_user <= "000" & rx_data_present_user & rx_full_user & rx_half_full_user & tx_full_user & tx_half_full_user;
   uart_status_port_sseg <= "000000" & tx_full_sseg & tx_half_full_sseg;
   uart_status_port_led <= "000000" & tx_full_led & tx_half_full_led;
-  uart_status_port_pwm_gauge <= "00000" & rx_data_present_pwm_gauge & rx_full_pwm_gauge & rx_half_full_pwm_gauge;
+  uart_status_port_pwm_gauge <= "000" & rx_data_present_pwm_gauge & rx_full_pwm_gauge & rx_half_full_pwm_gauge 
+												  & tx_full_pwm_gauge & tx_half_full_pwm_gauge;
 
   --
   -- The inputs connect via a pipelined multiplexer
@@ -224,6 +231,7 @@ begin
 	out_port_user <= out_port;
 	out_port_sseg <= out_port;
 	out_port_led <= out_port;
+	out_port_pwm_gauge <= out_port;
 	
 
 
@@ -231,6 +239,7 @@ begin
   write_to_uart_user <= write_strobe and port_id(0);
   write_to_uart_sseg <= write_strobe and port_id(1);
   write_to_uart_led <= write_strobe and port_id(2);
+  write_to_uart_pwm_gauge <= write_strobe and port_id(3);
 
 
   --
@@ -265,7 +274,7 @@ begin
                               clk => clk );  										
 										
 										
-  --pBlaze3-sseg uart								
+  --pBlaze3-SSEG uart								
   tx_sseg_uart: uart_tx 
   port map (            data_in => out_port_sseg, 
                    write_buffer => write_to_uart_sseg,
@@ -277,7 +286,7 @@ begin
                             clk => clk );
 									 									 
 									 
-  --pBlaze3-3 LEDs uart								 
+  --pBlaze3-3 LED uart								 
   tx_led_uart: uart_tx 
   port map (            data_in => out_port_led, 
                    write_buffer => write_to_uart_led,
@@ -289,7 +298,19 @@ begin
                             clk => clk );
 								  
  
-  --pBlaze3-PWMCounter uart
+  --pBlaze3-PWM Gauge uart
+  
+  tx_pwm_gauge_uart: uart_tx 
+  port map (            data_in => out_port_pwm_gauge, 
+                   write_buffer => write_to_uart_pwm_gauge,
+                   reset_buffer => '0',
+                   en_16_x_baud => en_16_x_baud_4800,
+                     serial_out => tx_pwm_gauge,
+                    buffer_full => tx_full_pwm_gauge,
+               buffer_half_full => tx_half_full_pwm_gauge,
+                            clk => clk );
+
+
   rx_pwm_gauge_uart: uart_rx
   port map (            serial_in => rx_pwm_gauge,
                          data_out => rx_data_pwm_gauge,
@@ -299,7 +320,8 @@ begin
               buffer_data_present => rx_data_present_pwm_gauge,
                       buffer_full => rx_full_pwm_gauge,
                  buffer_half_full => rx_half_full_pwm_gauge,
-                              clk => clk );  
+                              clk => clk );
+																		
 
 
   ----------------------------------------------------------------------------------------------------------------------------------

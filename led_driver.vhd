@@ -3,12 +3,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity led_driver is
-    Port ( clk_in : in  STD_LOGIC;
+    Port ( clk_in : in  std_logic;
 			  en_16_x_baud_4800 : in  std_logic;
-           rx : in  STD_LOGIC;
-           led_one : out  STD_LOGIC;
-           led_two : out  STD_LOGIC;
-           led_three : out  STD_LOGIC;
+           rx : in  std_logic;
+           led_one : out  std_logic;
+           led_two : out  std_logic;
+           led_three : out  std_logic;
 			  led_one_count_uptime : out  integer range 0 to 255;
            led_two_count_uptime : out  integer range 0 to 255;
            led_three_count_uptime : out  integer range 0 to 255);

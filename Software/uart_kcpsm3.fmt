@@ -13,9 +13,12 @@
                       ;   PWM_GAUGE-KCPSM3
                       CONSTANT UART_status_port_pwm_gauge, 04
                       CONSTANT UART_read_port_pwm_gauge, 08
-                      CONSTANT rx_half_full_pwm_gauge, 01
-                      CONSTANT rx_full_pwm_gauge, 02
-                      CONSTANT rx_data_present_pwm_gauge, 04
+                      CONSTANT UART_write_port_pwm_gauge, 08
+                      CONSTANT tx_half_full_pwm_gauge, 01
+                      CONSTANT tx_full_pwm_gauge, 02
+                      CONSTANT rx_half_full_pwm_gauge, 04
+                      CONSTANT rx_full_pwm_gauge, 08
+                      CONSTANT rx_data_present_pwm_gauge, 10
 
                       ;   KCPSM3-SSEG
                       CONSTANT UART_status_port_sseg, 10
@@ -139,7 +142,7 @@
                       COMPARE UART_data_user, character_l
                       JUMP Z, handle_led
                       COMPARE UART_data_user, character_s
-                      JUMP Z, send_pwm_value_to_sseg
+                      JUMP Z, handle_sseg
                       JUMP print_error_message
 
           handle_led:
@@ -160,9 +163,16 @@
                       CALL send_to_UART_user
                       JUMP program_loop
 
- send_pwm_value_to_sseg:
+         handle_sseg:
+                      CALL receive_led_address
+                      LOAD UART_data_pwm_gauge, UART_data_user
+                      CALL send_to_UART_pwm_gauge
+
                       CALL read_from_UART_pwm
                       CALL send_to_sseg
+
+                      LOAD UART_data_user, character_space
+                      CALL send_to_UART_user
                       JUMP program_loop
 
   receive_led_number:
@@ -345,6 +355,15 @@
                       JUMP read_from_UART_user
          read_number:
                       INPUT UART_data_user, UART_read_port_user
+                      RETURN
+
+ send_to_UART_pwm_gauge:
+                      INPUT s0, UART_status_port_pwm_gauge
+                      TEST s0, tx_full_pwm_gauge
+                      JUMP Z, UART_write_pwm_gauge
+                      JUMP send_to_UART_pwm_gauge
+ UART_write_pwm_gauge:
+                      OUTPUT UART_data_pwm_gauge, UART_write_port_pwm_gauge
                       RETURN
 
   read_from_UART_pwm:
