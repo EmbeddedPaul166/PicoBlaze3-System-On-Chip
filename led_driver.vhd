@@ -8,10 +8,7 @@ entity led_driver is
            rx : in  std_logic;
            led_one : out  std_logic;
            led_two : out  std_logic;
-           led_three : out  std_logic;
-			  led_one_count_uptime : out  integer range 0 to 255;
-           led_two_count_uptime : out  integer range 0 to 255;
-           led_three_count_uptime : out  integer range 0 to 255);
+           led_three : out  std_logic);
 end led_driver;
 
 architecture Behavioral of led_driver is
@@ -135,13 +132,6 @@ begin
 		end if;
 	end process;
 	
-	--send_value_pwm_one: process(pwm_one_count)
-	--begin
-		--if pwm_one_count = pwm_one_value then
-			--led_one_count_uptime <= pwm_one_count;
-		--end if;
-	--end process;
-	
 	pwm_two_counter: process(clk_in, rst_two)
 	begin
 		if rst_two ='1' then
@@ -160,13 +150,6 @@ begin
 		end if;
 	end process;
 
-	--send_value_pwm_two: process(pwm_two_count)
-	--begin
-		--if pwm_two_count = pwm_two_value then
-			--led_two_count_uptime <= pwm_two_count;
-		--end if;
-	--end process;
-
 	pwm_three_counter: process(clk_in, rst_three)
 	begin
 		if rst_three ='1' then
@@ -184,17 +167,6 @@ begin
 			end if;
 		end if;
 	end process;
-
-	--send_value_pwm_three: process(pwm_three_count)
-	--begin
-		--if pwm_three_count = pwm_three_value then
-			--led_three_count_uptime <= pwm_three_count;
-		--end if;
-	--end process;
-
-	led_one_count_uptime <= pwm_one_value;
-	led_two_count_uptime <= pwm_two_value;
-	led_three_count_uptime <= pwm_three_value;
 
 	receive: uart_rx 
 	port map (serial_in => rx,

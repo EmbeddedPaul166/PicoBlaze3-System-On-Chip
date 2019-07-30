@@ -50,18 +50,15 @@ component led_driver
            rx : in  std_logic;
            led_one : out  std_logic;
            led_two : out  std_logic;
-           led_three : out  std_logic;
-			  led_one_count_uptime : out  integer range 0 to 255;
-           led_two_count_uptime : out  integer range 0 to 255;
-           led_three_count_uptime : out  integer range 0 to 255);
+           led_three : out  std_logic);
 end component;
 
 component pwm_counter
     Port ( clk_in : in  std_logic;
 			  en_16_x_baud_4800 : in  std_logic;
-			  led_one_count_uptime : in  integer range 0 to 255;
-           led_two_count_uptime : in  integer range 0 to 255;
-           led_three_count_uptime : in  integer range 0 to 255;
+			  led_one : in  std_logic;
+           led_two : in  std_logic;
+           led_three : in  std_logic;
 			  rx : in  std_logic;
            tx : out  std_logic);
 end component;
@@ -84,9 +81,6 @@ signal rx_pwm_gauge : std_logic;
 signal led_one_value :   std_logic;
 signal led_two_value :   std_logic;
 signal led_three_value :   std_logic;
-signal led_one_count_uptime_connect :  integer range 0 to 255;
-signal led_two_count_uptime_connect :  integer range 0 to 255;
-signal led_three_count_uptime_connect : integer range 0 to 255;
 
 begin
 
@@ -123,17 +117,14 @@ LED_PWM_DRIVER: led_driver
               rx => tx_led,
               led_one => led_one_value,
               led_two => led_two_value,
-              led_three => led_three_value,
-				  led_one_count_uptime => led_one_count_uptime_connect,
-              led_two_count_uptime => led_two_count_uptime_connect,
-              led_three_count_uptime => led_three_count_uptime_connect);
+              led_three => led_three_value);
 
 PWM_GAUGE_DRIVER: pwm_counter
     Port map( clk_in => clk_slow,
 				  en_16_x_baud_4800 => en_16_x_baud_4800,
-				  led_one_count_uptime => led_one_count_uptime_connect,
-              led_two_count_uptime => led_two_count_uptime_connect,
-              led_three_count_uptime => led_three_count_uptime_connect,
+				  led_one => led_one_value,
+              led_two => led_two_value,
+              led_three => led_three_value,
 				  rx => tx_pwm_gauge,
               tx => rx_pwm_gauge);
   
