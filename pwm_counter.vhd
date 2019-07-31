@@ -72,6 +72,11 @@ signal led_one_counter_enable : std_logic := '0';
 signal led_two_counter_enable : std_logic := '0';
 signal led_three_counter_enable : std_logic := '0';
 
+signal pwm_one_max_count_reached : std_logic := '0';
+signal pwm_two_max_count_reached : std_logic := '0';
+signal pwm_three_max_count_reached : std_logic := '0';
+
+
 type state is (wait_for_address, data_read_address, address_received, send_led_pwm_value);
 signal current_state : state := send_led_pwm_value;
 
@@ -123,13 +128,14 @@ begin
 		if rst_one ='1' then
 			led_one_count_uptime <= 0;
 		elsif rising_edge(clk_in) then
-			if led_one_count_uptime = 255 then
+			if led_one_counter_enable = '0' then
 				led_one_count_uptime <= 0;
-			else
-				if led_one_counter_enable = '1' then
+				pwm_one_max_count_reached<= '0';
+			elsif led_one_counter_enable = '1' then			
+				if led_one_count_uptime = 255 then
+					pwm_one_max_count_reached <= '1';
+				else
 					led_one_count_uptime <= led_one_count_uptime + 1;
-				elsif led_one_counter_enable = '0' then
-					led_one_count_uptime <= 0;
 				end if;
 			end if;
 		end if;
@@ -140,10 +146,12 @@ begin
 		if rising_edge(clk_in) then
 			led_one_shift_reg(1) <= led_one;
 			led_one_shift_reg(0) <= led_one_shift_reg(1);
-			if led_one_shift_reg(1) = '0' and led_one_shift_reg(0) = '1' then
+			if led_one_shift_reg(1) = '1' and led_one_shift_reg(0) = '0' then
 				led_one_counter_enable <= '1';
-			elsif led_one_shift_reg(1) = '1' and led_one_shift_reg(0) = '0' then
+			elsif led_one_shift_reg(1) = '0' and led_one_shift_reg(0) = '1' then
 				led_one_counter_enable <= '0';
+				reg_led_one_count_uptime <= led_one_count_uptime;
+			elsif pwm_one_max_count_reached = '1' then
 				reg_led_one_count_uptime <= led_one_count_uptime;
 			end if;
 		end if;
@@ -154,13 +162,14 @@ begin
 		if rst_two ='1' then
 			led_two_count_uptime <= 0;
 		elsif rising_edge(clk_in) then
-			if led_two_count_uptime = 255 then
+			if led_two_counter_enable = '0' then
 				led_two_count_uptime <= 0;
-			else
-				if led_two_counter_enable = '1' then
+				pwm_two_max_count_reached<= '0';
+			elsif led_two_counter_enable = '1' then			
+				if led_two_count_uptime = 255 then
+					pwm_two_max_count_reached <= '1';	
+				else
 					led_two_count_uptime <= led_two_count_uptime + 1;
-				elsif led_two_counter_enable = '0' then
-					led_two_count_uptime <= 0;
 				end if;
 			end if;
 		end if;
@@ -171,10 +180,12 @@ begin
 		if rising_edge(clk_in) then
 			led_two_shift_reg(1) <= led_two;
 			led_two_shift_reg(0) <= led_two_shift_reg(1);
-			if led_two_shift_reg(1) = '0' and led_two_shift_reg(0) = '1' then
+			if led_two_shift_reg(1) = '1' and led_two_shift_reg(0) = '0' then
 				led_two_counter_enable <= '1';
-			elsif led_two_shift_reg(1) = '1' and led_two_shift_reg(0) = '0' then
+			elsif led_two_shift_reg(1) = '0' and led_two_shift_reg(0) = '1' then
 				led_two_counter_enable <= '0';
+				reg_led_two_count_uptime <= led_two_count_uptime;
+			elsif pwm_two_max_count_reached = '1' then
 				reg_led_two_count_uptime <= led_two_count_uptime;
 			end if;
 		end if;
@@ -185,13 +196,14 @@ begin
 		if rst_three ='1' then
 			led_three_count_uptime <= 0;
 		elsif rising_edge(clk_in) then
-			if led_three_count_uptime = 255 then
+			if led_three_counter_enable = '0' then
 				led_three_count_uptime <= 0;
-			else
-				if led_three_counter_enable = '1' then
+				pwm_three_max_count_reached<= '0';
+			elsif led_three_counter_enable = '1' then			
+				if led_three_count_uptime = 255 then
+					pwm_three_max_count_reached <= '1';
+				else
 					led_three_count_uptime <= led_three_count_uptime + 1;
-				elsif led_three_counter_enable = '0' then
-					led_three_count_uptime <= 0;
 				end if;
 			end if;
 		end if;
@@ -202,10 +214,12 @@ begin
 		if rising_edge(clk_in) then
 			led_three_shift_reg(1) <= led_three;
 			led_three_shift_reg(0) <= led_three_shift_reg(1);
-			if led_three_shift_reg(1) = '0' and led_three_shift_reg(0) = '1' then
+			if led_three_shift_reg(1) = '1' and led_three_shift_reg(0) = '0' then
 				led_three_counter_enable <= '1';
-			elsif led_three_shift_reg(1) = '1' and led_three_shift_reg(0) = '0' then
+			elsif led_three_shift_reg(1) = '0' and led_three_shift_reg(0) = '1' then
 				led_three_counter_enable <= '0';
+				reg_led_three_count_uptime <= led_three_count_uptime;
+			elsif pwm_three_max_count_reached = '1' then
 				reg_led_three_count_uptime <= led_three_count_uptime;
 			end if;
 		end if;
