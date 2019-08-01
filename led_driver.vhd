@@ -3,27 +3,29 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity led_driver is
-    Port ( clk_in : in  std_logic;
-			  en_16_x_baud_4800 : in  std_logic;
-           rx : in  std_logic;
-           led_one : out  std_logic;
-           led_two : out  std_logic;
-           led_three : out  std_logic);
+    Port (clk_in : in  std_logic;
+			 en_16_x_baud_4800 : in  std_logic;
+          rx : in  std_logic;
+          led_one : out  std_logic;
+          led_two : out  std_logic;
+          led_three : out  std_logic);
 end led_driver;
 
 architecture Behavioral of led_driver is
 
 component uart_rx
-	Port ( serial_in : in std_logic;
-          data_out : out std_logic_vector(7 downto 0);
-          read_buffer : in std_logic;
-          reset_buffer : in std_logic;
-          en_16_x_baud : in std_logic;
-          buffer_data_present : out std_logic;
-          buffer_full : out std_logic;
-          buffer_half_full : out std_logic;
-          clk : in std_logic);
+	Port (serial_in : in std_logic;
+         data_out : out std_logic_vector(7 downto 0);
+         read_buffer : in std_logic;
+         reset_buffer : in std_logic;
+         en_16_x_baud : in std_logic;
+         buffer_data_present : out std_logic;
+         buffer_full : out std_logic;
+         buffer_half_full : out std_logic;
+         clk : in std_logic);
 end component;
+
+constant max_count : integer range 0 to 255 := 255;
 
 signal read_from_uart  : std_logic;
 signal rx_data         : std_logic_vector(7 downto 0);
@@ -119,16 +121,15 @@ begin
 		if rst_one ='1' then
 			pwm_one_count <= 0;
 		elsif rising_edge(clk_in) then
-			if pwm_one_count = 255 then
+			if pwm_one_count = max_count then
 				pwm_one_count <= 0;
-			else
-				if pwm_one_count <= pwm_one_value then
-					led_one_connect <= '1';				
-				else
-					led_one_connect <= '0';
-				end if;
-				pwm_one_count <= pwm_one_count + 1;
 			end if;
+			if pwm_one_count <= pwm_one_value then
+				led_one_connect <= '1';				
+			else
+				led_one_connect <= '0';
+			end if;
+			pwm_one_count <= pwm_one_count + 1;
 		end if;
 	end process;
 	
@@ -137,16 +138,15 @@ begin
 		if rst_two ='1' then
 			pwm_two_count <= 0;
 		elsif rising_edge(clk_in) then
-			if pwm_two_count = 255 then
+			if pwm_two_count = max_count then
 				pwm_two_count <= 0;
-			else
-				if pwm_two_count <= pwm_two_value then
-					led_two_connect <= '1';
-				else
-					led_two_connect <= '0';
-				end if;			  
-				pwm_two_count <= pwm_two_count + 1;
 			end if;
+			if pwm_two_count <= pwm_two_value then
+				led_two_connect <= '1';
+			else
+				led_two_connect <= '0';
+			end if;			  
+			pwm_two_count <= pwm_two_count + 1;
 		end if;
 	end process;
 
@@ -155,21 +155,20 @@ begin
 		if rst_three ='1' then
 			pwm_three_count <= 0;
 		elsif rising_edge(clk_in) then
-			if pwm_three_count = 255 then
+			if pwm_three_count = max_count then
 				pwm_three_count <= 0;
-			else
-				if pwm_three_count <= pwm_three_value then
-					led_three_connect <= '1';
-				else				
-					led_three_connect <= '0';
-				end if;			  
-				pwm_three_count <= pwm_three_count + 1;
 			end if;
+			if pwm_three_count <= pwm_three_value then
+				led_three_connect <= '1';
+			else				
+				led_three_connect <= '0';
+			end if;			  
+			pwm_three_count <= pwm_three_count + 1;
 		end if;
 	end process;
 
 	receive: uart_rx 
-	port map (serial_in => rx,
+	Port map (serial_in => rx,
              data_out => rx_data,
              read_buffer => read_from_uart,
              reset_buffer => '0',

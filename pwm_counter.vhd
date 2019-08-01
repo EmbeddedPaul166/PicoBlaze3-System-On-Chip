@@ -3,13 +3,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity pwm_counter is
-    Port ( clk_in : in  std_logic;
-			  en_16_x_baud_4800 : in  std_logic;
-			  led_one : in  std_logic;
-           led_two : in  std_logic;
-           led_three : in  std_logic;
-			  rx : in  std_logic;
-           tx : out  std_logic);
+    Port (clk_in : in  std_logic;
+			 en_16_x_baud_4800 : in  std_logic;
+			 led_one : in  std_logic;
+          led_two : in  std_logic;
+          led_three : in  std_logic;
+			 rx : in  std_logic;
+          tx : out  std_logic);
 end pwm_counter;
 
 architecture Behavioral of pwm_counter is
@@ -37,7 +37,7 @@ component uart_rx
          clk : in std_logic);
 end component;
 
-constant total_signal_count : integer range 0 to 255 := 255;
+constant max_count : integer range 0 to 255 := 255;
 
 signal write_to_uart : std_logic;
 signal tx_full : std_logic;
@@ -75,7 +75,6 @@ signal led_three_counter_enable : std_logic := '0';
 signal pwm_one_max_count_reached : std_logic := '0';
 signal pwm_two_max_count_reached : std_logic := '0';
 signal pwm_three_max_count_reached : std_logic := '0';
-
 
 type state is (wait_for_address, data_read_address, address_received, send_led_pwm_value);
 signal current_state : state := send_led_pwm_value;
@@ -130,9 +129,9 @@ begin
 		elsif rising_edge(clk_in) then
 			if led_one_counter_enable = '0' then
 				led_one_count_uptime <= 0;
-				pwm_one_max_count_reached<= '0';
+				pwm_one_max_count_reached <= '0';
 			elsif led_one_counter_enable = '1' then			
-				if led_one_count_uptime = 255 then
+				if led_one_count_uptime = max_count then
 					pwm_one_max_count_reached <= '1';
 				else
 					led_one_count_uptime <= led_one_count_uptime + 1;
@@ -164,9 +163,9 @@ begin
 		elsif rising_edge(clk_in) then
 			if led_two_counter_enable = '0' then
 				led_two_count_uptime <= 0;
-				pwm_two_max_count_reached<= '0';
+				pwm_two_max_count_reached <= '0';
 			elsif led_two_counter_enable = '1' then			
-				if led_two_count_uptime = 255 then
+				if led_two_count_uptime = max_count then
 					pwm_two_max_count_reached <= '1';	
 				else
 					led_two_count_uptime <= led_two_count_uptime + 1;
@@ -198,9 +197,9 @@ begin
 		elsif rising_edge(clk_in) then
 			if led_three_counter_enable = '0' then
 				led_three_count_uptime <= 0;
-				pwm_three_max_count_reached<= '0';
+				pwm_three_max_count_reached <= '0';
 			elsif led_three_counter_enable = '1' then			
-				if led_three_count_uptime = 255 then
+				if led_three_count_uptime = max_count then
 					pwm_three_max_count_reached <= '1';
 				else
 					led_three_count_uptime <= led_three_count_uptime + 1;
@@ -226,18 +225,18 @@ begin
 	end process;
 
 	tx_pwm_gauge: uart_tx 
-	port map (data_in => data_tx, 
-            write_buffer => write_to_uart,
-            reset_buffer => '0',
-            en_16_x_baud => en_16_x_baud_4800,
-            serial_out => tx,
-            buffer_full => tx_full,
-            buffer_half_full => tx_half_full,
-            clk => clk_in );
+	Port map (data_in => data_tx, 
+             write_buffer => write_to_uart,
+             reset_buffer => '0',
+             en_16_x_baud => en_16_x_baud_4800,
+             serial_out => tx,
+             buffer_full => tx_full,
+             buffer_half_full => tx_half_full,
+             clk => clk_in );
 
 
 	rx_pwm_gauge: uart_rx 
-	port map (serial_in => rx,
+	Port map (serial_in => rx,
              data_out => rx_data,
              read_buffer => read_from_uart,
              reset_buffer => '0',
