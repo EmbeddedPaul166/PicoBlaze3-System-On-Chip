@@ -16,7 +16,7 @@ Project was built using Xilinx ISE 14.7 and Opbasm assembler. It contains top.bi
 ### User communication protocol
 Board needs to be connected through level shifter and USB-UART converter to PC. After that a program for serial communication has to be opened and set for 9600 baud. Device responds to following commands:
 
-#### Set LED PWM duty:
+##### Set LED PWM duty:
 ```
 l1v123
 ```
@@ -26,7 +26,7 @@ l3v065
 ```
 Example command sets LED number 3 to PWM duty 065
 
-#### Display desired LED PWM duty value on seven segment display:
+##### Display desired LED PWM duty value on seven segment display:
 (seven segment display on Elbert V2 is only 3 digit long)
 ```
 s1
