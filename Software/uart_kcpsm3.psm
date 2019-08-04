@@ -125,14 +125,10 @@
                         CONSTANT character_question, 3F          ;'?'
                         CONSTANT character_dollar, 24
                         CONSTANT character_BS, 08                ;Back Space command character
-                        
-                        CONSTANT operation_status, 00
-                        CONSTANT pwm_one, 01
-                        CONSTANT pwm_two, 02
-                        CONSTANT pwm_three, 03
-                        
-                        
-                        
+                       
+                        CONSTANT led_address, 00
+                        CONSTANT led_value, 01
+                       
             initialize: 
                         DISABLE INTERRUPT
                         
@@ -147,24 +143,40 @@
                         
             handle_led:
                         CALL receive_led_address
+                        COMPARE s0, 01
+                        JUMP Z, error_routine
+                        
                         CALL ascii_to_digit
-                        LOAD UART_data_led, UART_data_user
-                        CALL send_to_UART_led
+                        COMPARE s0, 01
+                        JUMP Z, error_routine
+                        
+                        STORE UART_data_user, led_address
                         
                         CALL read_from_UART_user
                         CALL send_to_UART_user
                         COMPARE UART_data_user, character_v
-                        JUMP NZ, print_error_message
+                        JUMP NZ, error_routine
                         
                         CALL receive_led_number
+                        ;error handling here
+                        STORE UART_data_led, led_value
+                        
+                        FETCH UART_data_led, led_address
                         CALL send_to_UART_led
                         
+                        FETCH UART_data_led, led_value
+                        CALL send_to_UART_led
+                       
                         LOAD UART_data_user, character_space
                         CALL send_to_UART_user
+                        
                         JUMP program_loop
                         
            handle_sseg:
                         CALL receive_led_address
+                        COMPARE s0, 01
+                        JUMP Z, error_routine
+                        
                         LOAD UART_data_pwm_gauge, UART_data_user
                         CALL send_to_UART_pwm_gauge
                         
@@ -220,8 +232,12 @@
                         JUMP Z, digit_received
                         COMPARE UART_data_user, 39
                         JUMP Z, digit_received
-                        JUMP print_error_message
-        digit_received: RETURN
+                        JUMP digit_error
+        digit_received: LOAD s0, 00
+                        RETURN
+        
+           digit_error: LOAD s0, 01
+                        RETURN
 
    receive_led_address: 
                         CALL read_from_UART_user
@@ -232,8 +248,12 @@
                         JUMP Z, address_received
                         COMPARE UART_data_user, 33
                         JUMP Z, address_received
-                        JUMP print_error_message
-      address_received: RETURN
+                        JUMP address_error 
+      address_received: LOAD s0, 00
+                        RETURN
+      
+         address_error: LOAD s0, 01
+                        RETURN
 
         ascii_to_digit: 
                         COMPARE UART_data_user, 30
@@ -256,27 +276,41 @@
                         JUMP Z, eight_received
                         COMPARE UART_data_user, 39
                         JUMP Z, nine_received
-                        JUMP print_error_message
+                        
+                        JUMP ascii_to_digit_error
                         
          zero_received: LOAD UART_data_user, 00
+                        LOAD s0, 00
                         RETURN
           one_received: LOAD UART_data_user, 01
+                        LOAD s0, 00
                         RETURN
           two_received: LOAD UART_data_user, 02
+                        LOAD s0, 00
                         RETURN
         three_received: LOAD UART_data_user, 03
+                        LOAD s0, 00
                         RETURN
          four_received: LOAD UART_data_user, 04
+                        LOAD s0, 00
                         RETURN
          five_received: LOAD UART_data_user, 05
+                        LOAD s0, 00
                         RETURN
           six_received: LOAD UART_data_user, 06
+                        LOAD s0, 00
                         RETURN
         seven_received: LOAD UART_data_user, 07
+                        LOAD s0, 00
                         RETURN
         eight_received: LOAD UART_data_user, 08
+                        LOAD s0, 00
                         RETURN
          nine_received: LOAD UART_data_user, 09
+                        LOAD s0, 00
+                        RETURN
+                        
+  ascii_to_digit_error: LOAD s0, 01
                         RETURN
                        
           send_to_sseg: 
@@ -315,8 +349,10 @@
                         CALL send_to_UART_user
                         LOAD UART_data_user, character_space
                         CALL send_to_UART_user
-                        JUMP program_loop
-                       
+                        RETURN
+        
+         error_routine: CALL print_error_message
+                        JUMP program_loop     
                        
                        
      send_to_UART_user: 
