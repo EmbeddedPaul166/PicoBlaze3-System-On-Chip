@@ -1,0 +1,115 @@
+V3 86
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/clk_div.vhd 2019/08/04.19:32:38 P.20131013
+EN work/clk_div 1564939974 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/clk_div.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181 LB UNISIM \
+      PH unisim/VCOMPONENTS 1381692182
+AR work/clk_div/BEHAVIORAL 1564939975 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/clk_div.vhd \
+      EN work/clk_div 1564939974 CP BUFG CP IBUFG CP DCM_SP
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/baud_generator.vhd 2019/08/01.17:13:17 P.20131013
+EN work/baud_generator 1564939976 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/baud_generator.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/baud_generator/Behavioral 1564939977 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/baud_generator.vhd \
+      EN work/baud_generator 1564939976
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/bbfifo_16x8.vhd 2003/12/03.14:53:56 P.20131013
+EN work/bbfifo_16x8 1564939962 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/bbfifo_16x8.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/bbfifo_16x8/low_level_definition 1564939963 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/bbfifo_16x8.vhd \
+      EN work/bbfifo_16x8 1564939962 CP string CP label CP SRL16E CP FDRE CP LUT4 \
+      CP MUXCY CP XORCY CP FDR CP LUT3
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcpsm3.vhd 2005/07/20.08:50:38 P.20131013
+EN work/kcpsm3 1564939970 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcpsm3.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/kcpsm3/low_level_definition 1564939971 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcpsm3.vhd \
+      EN work/kcpsm3 1564939970 CP LUT1 CP FDR CP FDS CP LUT4 CP FD CP FDE CP LUT3 \
+      CP FDRE CP LUT2 CP MUXCY CP XORCY CP INV CP string CP label CP FDRSE CP RAM16X1D \
+      CP RAM64X1S CP MUXF5 CP RAM32X1S
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_rx.vhd 2003/12/03.14:53:38 P.20131013
+EN work/kcuart_rx 1564939960 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_rx.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/kcuart_rx/low_level_definition 1564939961 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_rx.vhd \
+      EN work/kcuart_rx 1564939960 CP FD CP string CP label CP SRL16E CP FDE CP LUT4 \
+      CP LUT3 CP LUT2
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_tx.vhd 2003/12/03.14:53:48 P.20131013
+EN work/kcuart_tx 1564939964 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_tx.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/kcuart_tx/low_level_definition 1564939965 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/kcuart_tx.vhd \
+      EN work/kcuart_tx 1564939964 CP LUT4 CP MUXF5 CP MUXF6 CP FDRS CP string \
+      CP label CP FDRE CP LUT2 CP MULT_AND CP MUXCY CP XORCY CP LUT3 CP FDE CP SRL16E \
+      CP FD
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led8a_driver.vhd 2019/08/01.17:10:44 P.20131013
+EN work/led8a_driver 1564939984 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led8a_driver.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/led8a_driver/Behavioral 1564939985 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led8a_driver.vhd \
+      EN work/led8a_driver 1564939984 CP an CP sseg CP uart_rx CP with
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led_driver.vhd 2019/08/01.17:01:55 P.20131013
+EN work/led_driver 1564939980 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led_driver.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/led_driver/Behavioral 1564939981 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/led_driver.vhd \
+      EN work/led_driver 1564939980 CP uart_rx
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pBlaze3_uart.vhd 2019/08/01.17:27:53 P.20131013
+EN work/pBlaze3_uart 1564939978 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pBlaze3_uart.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179
+AR work/pBlaze3_uart/Behavioral 1564939979 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pBlaze3_uart.vhd \
+      EN work/pBlaze3_uart 1564939978 CP kcpsm3 CP uart_kcpsm3 CP uart_tx CP uart_rx
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pwm_counter.vhd 2019/08/01.17:02:41 P.20131013
+EN work/pwm_counter 1564939982 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pwm_counter.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/pwm_counter/Behavioral 1564939983 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/pwm_counter.vhd \
+      EN work/pwm_counter 1564939982 CP uart_tx CP uart_rx
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/top.vhd 2019/08/01.17:13:43 P.20131013
+EN work/top 1564939986 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/top.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/top/Behavioral 1564939987 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/top.vhd \
+      EN work/top 1564939986 CP clk_div CP baud_generator CP pBlaze3_uart \
+      CP led_driver CP pwm_counter CP led8a_driver
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_rx.vhd 2003/12/03.14:53:26 P.20131013
+EN work/uart_rx 1564939966 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_rx.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/uart_rx/macro_level_definition 1564939967 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_rx.vhd \
+      EN work/uart_rx 1564939966 CP kcuart_rx CP bbfifo_16x8
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_tx.vhd 2003/12/03.14:53:16 P.20131013
+EN work/uart_tx 1564939968 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_tx.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/uart_tx/macro_level_definition 1564939969 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Gateware/uart_tx.vhd \
+      EN work/uart_tx 1564939968 CP kcuart_tx CP bbfifo_16x8
+FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Software/uart_kcpsm3.vhd 2019/08/04.18:57:10 P.20131013
+EN work/uart_kcpsm3 1564939972 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Software/uart_kcpsm3.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 LB UNISIM PH unisim/VCOMPONENTS 1381692182
+AR work/uart_kcpsm3/low_level_definition 1564939973 \
+      FL /home/paul/Documents/Laboratory_reports/PUR/PUR_Project/PUR_Project/Software/uart_kcpsm3.vhd \
+      EN work/uart_kcpsm3 1564939972 CP RAMB16_S18

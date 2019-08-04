@@ -1,0 +1,66 @@
+Release 14.7 Drc P.20131013 (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+Sun Aug  4 19:33:09 2019
+
+drc -z top.ncd top.pcf
+
+WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA2> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA3> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA4> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA5> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA6> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA7> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA8> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA9> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA10> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA11> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA12> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA13> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA14> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA15> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:367 - The signal
+   <KCPSM3/tx_pwm_gauge_uart/buf/GLOBAL_LOGIC0> is incomplete. The signal does
+   not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_led_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_sseg_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_user_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <KCPSM3/rx_pwm_gauge_uart/buf/GLOBAL_LOGIC0> is incomplete. The signal does
+   not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/rx_user_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <LED_PWM_DRIVER/receive/buf/GLOBAL_LOGIC0> is incomplete. The signal does not
+   drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/GLOBAL_LOGIC0> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/GLOBAL_LOGIC0> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <SSEG_DRIVER/receive/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+DRC detected 0 errors and 26 warnings.  Please see the previously displayed
+individual error or warning messages for more details.

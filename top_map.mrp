@@ -1,0 +1,361 @@
+Release 14.7 Map P.20131013 (lin64)
+Xilinx Mapping Report File for Design 'top'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc3s50a-tq144-5 -cm area -ir off -pr off
+-c 100 -o top_map.ncd top.ngd top.pcf 
+Target Device  : xc3s50a
+Target Package : tq144
+Target Speed   : -5
+Mapper Version : spartan3a -- $Revision: 1.55 $
+Mapped Date    : Sun Aug  4 19:32:51 2019
+
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:   26
+Logic Utilization:
+  Number of Slice Flip Flops:           504 out of   1,408   35%
+  Number of 4 input LUTs:               706 out of   1,408   50%
+Logic Distribution:
+  Number of occupied Slices:            489 out of     704   69%
+    Number of Slices containing only related logic:     489 out of     489 100%
+    Number of Slices containing unrelated logic:          0 out of     489   0%
+      *See NOTES below for an explanation of the effects of unrelated logic.
+  Total Number of 4 input LUTs:         741 out of   1,408   52%
+    Number used as logic:               464
+    Number used as a route-thru:         35
+    Number used for Dual Port RAMs:      16
+      (Two LUTs used per Dual Port RAM)
+    Number used for 32x1 RAMs:           52
+      (Two LUTs used per 32x1 RAM)
+    Number used as Shift registers:     174
+
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+
+  Number of bonded IOBs:                 17 out of     108   15%
+  Number of BUFGMUXs:                     2 out of      24    8%
+  Number of DCMs:                         1 out of       2   50%
+  Number of RAMB16BWEs:                   1 out of       3   33%
+
+Average Fanout of Non-Clock Nets:                3.52
+
+Peak Memory Usage:  635 MB
+Total REAL time to MAP completion:  2 secs 
+Total CPU time to MAP completion:   2 secs 
+
+NOTES:
+
+   Related logic is defined as being logic that shares connectivity - e.g. two
+   LUTs are "related" if they share common inputs.  When assembling slices,
+   Map gives priority to combine logic that is related.  Doing so results in
+   the best timing performance.
+
+   Unrelated logic shares no connectivity.  Map will only begin packing
+   unrelated logic into a slice once 99% of the slices are occupied through
+   related logic packing.
+
+   Note that once logic distribution reaches the 99% level through related
+   logic packing, this does not mean the device is completely utilized.
+   Unrelated logic packing will then begin, continuing until all usable LUTs
+   and FFs are occupied.  Depending on your timing budget, increased levels of
+   unrelated logic packing may adversely affect the overall timing performance
+   of your design.
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Timing Report
+Section 11 - Configuration String Information
+Section 12 - Control Set Information
+Section 13 - Utilization by Hierarchy
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+WARNING:PhysDesignRules:812 - Dangling pin <DIA0> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA1> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA2> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA3> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA4> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA5> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA6> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA7> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA8> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA9> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA10> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA11> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA12> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA13> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA14> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:812 - Dangling pin <DIA15> on
+   block:<KCPSM3/program_rom/ram_1024_x_18>:<RAMB16BWE_RAMB16BWE>.
+WARNING:PhysDesignRules:367 - The signal
+   <KCPSM3/tx_pwm_gauge_uart/buf/GLOBAL_LOGIC0> is incomplete. The signal does
+   not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_led_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_sseg_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/tx_user_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <KCPSM3/rx_pwm_gauge_uart/buf/GLOBAL_LOGIC0> is incomplete. The signal does
+   not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <KCPSM3/rx_user_uart/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <LED_PWM_DRIVER/receive/buf/GLOBAL_LOGIC0> is incomplete. The signal does not
+   drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/GLOBAL_LOGIC0> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/GLOBAL_LOGIC0> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <SSEG_DRIVER/receive/buf/GLOBAL_LOGIC0>
+   is incomplete. The signal does not drive any load pins in the design.
+
+Section 3 - Informational
+-------------------------
+INFO:Map:113 - input buffer 'rx_IBUF' driving design level port 'rx' is being
+   pushed into module 'KCPSM3/rx_user_uart/kcuart' to enable I/O register usage.
+   The buffer has been renamed as 'KCPSM3/rx_user_uart/kcuart/rx_IBUF'.
+INFO:Map:110 - output buffer 'tx_OBUF' driving design level port 'tx' is being
+   pushed into module 'KCPSM3/tx_user_uart/kcuart' to enable I/O register usage.
+   The buffer has been renamed as 'KCPSM3/tx_user_uart/kcuart/tx_OBUF'.
+INFO:LIT:243 - Logical network PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<2> has no
+   load.
+INFO:LIT:395 - The above info message is repeated 5 more times for the following
+   (max. 5 shown):
+   PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<3>,
+   PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<4>,
+   PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<5>,
+   PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<6>,
+   PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<7>
+   To see the details of these info messages, please use the -detail switch.
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:MapLib:159 - Net Timing constraints on signal CLKIN_IN are pushed forward
+   through input buffer.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+  10 block(s) removed
+  41 block(s) optimized away
+  20 signal(s) removed
+
+Section 5 - Removed Logic
+-------------------------
+
+The trimmed logic report below shows the logic removed from your design due to
+sourceless or loadless signals, and VCC or ground connections.  If the removal
+of a signal or symbol results in the subsequent removal of an additional signal
+or symbol, the message explaining that second removal will be indented.  This
+indentation will be repeated as a chain of related logic is removed.
+
+To quickly locate the original cause for the removal of a chain of logic, look
+above the place where that logic is listed in the trimming report, then locate
+the lines that are least indented (begin at the leftmost edge).
+
+The signal "KCPSM3/processor/int_enable" is sourceless and has been removed.
+The signal "KCPSM3/processor/int_enable_value" is sourceless and has been
+removed.
+ Sourceless block "KCPSM3/processor/int_enable_flop" (SFF) removed.
+The signal "KCPSM3/processor/int_pulse" is sourceless and has been removed.
+The signal "KCPSM3/processor/int_update_enable" is sourceless and has been
+removed.
+The signal "KCPSM3/processor/not_active_interrupt" is sourceless and has been
+removed.
+The signal "KCPSM3/processor/sel_shadow_carry" is sourceless and has been
+removed.
+The signal "LED_PWM_DRIVER/receive/buffer_full" is sourceless and has been
+removed.
+The signal "LED_PWM_DRIVER/receive/buffer_half_full" is sourceless and has been
+removed.
+The signal "PWM_GAUGE_DRIVER/tx_pwm_gauge/buffer_full" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/tx_pwm_gauge/buffer_half_full" is sourceless and
+has been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/buffer_full" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/buffer_half_full" is sourceless and
+has been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<2>" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<3>" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<4>" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<5>" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<6>" is sourceless and has
+been removed.
+The signal "PWM_GAUGE_DRIVER/rx_pwm_gauge/data_out<7>" is sourceless and has
+been removed.
+The signal "SSEG_DRIVER/receive/buffer_full" is sourceless and has been removed.
+The signal "SSEG_DRIVER/receive/buffer_half_full" is sourceless and has been
+removed.
+Unused block "KCPSM3/processor/int_update_lut" (ROM) removed.
+Unused block "KCPSM3/processor/int_value_lut" (ROM) removed.
+Unused block "KCPSM3/processor/sel_shadow_carry_lut" (ROM) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[2].data_srl"
+(SRLC16E) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[3].data_srl"
+(SRLC16E) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[4].data_srl"
+(SRLC16E) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[5].data_srl"
+(SRLC16E) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[6].data_srl"
+(SRLC16E) removed.
+Unused block "PWM_GAUGE_DRIVER/rx_pwm_gauge/buf/data_width_loop[7].data_srl"
+(SRLC16E) removed.
+
+Optimized Block(s):
+TYPE 		BLOCK
+VCC 		BAUD_GEN/XST_VCC
+GND 		CLOCK_DIVIDE_BY_TWO/XST_GND
+GND 		KCPSM3/XST_GND
+GND 		KCPSM3/processor/XST_GND
+VCC 		KCPSM3/processor/XST_VCC
+FD 		KCPSM3/processor/ack_flop
+   optimized to 0
+FDR 		KCPSM3/processor/int_capture_flop
+	Property STUCK_AT NOT found
+FDR 		KCPSM3/processor/int_flop
+	Property STUCK_AT NOT found
+LUT4 		KCPSM3/processor/int_pulse_lut
+   optimized to 0
+FDE 		KCPSM3/processor/shadow_carry_flop
+	Property STUCK_AT NOT found
+FDE 		KCPSM3/processor/shadow_zero_flop
+   optimized to 0
+INV 		KCPSM3/processor/stack_count_inv
+MUXCY 		KCPSM3/processor/sel_shadow_muxcy
+GND 		KCPSM3/program_rom/XST_GND
+VCC 		KCPSM3/program_rom/XST_VCC
+GND 		KCPSM3/rx_pwm_gauge_uart/kcuart/XST_GND
+VCC 		KCPSM3/rx_pwm_gauge_uart/kcuart/XST_VCC
+GND 		KCPSM3/rx_user_uart/kcuart/XST_GND
+VCC 		KCPSM3/rx_user_uart/kcuart/XST_VCC
+GND 		KCPSM3/tx_led_uart/kcuart/XST_GND
+VCC 		KCPSM3/tx_led_uart/kcuart/XST_VCC
+GND 		KCPSM3/tx_pwm_gauge_uart/kcuart/XST_GND
+VCC 		KCPSM3/tx_pwm_gauge_uart/kcuart/XST_VCC
+GND 		KCPSM3/tx_sseg_uart/kcuart/XST_GND
+VCC 		KCPSM3/tx_sseg_uart/kcuart/XST_VCC
+GND 		KCPSM3/tx_user_uart/kcuart/XST_GND
+VCC 		KCPSM3/tx_user_uart/kcuart/XST_VCC
+GND 		LED_PWM_DRIVER/XST_GND
+VCC 		LED_PWM_DRIVER/XST_VCC
+GND 		LED_PWM_DRIVER/receive/kcuart/XST_GND
+VCC 		LED_PWM_DRIVER/receive/kcuart/XST_VCC
+GND 		PWM_GAUGE_DRIVER/XST_GND
+VCC 		PWM_GAUGE_DRIVER/XST_VCC
+GND 		PWM_GAUGE_DRIVER/rx_pwm_gauge/kcuart/XST_GND
+VCC 		PWM_GAUGE_DRIVER/rx_pwm_gauge/kcuart/XST_VCC
+GND 		PWM_GAUGE_DRIVER/tx_pwm_gauge/kcuart/XST_GND
+VCC 		PWM_GAUGE_DRIVER/tx_pwm_gauge/kcuart/XST_VCC
+GND 		SSEG_DRIVER/XST_GND
+VCC 		SSEG_DRIVER/XST_VCC
+GND 		SSEG_DRIVER/receive/kcuart/XST_GND
+VCC 		SSEG_DRIVER/receive/kcuart/XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew    | Reg (s)      | Resistor | IBUF/IFD | SUSPEND          |
+|                                    |                  |           |                      | Term  | Strength | Rate    |              |          | Delay    |                  |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| an<0>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| an<1>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| an<2>                              | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| clk                                | IBUF             | INPUT     | LVCMOS33             |       |          |         |              |          | 0 / 0    |                  |
+| led_one                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| led_three                          | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| led_two                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| rst                                | IBUF             | INPUT     | LVCMOS33             |       |          |         |              | PULLDOWN | 0 / 0    |                  |
+| rx                                 | IBUF             | INPUT     | LVCMOS33             |       |          |         |              |          | 0 / 0    |                  |
+| sseg<0>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<1>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<2>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<3>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<4>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<5>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| sseg<6>                            | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| tx                                 | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Timing Report
+--------------------------
+This design was not run using timing mode.
+
+Section 11 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
+
+Section 12 - Control Set Information
+------------------------------------
+No control set information for this architecture.
+
+Section 13 - Utilization by Hierarchy
+-------------------------------------
+Use the "-detail" map option to print out the Utilization by Hierarchy section.

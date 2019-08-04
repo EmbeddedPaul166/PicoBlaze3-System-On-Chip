@@ -1,0 +1,638 @@
+--------------------------------------------------------------------------------
+Release 14.7 Trace  (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+/home/paul/Software/Xilinx_ISE/14.7/ISE_DS/ISE/bin/lin64/unwrapped/trce
+-intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml top.twx top.ncd -o top.twr top.pcf
+-ucf top.ucf
+
+Design file:              top.ncd
+Physical constraint file: top.pcf
+Device,package,speed:     xc3s50a,tq144,-5 (PRODUCTION 1.42 2013-10-13)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+INFO:Timing:3390 - This architecture does not support a default System Jitter 
+   value, please add SYSTEM_JITTER constraint to the UCF to modify the Clock 
+   Uncertainty calculation.
+INFO:Timing:3389 - This architecture does not support 'Discrete Jitter' and 
+   'Phase Error' calculations, these terms will be zero in the Clock 
+   Uncertainty calculation.  Please make appropriate modification to 
+   SYSTEM_JITTER to account for the unsupported Discrete Jitter and Phase 
+   Error.
+
+================================================================================
+Timing constraint: NET "clk" PERIOD = 83.3333333 ns HIGH 50%;
+For more information, see Period Analysis in the Timing Closure User Guide (UG612).
+
+ 0 paths analyzed, 0 endpoints analyzed, 0 failing endpoints
+ 0 timing errors detected. (0 component switching limit errors)
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT" PERIOD = 
+83.3333333 ns HIGH 50%;
+For more information, see Period Analysis in the Timing Closure User Guide (UG612).
+
+ 0 paths analyzed, 0 endpoints analyzed, 0 failing endpoints
+ 0 timing errors detected. (0 component switching limit errors)
+ Minimum period is  20.000ns.
+--------------------------------------------------------------------------------
+
+Component Switching Limit Checks: NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT" PERIOD = 83.3333333 ns HIGH 50%;
+--------------------------------------------------------------------------------
+Slack: 63.333ns (period - (min low pulse limit / (low pulse / period)))
+  Period: 83.333ns
+  Low pulse: 41.666ns
+  Low pulse limit: 10.000ns (Tdcmpw_CLKIN_10_25)
+  Physical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Logical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Location pin: DCM_X0Y0.CLKIN
+  Clock network: CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT
+--------------------------------------------------------------------------------
+Slack: 63.333ns (period - (min high pulse limit / (high pulse / period)))
+  Period: 83.333ns
+  High pulse: 41.666ns
+  High pulse limit: 10.000ns (Tdcmpw_CLKIN_10_25)
+  Physical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Logical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Location pin: DCM_X0Y0.CLKIN
+  Clock network: CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT
+--------------------------------------------------------------------------------
+Slack: 79.763ns (period - min period limit)
+  Period: 83.333ns
+  Min period limit: 3.570ns (280.112MHz) (Tdcmpc)
+  Physical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Logical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKIN
+  Location pin: DCM_X0Y0.CLKIN
+  Clock network: CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: PERIOD analysis for net "CLOCK_DIVIDE_BY_TWO/CLKDV_BUF" 
+derived from  NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT" PERIOD = 83.3333333 ns 
+HIGH 50%;  multiplied by 2.00 to 166.667 nS and duty cycle corrected to HIGH 
+83.333 nS  
+For more information, see Period Analysis in the Timing Closure User Guide (UG612).
+
+ 11526 paths analyzed, 2419 endpoints analyzed, 0 failing endpoints
+ 0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
+ Minimum period is  10.276ns.
+--------------------------------------------------------------------------------
+
+Paths for end point KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit (SLICE_X19Y18.CIN), 43 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     156.390ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      10.289ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA4     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F1       net (fanout=10)       1.233   KCPSM3/instruction<4>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.704   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].upper_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                     10.289ns (5.898ns logic, 4.391ns route)
+                                                       (57.3% logic, 42.7% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.513ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      10.166ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F3       net (fanout=10)       1.110   KCPSM3/instruction<6>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.704   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].upper_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                     10.166ns (5.898ns logic, 4.268ns route)
+                                                       (58.0% logic, 42.0% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.770ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      9.909ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA7     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F4       net (fanout=10)       0.853   KCPSM3/instruction<7>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.704   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].upper_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[3].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                      9.909ns (5.898ns logic, 4.011ns route)
+                                                       (59.5% logic, 40.5% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit (SLICE_X19Y17.BX), 13 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     156.421ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      10.248ns (Levels of Logic = 5)
+  Clock Path Skew:      0.003ns (0.232 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA4     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F1       net (fanout=10)       1.233   KCPSM3/instruction<4>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.CLK     Tdick                 1.425   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                     10.248ns (5.857ns logic, 4.391ns route)
+                                                       (57.2% logic, 42.8% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.544ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      10.125ns (Levels of Logic = 5)
+  Clock Path Skew:      0.003ns (0.232 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F3       net (fanout=10)       1.110   KCPSM3/instruction<6>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.CLK     Tdick                 1.425   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                     10.125ns (5.857ns logic, 4.268ns route)
+                                                       (57.8% logic, 42.2% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.801ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      9.868ns (Levels of Logic = 5)
+  Clock Path Skew:      0.003ns (0.232 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA7     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F4       net (fanout=10)       0.853   KCPSM3/instruction<7>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.CLK     Tdick                 1.425   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                      9.868ns (5.857ns logic, 4.011ns route)
+                                                       (59.4% logic, 40.6% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit (SLICE_X19Y18.CIN), 43 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     156.565ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      10.114ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA4     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F1       net (fanout=10)       1.233   KCPSM3/instruction<4>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.529   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                     10.114ns (5.723ns logic, 4.391ns route)
+                                                       (56.6% logic, 43.4% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.688ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      9.991ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA6     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F3       net (fanout=10)       1.110   KCPSM3/instruction<6>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.529   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                      9.991ns (5.723ns logic, 4.268ns route)
+                                                       (57.3% logic, 42.7% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     156.945ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               KCPSM3/program_rom/ram_1024_x_18 (RAM)
+  Destination:          KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit (FF)
+  Requirement:          166.666ns
+  Data Path Delay:      9.734ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.242 - 0.229)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 166.666ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: KCPSM3/program_rom/ram_1024_x_18 to KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB16_X0Y1.DOA7     Trcko_DOWA            2.107   KCPSM3/program_rom/ram_1024_x_18
+                                                       KCPSM3/program_rom/ram_1024_x_18
+    SLICE_X14Y2.F4       net (fanout=10)       0.853   KCPSM3/instruction<7>
+    SLICE_X14Y2.X        Tilo                  0.601   KCPSM3/processor/sy<0>
+                                                       KCPSM3/processor/reg_loop[0].register_bit.SLICEM_F
+    SLICE_X13Y3.G2       net (fanout=1)        0.339   KCPSM3/processor/sy<0>
+    SLICE_X13Y3.Y        Tilo                  0.561   KCPSM3/processor/logical_result<0>
+                                                       KCPSM3/processor/reg_loop[0].operand_select_mux
+    SLICE_X18Y13.F1      net (fanout=41)       1.647   KCPSM3/port_id<0>
+    SLICE_X18Y13.X       Tilo                  0.601   KCPSM3/write_to_uart_user
+                                                       KCPSM3/write_to_uart_user1
+    SLICE_X19Y16.F4      net (fanout=6)        0.782   KCPSM3/write_to_uart_user
+    SLICE_X19Y16.X       Tilo                  0.562   KCPSM3/tx_user_uart/buf/valid_write
+                                                       KCPSM3/tx_user_uart/buf/valid_lut
+    SLICE_X19Y17.BX      net (fanout=5)        0.390   KCPSM3/tx_user_uart/buf/valid_write
+    SLICE_X19Y17.COUT    Tbxcy                 0.762   KCPSM3/tx_user_uart/buf/pointer<0>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[0].lsb_count.count_muxcy
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[1].mid_count.count_muxcy
+    SLICE_X19Y18.CIN     net (fanout=1)        0.000   KCPSM3/tx_user_uart/buf/count_carry<1>
+    SLICE_X19Y18.CLK     Tcinck                0.529   KCPSM3/tx_user_uart/buf/pointer<2>
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].mid_count.count_xor
+                                                       KCPSM3/tx_user_uart/buf/count_width_loop[2].register_bit
+    -------------------------------------------------  ---------------------------
+    Total                                      9.734ns (5.723ns logic, 4.011ns route)
+                                                       (58.8% logic, 41.2% route)
+
+--------------------------------------------------------------------------------
+
+Hold Paths: PERIOD analysis for net "CLOCK_DIVIDE_BY_TWO/CLKDV_BUF" derived from
+ NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT" PERIOD = 83.3333333 ns HIGH 50%;
+ multiplied by 2.00 to 166.667 nS and duty cycle corrected to HIGH 83.333 nS 
+
+--------------------------------------------------------------------------------
+
+Paths for end point PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/data_width_loop[7].data_srl (SLICE_X2Y29.BX), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.497ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               PWM_GAUGE_DRIVER/data_tx_7 (FF)
+  Destination:          PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/data_width_loop[7].data_srl (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.559ns (Levels of Logic = 1)
+  Clock Path Skew:      0.062ns (0.431 - 0.369)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 0.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: PWM_GAUGE_DRIVER/data_tx_7 to PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/data_width_loop[7].data_srl
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X5Y26.XQ       Tcko                  0.396   PWM_GAUGE_DRIVER/data_tx<7>
+                                                       PWM_GAUGE_DRIVER/data_tx_7
+    SLICE_X2Y29.BX       net (fanout=2)        0.315   PWM_GAUGE_DRIVER/data_tx<7>
+    SLICE_X2Y29.CLK      Tdh         (-Th)     0.152   PWM_GAUGE_DRIVER/tx_pwm_gauge/fifo_data_out<7>
+                                                       PWM_GAUGE_DRIVER/tx_pwm_gauge/buf/data_width_loop[7].data_srl
+    -------------------------------------------------  ---------------------------
+    Total                                      0.559ns (0.244ns logic, 0.315ns route)
+                                                       (43.6% logic, 56.4% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point LED_PWM_DRIVER/receive/kcuart/data_loop[7].msb.delay15_srl (SLICE_X2Y9.BX), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.502ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               LED_PWM_DRIVER/receive/kcuart/stop_reg (FF)
+  Destination:          LED_PWM_DRIVER/receive/kcuart/data_loop[7].msb.delay15_srl (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.583ns (Levels of Logic = 1)
+  Clock Path Skew:      0.081ns (0.370 - 0.289)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 0.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: LED_PWM_DRIVER/receive/kcuart/stop_reg to LED_PWM_DRIVER/receive/kcuart/data_loop[7].msb.delay15_srl
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X1Y8.YQ        Tcko                  0.419   LED_PWM_DRIVER/receive/kcuart/stop_bit
+                                                       LED_PWM_DRIVER/receive/kcuart/stop_reg
+    SLICE_X2Y9.BX        net (fanout=2)        0.316   LED_PWM_DRIVER/receive/kcuart/stop_bit
+    SLICE_X2Y9.CLK       Tdh         (-Th)     0.152   LED_PWM_DRIVER/receive/uart_data_out<7>
+                                                       LED_PWM_DRIVER/receive/kcuart/data_loop[7].msb.delay15_srl
+    -------------------------------------------------  ---------------------------
+    Total                                      0.583ns (0.267ns logic, 0.316ns route)
+                                                       (45.8% logic, 54.2% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point KCPSM3/rx_user_uart/kcuart/valid_loop[6].msbs.delay16_srl (SLICE_X4Y25.BY), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.517ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               KCPSM3/rx_user_uart/kcuart/valid_loop[5].data_reg (FF)
+  Destination:          KCPSM3/rx_user_uart/kcuart/valid_loop[6].msbs.delay16_srl (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.585ns (Levels of Logic = 1)
+  Clock Path Skew:      0.068ns (0.411 - 0.343)
+  Source Clock:         clk_slow rising at 0.000ns
+  Destination Clock:    clk_slow rising at 0.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: KCPSM3/rx_user_uart/kcuart/valid_loop[5].data_reg to KCPSM3/rx_user_uart/kcuart/valid_loop[6].msbs.delay16_srl
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X2Y24.XQ       Tcko                  0.417   KCPSM3/rx_user_uart/kcuart/valid_reg_delay<5>
+                                                       KCPSM3/rx_user_uart/kcuart/valid_loop[5].data_reg
+    SLICE_X4Y25.BY       net (fanout=1)        0.298   KCPSM3/rx_user_uart/kcuart/valid_reg_delay<5>
+    SLICE_X4Y25.CLK      Tdh         (-Th)     0.130   KCPSM3/rx_user_uart/kcuart/valid_reg_delay<7>
+                                                       KCPSM3/rx_user_uart/kcuart/valid_loop[6].msbs.delay16_srl
+    -------------------------------------------------  ---------------------------
+    Total                                      0.585ns (0.287ns logic, 0.298ns route)
+                                                       (49.1% logic, 50.9% route)
+
+--------------------------------------------------------------------------------
+
+Component Switching Limit Checks: PERIOD analysis for net "CLOCK_DIVIDE_BY_TWO/CLKDV_BUF" derived from
+ NET "CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT" PERIOD = 83.3333333 ns HIGH 50%;
+ multiplied by 2.00 to 166.667 nS and duty cycle corrected to HIGH 83.333 nS 
+
+--------------------------------------------------------------------------------
+Slack: 161.319ns (period - min period limit)
+  Period: 166.666ns
+  Min period limit: 5.347ns (187.021MHz) ()
+  Physical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKDV
+  Logical resource: CLOCK_DIVIDE_BY_TWO/DCM_SP_INST/CLKDV
+  Location pin: DCM_X0Y0.CLKDV
+  Clock network: CLOCK_DIVIDE_BY_TWO/CLKDV_BUF
+--------------------------------------------------------------------------------
+Slack: 163.903ns (period - min period limit)
+  Period: 166.666ns
+  Min period limit: 2.763ns (361.925MHz) (Trper_CLKA)
+  Physical resource: KCPSM3/program_rom/ram_1024_x_18/CLKA
+  Logical resource: KCPSM3/program_rom/ram_1024_x_18/CLKA
+  Location pin: RAMB16_X0Y1.CLKA
+  Clock network: clk_slow
+--------------------------------------------------------------------------------
+Slack: 165.338ns (period - (min low pulse limit / (low pulse / period)))
+  Period: 166.666ns
+  Low pulse: 83.333ns
+  Low pulse limit: 0.664ns (Tcl)
+  Physical resource: BAUD_GEN/baud_count_4800<6>/CLK
+  Logical resource: BAUD_GEN/baud_count_4800_6/CK
+  Location pin: SLICE_X12Y21.CLK
+  Clock network: clk_slow
+--------------------------------------------------------------------------------
+
+
+Derived Constraint Report
+Derived Constraints for CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG_OUT
++-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
+|                               |   Period    |       Actual Period       |      Timing Errors        |      Paths Analyzed       |
+|           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
+|                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
++-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
+|CLOCK_DIVIDE_BY_TWO/CLKIN_IBUFG|     83.333ns|     20.000ns|      5.138ns|            0|            0|            0|        11526|
+|_OUT                           |             |             |             |             |             |             |             |
+| CLOCK_DIVIDE_BY_TWO/CLKDV_BUF |    166.667ns|     10.276ns|          N/A|            0|            0|        11526|            0|
++-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
+
+All constraints were met.
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |   10.276|         |         |         |
+---------------+---------+---------+---------+---------+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
+
+Constraints cover 11526 paths, 0 nets, and 3314 connections
+
+Design statistics:
+   Minimum period:  20.000ns{1}   (Maximum frequency:  50.000MHz)
+
+
+------------------------------------Footnotes-----------------------------------
+1)  The minimum period statistic assumes all single cycle delays.
+
+Analysis completed Sun Aug  4 19:33:07 2019 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 386 MB
+
+
+
