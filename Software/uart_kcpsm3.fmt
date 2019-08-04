@@ -158,7 +158,9 @@
                       JUMP NZ, error_routine
 
                       CALL receive_led_number
-                      ;error handling here
+                      COMPARE s0, 01
+                      JUMP Z, error_routine
+
                       STORE UART_data_led, led_value
 
                       FETCH UART_data_led, led_address
@@ -192,7 +194,12 @@
 
                       CALL receive_digit
                       CALL ascii_to_digit
-                      LOAD multiplicand, UART_data_user
+                      COMPARE UART_data_user, 03
+                      JUMP NC, return_error
+                      COMPARE UART_data_user, 02
+                      JUMP Z, case_2_first
+
+   case_0_or_1_first: LOAD multiplicand, UART_data_user
                       LOAD multiplier, 64
                       CALL multiply
                       ADD UART_data_led, result_lsb
@@ -207,7 +214,49 @@
                       CALL receive_digit
                       CALL ascii_to_digit
                       ADD UART_data_led, UART_data_user
+
+                      LOAD s0, 00
                       RETURN
+
+        case_2_first: LOAD multiplicand, UART_data_user
+                      LOAD multiplier, 64
+                      CALL multiply
+                      ADD UART_data_led, result_lsb
+
+                      CALL receive_digit
+                      CALL ascii_to_digit
+                      COMPARE UART_data_user, 06
+                      JUMP NC, return_error
+                      COMPARE UART_data_user, 05
+                      JUMP Z, case_5_second
+
+  case_0_to_4_second: LOAD multiplicand, UART_data_user
+                      LOAD multiplier, 0A
+                      CALL multiply
+                      ADD UART_data_led, result_lsb
+
+                      CALL receive_digit
+                      CALL ascii_to_digit
+                      ADD UART_data_led, UART_data_user
+
+                      LOAD s0, 00
+                      RETURN
+
+       case_5_second: LOAD multiplicand, UART_data_user
+                      LOAD multiplier, 0A
+                      CALL multiply
+                      ADD UART_data_led, result_lsb
+
+                      CALL receive_digit
+                      CALL ascii_to_digit
+                      COMPARE UART_data_user, 06
+                      JUMP NC, return_error
+
+                      ADD UART_data_led, UART_data_user
+
+                      LOAD s0, 00
+                      RETURN
+
 
        receive_digit:
                       CALL read_from_UART_user
@@ -232,11 +281,8 @@
                       JUMP Z, digit_received
                       COMPARE UART_data_user, 39
                       JUMP Z, digit_received
-                      JUMP digit_error
+                      JUMP return_error
       digit_received: LOAD s0, 00
-                      RETURN
-
-         digit_error: LOAD s0, 01
                       RETURN
 
  receive_led_address:
@@ -248,11 +294,8 @@
                       JUMP Z, address_received
                       COMPARE UART_data_user, 33
                       JUMP Z, address_received
-                      JUMP address_error
+                      JUMP return_error
     address_received: LOAD s0, 00
-                      RETURN
-
-       address_error: LOAD s0, 01
                       RETURN
 
       ascii_to_digit:
@@ -277,7 +320,7 @@
                       COMPARE UART_data_user, 39
                       JUMP Z, nine_received
 
-                      JUMP ascii_to_digit_error
+                      JUMP return_error
 
        zero_received: LOAD UART_data_user, 00
                       LOAD s0, 00
@@ -308,9 +351,6 @@
                       RETURN
        nine_received: LOAD UART_data_user, 09
                       LOAD s0, 00
-                      RETURN
-
- ascii_to_digit_error: LOAD s0, 01
                       RETURN
 
         send_to_sseg:
@@ -354,6 +394,8 @@
        error_routine: CALL print_error_message
                       JUMP program_loop
 
+        return_error: LOAD s0, 01
+                      RETURN
 
    send_to_UART_user:
                       INPUT s0, UART_status_port_user
